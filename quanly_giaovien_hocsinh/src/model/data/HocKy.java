@@ -4,115 +4,115 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class HocKy {
-    private SimpleIntegerProperty MaHK;
-    private SimpleStringProperty TenHK;
-    private SimpleIntegerProperty ThangBatDau;
-    private SimpleIntegerProperty NgayBatDau;
-    private SimpleIntegerProperty ThangKetThuc;
-    private SimpleIntegerProperty NgayKetThuc;
+    private SimpleIntegerProperty maHK;
+    private SimpleStringProperty tenHK;
+    private SimpleIntegerProperty thangBatDau;
+    private SimpleIntegerProperty ngayBatDau;
+    private SimpleIntegerProperty thangKetThuc;
+    private SimpleIntegerProperty ngayKetThuc;
 
-    public static HocKy getInstance(SimpleIntegerProperty maHK, SimpleStringProperty tenHK, SimpleIntegerProperty thangBatDau, SimpleIntegerProperty ngayBatDau, SimpleIntegerProperty thangKetThuc, SimpleIntegerProperty ngayKetThuc) {
+    public static HocKy getInstance(int maHK, String tenHK, int thangBatDau, int ngayBatDau, int thangKetThuc, int ngayKetThuc) {
         return new HocKy(maHK, tenHK, thangBatDau, ngayBatDau, thangKetThuc, ngayKetThuc);
     }
 
-    public HocKy(SimpleStringProperty tenHK, SimpleIntegerProperty thangBatDau, SimpleIntegerProperty ngayBatDau, SimpleIntegerProperty thangKetThuc, SimpleIntegerProperty ngayKetThuc) {
-        TenHK = tenHK;
-        ThangBatDau = thangBatDau;
-        NgayBatDau = ngayBatDau;
-        ThangKetThuc = thangKetThuc;
-        NgayKetThuc = ngayKetThuc;
+    public HocKy(String tenHK, int thangBatDau, int ngayBatDau, int thangKetThuc, int ngayKetThuc) {
+        this.tenHK = new SimpleStringProperty(tenHK);
+        this.thangBatDau = new SimpleIntegerProperty(thangBatDau);
+        this.ngayBatDau = new SimpleIntegerProperty(ngayBatDau);
+        this.thangKetThuc = new SimpleIntegerProperty(thangKetThuc);
+        this.ngayKetThuc = new SimpleIntegerProperty(ngayKetThuc);
     }
 
-    private HocKy(SimpleIntegerProperty maHK, SimpleStringProperty tenHK, SimpleIntegerProperty thangBatDau, SimpleIntegerProperty ngayBatDau, SimpleIntegerProperty thangKetThuc, SimpleIntegerProperty ngayKetThuc) {
-        MaHK = maHK;
-        TenHK = tenHK;
-        ThangBatDau = thangBatDau;
-        NgayBatDau = ngayBatDau;
-        ThangKetThuc = thangKetThuc;
-        NgayKetThuc = ngayKetThuc;
+    private HocKy(int maHK, String tenHK, int thangBatDau, int ngayBatDau, int thangKetThuc, int ngayKetThuc) {
+        this.maHK = new SimpleIntegerProperty(maHK);
+        this.tenHK = new SimpleStringProperty(tenHK);
+        this.thangBatDau = new SimpleIntegerProperty(thangBatDau);
+        this.ngayBatDau = new SimpleIntegerProperty(ngayBatDau);
+        this.thangKetThuc = new SimpleIntegerProperty(thangKetThuc);
+        this.ngayKetThuc = new SimpleIntegerProperty(ngayKetThuc);
     }
 
     @Override
     public String toString() {
         return "HocKy{" +
-                "MaHK=" + MaHK +
-                ", TenHK=" + TenHK +
-                ", ThangBatDau=" + ThangBatDau +
-                ", NgayBatDau=" + NgayBatDau +
-                ", ThangKetThuc=" + ThangKetThuc +
-                ", NgayKetThuc=" + NgayKetThuc +
+                "maHK=" + maHK +
+                ", tenHK=" + tenHK +
+                ", thangBatDau=" + thangBatDau +
+                ", ngayBatDau=" + ngayBatDau +
+                ", thangKetThuc=" + thangKetThuc +
+                ", ngayKetThuc=" + ngayKetThuc +
                 '}';
     }
 
     public int getMaHK() {
-        return MaHK.get();
+        return maHK.get();
     }
 
     public SimpleIntegerProperty maHKProperty() {
-        return MaHK;
+        return maHK;
     }
 
     public void setMaHK(int maHK) {
-        this.MaHK.set(maHK);
+        this.maHK.set(maHK);
     }
 
     public String getTenHK() {
-        return TenHK.get();
+        return tenHK.get();
     }
 
     public SimpleStringProperty tenHKProperty() {
-        return TenHK;
+        return tenHK;
     }
 
     public void setTenHK(String tenHK) {
-        this.TenHK.set(tenHK);
+        this.tenHK.set(tenHK);
     }
 
     public int getThangBatDau() {
-        return ThangBatDau.get();
+        return thangBatDau.get();
     }
 
     public SimpleIntegerProperty thangBatDauProperty() {
-        return ThangBatDau;
+        return thangBatDau;
     }
 
     public void setThangBatDau(int thangBatDau) {
-        this.ThangBatDau.set(thangBatDau);
+        this.thangBatDau.set(thangBatDau);
     }
 
     public int getNgayBatDau() {
-        return NgayBatDau.get();
+        return ngayBatDau.get();
     }
 
     public SimpleIntegerProperty ngayBatDauProperty() {
-        return NgayBatDau;
+        return ngayBatDau;
     }
 
     public void setNgayBatDau(int ngayBatDau) {
-        this.NgayBatDau.set(ngayBatDau);
+        this.ngayBatDau.set(ngayBatDau);
     }
 
     public int getThangKetThuc() {
-        return ThangKetThuc.get();
+        return thangKetThuc.get();
     }
 
     public SimpleIntegerProperty thangKetThucProperty() {
-        return ThangKetThuc;
+        return thangKetThuc;
     }
 
     public void setThangKetThuc(int thangKetThuc) {
-        this.ThangKetThuc.set(thangKetThuc);
+        this.thangKetThuc.set(thangKetThuc);
     }
 
-    public int getNgayKetThuc() {
-        return NgayKetThuc.get();
+    public int setNgayKetThuc() {
+        return ngayKetThuc.get();
     }
 
     public SimpleIntegerProperty ngayKetThucProperty() {
-        return NgayKetThuc;
+        return ngayKetThuc;
     }
 
     public void setNgayKetThuc(int ngayKetThuc) {
-        this.NgayKetThuc.set(ngayKetThuc);
+        this.ngayKetThuc.set(ngayKetThuc);
     }
 }

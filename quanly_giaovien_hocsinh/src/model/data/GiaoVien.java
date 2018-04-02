@@ -4,38 +4,38 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class GiaoVien {
-    private SimpleIntegerProperty MaGV;
-    private SimpleStringProperty GioiTinh;
-    private SimpleStringProperty HoTen;
-    private SimpleStringProperty DiaChi;
-    private SimpleStringProperty NgaySinh;
-    private SimpleStringProperty DienThoai;
+    private SimpleIntegerProperty maGV;
+    private SimpleStringProperty gioiTinh;
+    private SimpleStringProperty hoTen;
+    private SimpleStringProperty diaChi;
+    private SimpleStringProperty ngaySinh;
+    private SimpleStringProperty dienThoai;
     private SimpleStringProperty CMND;
     private SimpleStringProperty matkhau;
 
-    public static GiaoVien getInstance(SimpleIntegerProperty maGV, SimpleStringProperty gioiTinh, SimpleStringProperty hoTen, SimpleStringProperty diaChi, SimpleStringProperty ngaySinh, SimpleStringProperty dienThoai, SimpleStringProperty CMND, SimpleStringProperty matkhau) {
+    public static GiaoVien getInstance(int maGV, String gioiTinh, String hoTen, String diaChi, String ngaySinh, String dienThoai, String CMND, String matkhau) {
         return new GiaoVien(maGV, gioiTinh, hoTen, diaChi, ngaySinh, dienThoai, CMND, matkhau);
     }
 
-    public GiaoVien(SimpleStringProperty gioiTinh, SimpleStringProperty hoTen, SimpleStringProperty diaChi, SimpleStringProperty ngaySinh, SimpleStringProperty dienThoai, SimpleStringProperty CMND, SimpleStringProperty matkhau) {
-        GioiTinh = gioiTinh;
-        HoTen = hoTen;
-        DiaChi = diaChi;
-        NgaySinh = ngaySinh;
-        DienThoai = dienThoai;
-        this.CMND = CMND;
-        this.matkhau = matkhau;
+    public GiaoVien(String gioiTinh, String hoTen, String diaChi, String ngaySinh, String dienThoai, String CMND, String matkhau) {
+        this.gioiTinh = new SimpleStringProperty(gioiTinh);
+        this.hoTen = new SimpleStringProperty(hoTen);
+        this.diaChi = new SimpleStringProperty(diaChi);
+        this.ngaySinh = new SimpleStringProperty(ngaySinh);
+        this.dienThoai = new SimpleStringProperty(dienThoai);
+        this.CMND = new SimpleStringProperty(CMND);
+        this.matkhau = new SimpleStringProperty(matkhau);
     }
 
-    private GiaoVien(SimpleIntegerProperty maGV, SimpleStringProperty gioiTinh, SimpleStringProperty hoTen, SimpleStringProperty diaChi, SimpleStringProperty ngaySinh, SimpleStringProperty dienThoai, SimpleStringProperty CMND, SimpleStringProperty matkhau) {
-        MaGV = maGV;
-        GioiTinh = gioiTinh;
-        HoTen = hoTen;
-        DiaChi = diaChi;
-        NgaySinh = ngaySinh;
-        DienThoai = dienThoai;
-        this.CMND = CMND;
-        this.matkhau = matkhau;
+    private GiaoVien(int maGV, String gioiTinh, String hoTen, String diaChi, String ngaySinh, String dienThoai, String CMND, String matkhau) {
+        this.maGV = new SimpleIntegerProperty(maGV);
+        this.gioiTinh = new SimpleStringProperty(gioiTinh);
+        this.hoTen = new SimpleStringProperty(hoTen);
+        this.diaChi = new SimpleStringProperty(diaChi);
+        this.ngaySinh = new SimpleStringProperty(ngaySinh);
+        this.dienThoai = new SimpleStringProperty(dienThoai);
+        this.CMND = new SimpleStringProperty(CMND);
+        this.matkhau = new SimpleStringProperty(matkhau);
     }
 
     @Override
