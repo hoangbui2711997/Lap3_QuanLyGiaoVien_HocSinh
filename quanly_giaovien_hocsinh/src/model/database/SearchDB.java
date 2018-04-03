@@ -72,11 +72,12 @@ public class SearchDB implements ISearch {
             Object dienThoai = resultSet.getObject(6);
             Object CMND = resultSet.getObject(7);
             Object matKhau = resultSet.getObject(8);
+            Object role = resultSet.getObject(9);
 
 
             return GiaoVien.getInstance((Integer) maGV, (String) gioiTinh,
                     (String) hoTen, (String) diaChi, ((Date) ngaySinh).toString(),
-                    (String) dienThoai, (String) CMND, (String) matKhau);
+                    (String) dienThoai, (String) CMND, (String) matKhau, (Integer) role);
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -107,7 +108,7 @@ public class SearchDB implements ISearch {
                     (Integer) diemHS2,
                     (Integer) diemHS3,
 //                    (Integer) masv,
-                    (Integer) maPC
+                    (String) maPC
                     );
         }catch (SQLException e) {
             System.out.println(e.getMessage());

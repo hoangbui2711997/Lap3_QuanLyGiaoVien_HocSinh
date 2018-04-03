@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class DB_Connection {
     private static String DB_URL = "jdbc:sqlserver://localhost:1433;"
-            + "databaseName=QL_HOCPHI_SV;";
+            + "databaseName=QLHocSinhVaGiaoVien;";
 //            + "integratedSecurity=true";
     /**
      * Thay đổi giống tên user trong sql server

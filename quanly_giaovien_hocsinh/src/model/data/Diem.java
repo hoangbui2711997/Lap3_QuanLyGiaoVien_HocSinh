@@ -1,8 +1,10 @@
 package model.data;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import model.database.DeleteDB;
 import model.database.InsertDB;
+import model.database.SearchDB;
 import model.database.UpdateDB;
 
 import java.sql.ResultSet;
@@ -14,25 +16,25 @@ public class Diem {
     /**
      * maPC
      */
-    private SimpleIntegerProperty maPC;
+    private SimpleStringProperty maPC;
 
-    public static Diem getInstance(int maHS, int diemHS1, int diemHS2, int diemHS3, int maPC) {
+    public static Diem getInstance(int maHS, int diemHS1, int diemHS2, int diemHS3, String maPC) {
         return new Diem(maHS, diemHS1, diemHS2, diemHS3, maPC);
     }
 
-    public Diem(int diemHS1, int diemHS2, int diemHS3, int maPC) {
+    public Diem(int id, int maHS, int diemHS1, int diemHS2, int diemHS3, String maPC) {
         this.diemHS1 = new SimpleIntegerProperty(diemHS1);
         this.diemHS2 = new SimpleIntegerProperty(diemHS2);
         this.diemHS3 = new SimpleIntegerProperty(diemHS3);
-        this.maPC = new SimpleIntegerProperty(maPC);
+        this.maPC = new SimpleStringProperty(maPC);
     }
 
-    private Diem(int maHS, int diemHS1, int diemHS2, int diemHS3, int maPC) {
+    private Diem(int maHS, int diemHS1, int diemHS2, int diemHS3, String maPC) {
         this.maHS = new SimpleIntegerProperty(maHS);
         this.diemHS1 = new SimpleIntegerProperty(diemHS1);
         this.diemHS2 = new SimpleIntegerProperty(diemHS2);
         this.diemHS3 = new SimpleIntegerProperty(diemHS3);
-        this.maPC = new SimpleIntegerProperty(maPC);
+        this.maPC = new SimpleStringProperty(maPC);
     }
 
     public int getMaHS() {
@@ -83,15 +85,15 @@ public class Diem {
         this.diemHS3.set(diemHS3);
     }
 
-    public int getMaPC() {
+    public String getMaPC() {
         return maPC.get();
     }
 
-    public SimpleIntegerProperty maPCProperty() {
+    public SimpleStringProperty maPCProperty() {
         return maPC;
     }
 
-    public void setMaPC(int maPC) {
+    public void setMaPC(String maPC) {
         this.maPC.set(maPC);
     }
 
@@ -105,13 +107,14 @@ public class Diem {
                 ", maPC=" + maPC +
                 '}';
     }
-
+    static SearchDB searchDB = SearchDB.getQueryDB();
     public static class Search {
         private Search() {
         }
 
         public static Diem where(String where) throws SQLException {
-            ResultSet resultSet = searchDB.searchCommand("SELECT * FROM GIANGDUONG WHERE " + where);
+
+            ResultSet resultSet = searchDB.searchCommand("SELECT * FROM Diem WHERE " + where);
             resultSet.next();
 
             return searchDB.getDiem(resultSet);
@@ -126,17 +129,21 @@ public class Diem {
             return searchDB.getDsDiem();
         }
     }
-
+    static String statement = "";
     public static Diem Insert(Diem diem) throws SQLException {
         try {
 
 
-            int id = InsertDB.getInstance().initInsert("DIEM");
+            int id = InsertDB.getInstance().initInsert("Diem");
 
-            statement = "INSERT INTO DIEM(tengd) VALUES" +
+            statement = "INSERT INTO Diem(MaHS, MaPC, DiemHS1, DiemHS2, DiemHS3) VALUES " +
                     "(" +
 //                    diem.getMa() + ", " +
-                    "N'" + diem.getTen() + "'" +
+                    diem.getMaHS() + ", " +
+                    "'" + diem.getMaPC() + "', " +
+                    diem.getDiemHS1() + ", " +
+                    diem.getDiemHS2() + ", " +
+                    diem.getDiemHS3() +
                     ")";
 
 
@@ -147,11 +154,15 @@ public class Diem {
 //            Diem.Update.where("magd = " + id, new Diem(id, diem.getTen()));
 
             InsertDB.getInstance().insertCommand(statement);
-            return new Diem(id, diem.getTen());
+            return returnDiem(id, diem);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    private static Diem returnDiem(int id, Diem diem) {
+        return new Diem(id, diem.getMaHS(), diem.getDiemHS1(), diem.getDiemHS2(), diem.getDiemHS3(), diem.getMaPC());
     }
 
     public static class Delete {
@@ -162,7 +173,7 @@ public class Diem {
          */
         public static Boolean where(String where) {
             try {
-                statement = "DELETE GIANGDUONG WHERE " + where;
+                statement = "DELETE Diem WHERE " + where;
                 DeleteDB.getInstance().deleteCommand(statement);
                 return true;
             } catch (SQLException e) {
@@ -171,11 +182,15 @@ public class Diem {
             }
         }
 
-        public static Boolean whereId(String where) {
-            return Delete.where("magd = " + where);
+        public static Boolean whereId(String maHS, String maPC) {
+            return Delete.where("MaHS = " + maHS
+            + " and MaPC = " + maPC);
         }
     }
 
+    /**
+     * Chi update duoc diem HS1 -> HS3 ngoai ra khong update duoc gi nua
+     */
     public static class Update {
 
 
@@ -187,9 +202,13 @@ public class Diem {
          */
         public static Boolean where(String where, Diem newDiem) throws SQLException {
             try {
-                statement = "UPDATE GIANGDUONG " +
+                statement = "UPDATE Diem " +
                         "SET " +
-                        "tengd = N'" + newDiem.getTen() + "' " +
+//                        "MaHS = N'" + newDiem.getMaHS() + ", " +
+//                        "MaPC = N'" + newDiem.getMaPC() + ", " +
+                        "DiemHS1 = N'" + newDiem.getDiemHS1() + "', " +
+                        "DiemHS2 = N'" + newDiem.getDiemHS2() + "', " +
+                        "DiemHS3 = N'" + newDiem.getDiemHS3() + " " +
                         "WHERE " + where;
                 UpdateDB.getInstance().updateCommand(statement);
                 return true;
@@ -199,8 +218,17 @@ public class Diem {
             }
         }
 
-        public static Boolean whereId(String where, Diem gd) throws SQLException {
-            return Update.where("magd = " + where, gd);
+        /**
+         *
+         * @param maHS ma hoc sinh
+         * @param maPC ma phan cong
+         * @param diem diem
+         * @return
+         * @throws SQLException
+         */
+        public static Boolean whereId(int maHS, String maPC, Diem diem) throws SQLException {
+            return Update.where("MaHS = " + maHS
+                    + " and MaPC = " + maPC, diem);
         }
     }
 }
