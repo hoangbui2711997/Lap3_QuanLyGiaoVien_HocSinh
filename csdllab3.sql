@@ -13,7 +13,7 @@ create table HocSinh(
 	HoTen nvarchar(50),
 	NgaySinh date,
 	DiaChi nvarchar(50),
-	DienTHoai varchar(15),
+	DienThoai varchar(15),
 )
 go
 
@@ -26,6 +26,7 @@ create table GiaoVien(
 	DienThoai varchar(15),
 	CMND varchar(15),
 	matkhau nvarchar(20),
+	role int
 )
 go
 
