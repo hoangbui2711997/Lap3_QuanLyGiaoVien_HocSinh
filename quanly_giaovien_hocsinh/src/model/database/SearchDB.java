@@ -15,15 +15,15 @@ public class SearchDB implements ISearch {
     private List<HocKy> dsHocKy;
     private List<KhoiHoc> dsKhoiHoc;
     private List<HocSinh> dsHocSinh;
-//    private List<Khoa> dsKhoa;
-//    private List<MonHoc> dsMonHoc;
-//    private List<MucThu> dsMucTHu;
-//    private List<Nganh> dsNganh;
-//    private List<PhieuThu> dsPhieuThu;
-//    private List<GiaoVien> dsGiaoVien;
+    private List<NamHoc> dsNamHoc;
+    private List<LopHoc> dsLopHoc;
+    private List<MonHoc> dsMonHoc;
+    private List<PhanCong> dsPhanCong;
+    private List<XepLop> dsXepLop;
     private String statement = "";
     private static SearchDB instance = null;
     private static Object lock = new Object();
+
     /**
      * constructor cua SearchDB
      * @see "set" connection between database and java
@@ -210,6 +210,80 @@ public class SearchDB implements ISearch {
         return null;
     }
 
+    public NamHoc getNamHoc(ResultSet resultSet) throws SQLException{
+        try {
+            Object maNH = resultSet.getObject(1);
+            Object tenNH = resultSet.getObject(2);
+            Object namBatDau = resultSet.getObject(3);
+            Object namKetThuc = resultSet.getObject(4);
+
+
+            return NamHoc.getInstance(
+                    (Integer) maNH,
+                    (String) tenNH,
+                    (Integer) namBatDau,
+                    (Integer) namKetThuc
+            );
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Nếu ResultSet không có gì thì trả về null
+        return null;
+    }
+
+    public LopHoc getLopHoc(ResultSet resultSet) throws SQLException{
+        Object maLH = resultSet.getObject(1);
+        Object tenLH = resultSet.getObject(2);
+        Object maNH = resultSet.getObject(3);
+        Object maGV = resultSet.getObject(4);
+        Object maKH = resultSet.getObject(5);
+
+        return LopHoc.getInstance(
+                (Integer) maLH,
+                (String) tenLH,
+                (Integer) maNH,
+                (Integer) maGV,
+                (Integer) maKH
+        );
+    }
+
+    public MonHoc getMonHoc(ResultSet resultSet) throws SQLException{
+        Object maMH = resultSet.getObject(1);
+        Object tenMH = resultSet.getObject(2);
+
+        return MonHoc.getInstance(
+                (Integer) maMH,
+                (String) tenMH
+        );
+    }
+
+    public PhanCong getPhanCong(ResultSet resultSet) throws SQLException{
+        Object maPC = resultSet.getObject(1);
+        Object maMH = resultSet.getObject(2);
+        Object maGV = resultSet.getObject(3);
+        Object maLH = resultSet.getObject(4);
+        Object maHK = resultSet.getObject(5);
+
+        return PhanCong.getInstance(
+                (Integer) maPC,
+                (Integer) maMH,
+                (Integer) maGV,
+                (Integer) maLH,
+                (Integer) maHK
+        );
+    }
+
+    public XepLop getXepLop(ResultSet resultSet) throws SQLException{
+        Object maHS = resultSet.getObject(1);
+        Object maLH = resultSet.getObject(2);
+
+        return XepLop.getInstance(
+                (Integer) maHS,
+                (Integer) maLH
+        );
+    }
+
     /**
      *
      * @return Trả về câu lệnh hiện thời dùng để truy vấn
@@ -224,6 +298,71 @@ public class SearchDB implements ISearch {
      */
     public void setStatement(String statement) {
         this.statement = statement;
+    }
+
+    public List<XepLop> getDsXepLop() throws SQLException{
+        List<XepLop> dsxl = new ArrayList();
+        ResultSet dsXepLop = searchCommand("SELECT * FROM XepLop");
+
+        while(dsXepLop.next()) {
+            XepLop xepLop = getXepLop(dsXepLop);
+            dsxl.add(xepLop);
+        }
+
+        this.dsXepLop = dsxl;
+        return dsxl;
+    }
+
+    public List<PhanCong> getDsPhanCong() throws SQLException{
+        List<PhanCong> dspc = new ArrayList();
+        ResultSet dsPhanCong = searchCommand("SELECT * FROM PHANCONG");
+
+        while(dsPhanCong.next()) {
+            PhanCong phanCong = getPhanCong(dsPhanCong);
+            dspc.add(phanCong);
+        }
+
+        this.dsPhanCong = dspc;
+        return dspc;
+    }
+
+    public List<MonHoc> getDsMonHoc() throws SQLException{
+        List<MonHoc> dsmh = new ArrayList();
+        ResultSet dsMonHoc = searchCommand("SELECT * FROM MONHOC");
+
+        while(dsMonHoc.next()) {
+            MonHoc monHoc = getMonHoc(dsMonHoc);
+            dsmh.add(monHoc);
+        }
+
+        this.dsMonHoc = dsmh;
+        return dsmh;
+    }
+
+    public List<LopHoc> getDsLopHoc() throws SQLException{
+        List<LopHoc> dslh = new ArrayList();
+        ResultSet dsNamHoc = searchCommand("SELECT * FROM LOPHOC");
+
+        while(dsNamHoc.next()) {
+            LopHoc lopHoc = getLopHoc(dsNamHoc);
+            dslh.add(lopHoc);
+        }
+
+        this.dsLopHoc = dslh;
+        return dslh;
+    }
+
+    public List<NamHoc> getDsNamHoc() throws SQLException{
+        List<NamHoc> dsnh = new ArrayList();
+        ResultSet dsNamHoc = searchCommand("SELECT * FROM NAMHOC");
+
+        while(dsNamHoc.next()) {
+            NamHoc namHoc = getNamHoc(dsNamHoc);
+            dsnh.add(namHoc);
+        }
+
+        this.dsNamHoc = dsnh;
+        return dsnh;
     }
 
     public List<Diem> getDsDiem() throws SQLException{
