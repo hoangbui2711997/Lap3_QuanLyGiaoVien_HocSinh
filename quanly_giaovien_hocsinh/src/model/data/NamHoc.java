@@ -117,8 +117,8 @@ public class NamHoc {
                     "(" +
                     namHoc.getMaNH() + ", " +
                     "N'" + namHoc.getTenNH() + "', " +
-                    "'" + namHoc.getNambatdau() + "', " +
-                    "'" + namHoc.getNamketthuc() +
+                    namHoc.getNambatdau() + ", " +
+                    namHoc.getNamketthuc() +
                     ")";
 
             InsertDB.getInstance().insertCommand(statement);
@@ -141,7 +141,7 @@ public class NamHoc {
          */
         public static Boolean where(String where) {
             try {
-                statement = "DELETE NAMHOC WHERE " + where;
+                statement = "DELETE NamHoc WHERE " + where;
                 DeleteDB.getInstance().deleteCommand(statement);
                 return true;
             } catch (SQLException e) {
@@ -167,7 +167,7 @@ public class NamHoc {
                 statement = "UPDATE NamHoc " +
                         "SET " +
                         "MaNH = " + namHoc.getMaNH() + ", " +
-                        "TenNH = " + namHoc.getTenNH() +
+                        "TenNH = N'" + namHoc.getTenNH() + "', " +
                         "WHERE MaNH = " + where;
                 UpdateDB.getInstance().updateCommand(statement);
                 return true;

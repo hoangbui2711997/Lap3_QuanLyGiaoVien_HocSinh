@@ -130,13 +130,13 @@ public class LopHoc {
         try {
             int id = InsertDB.getInstance().initInsert("LopHoc");
 
-            statement = "INSERT INTO LopHoc(MaLH, TenLH, MaNH, MaGV, MAKH) VALUES " +
+            statement = "INSERT INTO LopHoc(MaLH, TenLH, MaNH, MaGV, MaKh) VALUES " +
                     "(" +
                     lopHoc.getMaLH() + ", " +
                     "N'" + lopHoc.getTenLH() + "', " +
-                    "'" + lopHoc.getMaNH() + "', " +
-                    "'" + lopHoc.getMaGV() + "', " +
-                    "'" + lopHoc.getMaKH() +
+                    lopHoc.getMaNH() + ", " +
+                    lopHoc.getMaGV() + ", " +
+                    lopHoc.getMaKH() +
                     ")";
 
             InsertDB.getInstance().insertCommand(statement);
@@ -159,7 +159,7 @@ public class LopHoc {
          */
         public static Boolean where(String where) {
             try {
-                statement = "DELETE LOPHOC WHERE " + where;
+                statement = "DELETE LopHoc WHERE " + where;
                 DeleteDB.getInstance().deleteCommand(statement);
                 return true;
             } catch (SQLException e) {
@@ -185,7 +185,7 @@ public class LopHoc {
                 statement = "UPDATE LopHoc " +
                         "SET " +
                         "MaLH = " + lopHoc.getMaLH() + ", " +
-                        "TenLH = " + lopHoc.getTenLH() + ", " +
+                        "TenLH = N'" + lopHoc.getTenLH() + "', " +
                         "MaNH = " + lopHoc.getMaNH() + ", " +
                         "MaGV = " + lopHoc.getMaGV() + ", " +
                         "MaKH = " + lopHoc.getMaKH() +

@@ -9,4 +9,11 @@ public class TestConnection {
             System.out.println("Successfulllllyyyyy");
         }
     }
+
+    @Test
+    public void testOperator() {
+        int x = 1;
+        int i = 1 + 2 * x++ * x;
+        System.out.println(i);
+    }
 }

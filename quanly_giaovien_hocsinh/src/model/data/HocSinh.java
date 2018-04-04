@@ -153,11 +153,11 @@ public class HocSinh {
                     "(" +
 //                    hocSinh.getMa() + ", " +
                     id + ", " +
-                    hocSinh.getGioiTinh() + ", " +
-                    hocSinh.getHoTen() + ", " +
-                    hocSinh.getNgaySinh() + ", " +
-                    hocSinh.getDiaChi() + ", " +
-                    hocSinh.getDienThoai() +
+                    "N'" + hocSinh.getGioiTinh() + "', " +
+                    "'N" + hocSinh.getHoTen() + "', " +
+                    "'" + hocSinh.getNgaySinh() + "', " +
+                    "N'" + hocSinh.getDiaChi() + "', " +
+                    "'" + hocSinh.getDienThoai() +
                     ")";
 
 
@@ -217,11 +217,11 @@ public class HocSinh {
                         "SET " +
 //                        "MaHS = N'" + newHocSinh.getMaHS() + ", " +
 //                        "MaPC = N'" + newHocSinh.getMaPC() + ", " +
-                        "'" + newHocSinh.getGioiTinh() + "', " +
-                        "'" + newHocSinh.getHoTen() + "', " +
-                        "'" + newHocSinh.getNgaySinh() + "', " +
-                        "'" + newHocSinh.getDiaChi() + "', " +
-                        "'" + newHocSinh.getDienThoai() +
+                        "GioiTinh = N'" + newHocSinh.getGioiTinh() + "', " +
+                        "HoTen = 'N" + newHocSinh.getHoTen() + "', " +
+                        "NgaySinh = '" + newHocSinh.getNgaySinh() + "', " +
+                        "DiaChi = N'" + newHocSinh.getDiaChi() + "', " +
+                        "DienThoai = '" + newHocSinh.getDienThoai() +
                         "WHERE " + where;
                 UpdateDB.getInstance().updateCommand(statement);
                 return true;

@@ -68,7 +68,7 @@ public class XepLop {
          */
         public static Boolean where(String where) {
             try {
-                statement = "DELETE XEPLOP WHERE " + where;
+                statement = "DELETE XepLop WHERE " + where;
                 DeleteDB.getInstance().deleteCommand(statement);
                 return true;
             } catch (SQLException e) {

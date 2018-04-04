@@ -204,13 +204,13 @@ public class GiaoVien {
             statement = "INSERT INTO GiaoVien(maGV, gioiTinh, HoTen, DiaChi, NgaySinh, DienThoai, CMND, matkhau, role) VALUES " +
                     "(" +
                     giaoVien.getMaGV() + ", " +
-                    "'" + giaoVien.getGioiTinh() + "', " +
+                    "N'" + giaoVien.getGioiTinh() + "', " +
                     "N'" + giaoVien.getHoTen() + "', " +
                     "N'" + giaoVien.getDiaChi() + "', " +
                     "'" + giaoVien.getNgaySinh() + "', " +
                     "'" + giaoVien.getDienThoai() + "', " +
                     "'" + giaoVien.getCMND() + "', " +
-                    "'" + giaoVien.getMatkhau() + "', " +
+                    "N'" + giaoVien.getMatkhau() + "', " +
                     giaoVien.getRole() +
                     ")";
 
@@ -277,11 +277,11 @@ public class GiaoVien {
                         "GioiTinh = N'" + newGiaoVien.getMaGV() + "', " +
                         "HoTen = N'" + newGiaoVien.getHoTen() + "', " +
                         "DiaChi = N'" + newGiaoVien.getDiaChi() + "', " +
-                        "NgaySinh = N'" + newGiaoVien.getNgaySinh() + "', " +
-                        "DienThoai = N'" + newGiaoVien.getDienThoai() + "', " +
-                        "CMND = N'" + newGiaoVien.getCMND() + "', " +
+                        "NgaySinh = '" + newGiaoVien.getNgaySinh() + "', " +
+                        "DienThoai = '" + newGiaoVien.getDienThoai() + "', " +
+                        "CMND = '" + newGiaoVien.getCMND() + "', " +
                         "matkhau = N'" + newGiaoVien.getMatkhau() + "', " +
-                        "role = N'" + newGiaoVien.getRole() + " " +
+                        "role = " + newGiaoVien.getRole() + " " +
                         "WHERE " + where;
                 UpdateDB.getInstance().updateCommand(statement);
                 return true;

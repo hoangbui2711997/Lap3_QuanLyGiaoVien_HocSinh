@@ -130,11 +130,11 @@ public class PhanCong {
 
             statement = "INSERT INTO PhanCong(MaPC, MaMH, MaGV, MALH, MaHK) VALUES " +
                     "(" +
-                    phanCong.getMaPC() + ", " +
-                    "'" + phanCong.getMaMH() + "', " +
-                    "'" + phanCong.getMaGV() + "', " +
-                    "'" + phanCong.getMaLH() + "', " +
-                    "'" + phanCong.getMaHK() +
+                    "N'" + phanCong.getMaPC() + "', " +
+                    phanCong.getMaMH() + ", " +
+                    phanCong.getMaGV() + ", " +
+                    phanCong.getMaLH() + ", " +
+                    phanCong.getMaHK() +
                     ")";
 
             InsertDB.getInstance().insertCommand(statement);
@@ -182,7 +182,7 @@ public class PhanCong {
             try {
                 statement = "UPDATE PhanCong " +
                         "SET " +
-                        "MaPC = " + phanCong.getMaPC() + ", " +
+                        "MaPC = N'" + phanCong.getMaPC() + "', " +
                         "MaMH = " + phanCong.getMaMH() + ", " +
                         "MaGV = " + phanCong.getMaGV() + ", " +
                         "MaLH = " + phanCong.getMaLH() + ", " +

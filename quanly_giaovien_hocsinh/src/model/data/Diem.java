@@ -140,7 +140,7 @@ public class Diem {
                     "(" +
 //                    diem.getMa() + ", " +
                     diem.getMaHS() + ", " +
-                    "'" + diem.getMaPC() + "', " +
+                    "N'" + diem.getMaPC() + "', " +
                     diem.getDiemHS1() + ", " +
                     diem.getDiemHS2() + ", " +
                     diem.getDiemHS3() +
@@ -206,9 +206,9 @@ public class Diem {
                         "SET " +
 //                        "MaHS = N'" + newDiem.getMaHS() + ", " +
 //                        "MaPC = N'" + newDiem.getMaPC() + ", " +
-                        "DiemHS1 = N'" + newDiem.getDiemHS1() + "', " +
-                        "DiemHS2 = N'" + newDiem.getDiemHS2() + "', " +
-                        "DiemHS3 = N'" + newDiem.getDiemHS3() + " " +
+                        "DiemHS1 = " + newDiem.getDiemHS1() + ", " +
+                        "DiemHS2 = " + newDiem.getDiemHS2() + ", " +
+                        "DiemHS3 = " + newDiem.getDiemHS3() + " " +
                         "WHERE " + where;
                 UpdateDB.getInstance().updateCommand(statement);
                 return true;

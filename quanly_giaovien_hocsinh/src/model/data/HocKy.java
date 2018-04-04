@@ -228,10 +228,10 @@ public class HocKy {
 //                        "MaPC = N'" + newHocKy.getMaPC() + ", " +
 //                        "MaHK = " + newHocKy.getMaHK()         + ", " +
                         "TenHK = " + "N'" + newHocKy.getTenHK() + "', " +
-                        "ThangBatDau" + newHocKy.getThangBatDau()  + ", " +
-                        "NgayBatDau" + newHocKy.getNgayBatDau()   + ", " +
-                        "ThangKetThuc" + newHocKy.getThangKetThuc() + ", " +
-                        "NgayKetThuc" + newHocKy.getNgayKetThuc()  +
+                        "ThangBatDau = " + newHocKy.getThangBatDau()  + ", " +
+                        "NgayBatDau = " + newHocKy.getNgayBatDau()   + ", " +
+                        "ThangKetThuc = " + newHocKy.getThangKetThuc() + ", " +
+                        "NgayKetThuc = " + newHocKy.getNgayKetThuc()  +
                         "WHERE " + where;
                 UpdateDB.getInstance().updateCommand(statement);
                 return true;

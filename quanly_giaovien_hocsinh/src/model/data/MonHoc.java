@@ -69,7 +69,7 @@ public class MonHoc {
          */
         public static Boolean where(String where) {
             try {
-                statement = "DELETE MONHOC WHERE " + where;
+                statement = "DELETE MonHoc WHERE " + where;
                 DeleteDB.getInstance().deleteCommand(statement);
                 return true;
             } catch (SQLException e) {
@@ -79,7 +79,7 @@ public class MonHoc {
         }
 
         public static Boolean whereId(String where) {
-            return NamHoc.Delete.where("MaNH = " + where);
+            return NamHoc.Delete.where("MaMH = " + where);
         }
     }
 
@@ -106,7 +106,7 @@ public class MonHoc {
             statement = "INSERT INTO Monhoc(MaMH, TenMH) VALUES " +
                     "(" +
                     monHoc.getMaMH() + ", " +
-                    "N'" + monHoc.getTenMH() +
+                    "N'" + monHoc.getTenMH() + "', " +
                     ")";
 
             InsertDB.getInstance().insertCommand(statement);
@@ -132,8 +132,8 @@ public class MonHoc {
             try {
                 statement = "UPDATE MonHoc " +
                         "SET " +
-                        "MaMH = " + monHoc.getMaMH() + ", " +
-                        "TenMH = " + monHoc.getTenMH() +
+//                        "MaMH = " + monHoc.getMaMH() + ", " +
+                        "TenMH = N'" + monHoc.getTenMH() + ", " +
                         "WHERE MaMH = " + where;
                 UpdateDB.getInstance().updateCommand(statement);
                 return true;
