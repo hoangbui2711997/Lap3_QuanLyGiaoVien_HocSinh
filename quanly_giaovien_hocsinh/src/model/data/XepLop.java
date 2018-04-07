@@ -15,7 +15,7 @@ public class XepLop {
     private SimpleIntegerProperty maLH;
     public static SearchDB searchDB;
 
-    private XepLop(int maHS, int maLH){
+    private XepLop(int maHS, int maLH) {
         this.maHS = new SimpleIntegerProperty(maHS);
         this.maLH = new SimpleIntegerProperty(maLH);
     }
