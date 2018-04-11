@@ -1,5 +1,6 @@
 package model.data;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import model.database.DeleteDB;
@@ -11,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class GiaoVien {
+public class GiaoVien extends RecursiveTreeObject<GiaoVien> {
     private SimpleIntegerProperty maGV;
     private SimpleStringProperty gioiTinh;
     private SimpleStringProperty hoTen;
@@ -201,9 +202,10 @@ public class GiaoVien {
 
             int id = InsertDB.getInstance().initInsert("GiaoVien");
 
-            statement = "INSERT INTO GiaoVien(maGV, gioiTinh, HoTen, DiaChi, NgaySinh, DienThoai, CMND, matkhau, role) VALUES " +
+//            statement = "INSERT INTO GiaoVien(MaGV, GioiTinh, HoTen, DiaChi, NgaySinh, DienThoai, CMND, matkhau, role) VALUES " +
+            statement = "INSERT INTO GiaoVien(GioiTinh, HoTen, DiaChi, NgaySinh, DienThoai, CMND, matkhau, role) VALUES " +
                     "(" +
-                    giaoVien.getMaGV() + ", " +
+//                    giaoVien.getMaGV() + ", " +
                     "N'" + giaoVien.getGioiTinh() + "', " +
                     "N'" + giaoVien.getHoTen() + "', " +
                     "N'" + giaoVien.getDiaChi() + "', " +
@@ -214,7 +216,7 @@ public class GiaoVien {
                     giaoVien.getRole() +
                     ")";
 
-
+            System.out.println(statement);
             // wait form input
             // wait form input
             // wait form input

@@ -1,5 +1,6 @@
 package model.data;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import model.database.DeleteDB;
@@ -11,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class Diem {
+public class Diem extends RecursiveTreeObject<Diem> {
     private SimpleIntegerProperty maHS, diemHS1, diemHS2, diemHS3;
     /**
      * maPC

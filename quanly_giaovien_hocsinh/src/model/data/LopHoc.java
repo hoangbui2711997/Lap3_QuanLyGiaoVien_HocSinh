@@ -1,5 +1,6 @@
 package model.data;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import model.database.DeleteDB;
@@ -11,13 +12,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class LopHoc {
+public class LopHoc extends RecursiveTreeObject<LopHoc> {
     private SimpleIntegerProperty maLH;
     private SimpleIntegerProperty maNH;
     private SimpleIntegerProperty maGV;
     private SimpleIntegerProperty maKH;
     private SimpleStringProperty tenLH;
-    public static SearchDB searchDB;
+    public static SearchDB searchDB = SearchDB.getQueryDB();
 
     public LopHoc(String tenLH, int maNH, int maGV, int maKH) {
         this.maGV = new SimpleIntegerProperty(maGV);

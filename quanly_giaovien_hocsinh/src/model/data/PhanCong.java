@@ -1,5 +1,6 @@
 package model.data;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.SimpleIntegerProperty;
 import model.database.DeleteDB;
 import model.database.InsertDB;
@@ -10,13 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class PhanCong {
+public class PhanCong extends RecursiveTreeObject<PhanCong> {
     private SimpleIntegerProperty maPC;
     private SimpleIntegerProperty maMH;
     private SimpleIntegerProperty maGV;
     private SimpleIntegerProperty maLH;
     private SimpleIntegerProperty maHK;
-    public static SearchDB searchDB;
+    public static SearchDB searchDB = SearchDB.getQueryDB();
 
     private PhanCong(int maPC, int maMH, int maGV, int maLH, int maHK){
         this.maPC = new SimpleIntegerProperty(maPC);

@@ -9,9 +9,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class Main extends Application implements Initializable {
@@ -20,10 +23,10 @@ public class Main extends Application implements Initializable {
     public void start(Stage primaryStage) throws IOException {
 
 
-        Parent root = FXMLLoader.load(getClass().getResource("view/Main.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("view/Main.fxml"));
 //        Parent root = FXMLLoader.load(getClass().getResource("view/Share/Composition.fxml"));
 
-        //        leftPane =
+            //        leftPane =
 
 //        topPane =
 //        topPane = FXMLLoader.load(getClass().getResource("view/Share/TopPane.fxml"));
@@ -37,9 +40,9 @@ public class Main extends Application implements Initializable {
 //        Scene scene = new Scene(root, 800, 600);
 
 
-        primaryStage.setScene(new Scene(root, 800, 600));
-        primaryStage.setResizable(true);
-        primaryStage.show();
+            primaryStage.setScene(new Scene(root, 1000, 600));
+            primaryStage.setResizable(true);
+            primaryStage.show();
     }
 
     @FXML
@@ -53,7 +56,6 @@ public class Main extends Application implements Initializable {
 
 
     }
-
 
     public static void main(String[] args) {
         launch(args);

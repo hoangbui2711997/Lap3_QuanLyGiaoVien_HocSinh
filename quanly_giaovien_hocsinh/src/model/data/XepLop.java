@@ -1,5 +1,6 @@
 package model.data;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.SimpleIntegerProperty;
 import model.database.DeleteDB;
 import model.database.InsertDB;
@@ -10,10 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class XepLop {
+public class XepLop extends RecursiveTreeObject<XepLop> {
     private SimpleIntegerProperty maHS;
     private SimpleIntegerProperty maLH;
-    public static SearchDB searchDB;
+    public static SearchDB searchDB = SearchDB.getQueryDB();
 
     private XepLop(int maHS, int maLH) {
         this.maHS = new SimpleIntegerProperty(maHS);

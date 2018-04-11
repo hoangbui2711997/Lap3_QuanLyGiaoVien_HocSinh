@@ -1,22 +1,20 @@
 package model.data;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import model.database.DeleteDB;
-import model.database.InsertDB;
-import model.database.SearchDB;
-import model.database.UpdateDB;
+import model.database.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class NamHoc {
+public class NamHoc extends RecursiveTreeObject<NamHoc> {
     private SimpleIntegerProperty maNH;
     private SimpleIntegerProperty Nambatdau;
     private SimpleIntegerProperty Namketthuc;
     private SimpleStringProperty tenNH;
-    public static SearchDB searchDB;
+    public static SearchDB searchDB = SearchDB.getQueryDB();
 
     public NamHoc(int nambatdau, int namketthuc, String tenNH) {
         Nambatdau = new SimpleIntegerProperty(nambatdau);
@@ -95,6 +93,7 @@ public class NamHoc {
 
     public static class Search {
         public Search() {
+
         }
 
         public static NamHoc where(String where) throws SQLException {

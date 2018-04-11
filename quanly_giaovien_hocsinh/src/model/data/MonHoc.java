@@ -1,5 +1,6 @@
 package model.data;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import model.database.DeleteDB;
@@ -11,10 +12,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class MonHoc {
+public class MonHoc extends RecursiveTreeObject<MonHoc> {
     private SimpleIntegerProperty maMH;
     private SimpleStringProperty tenMH;
-    private static SearchDB searchDB;
+    private static SearchDB searchDB = SearchDB.getQueryDB();
 
     public MonHoc(String tenMH) {
         this.tenMH = new SimpleStringProperty(tenMH);
