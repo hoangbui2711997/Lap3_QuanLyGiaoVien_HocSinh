@@ -7,7 +7,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="mssql-jdbc-6.4.0.jre9" level="project" />
     <orderEntry type="module-library">
       <library name="JUnit5.0">
         <CLASSES>
@@ -20,6 +19,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="jfoenix-9.0.1" level="project" />
+    <orderEntry type="library" name="mssql-jdbc-6.4.0.jre91" level="project" />
+    <orderEntry type="library" name="jfoenix-9.0.1 (1)" level="project" />
   </component>
 </module>

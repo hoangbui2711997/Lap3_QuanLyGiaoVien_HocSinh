@@ -22,8 +22,8 @@ public class Main extends Application implements Initializable {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-
-            Parent root = FXMLLoader.load(getClass().getResource("view/Main.fxml"));
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("view/Login.fxml"));
 //        Parent root = FXMLLoader.load(getClass().getResource("view/Share/Composition.fxml"));
 
             //        leftPane =
@@ -41,8 +41,12 @@ public class Main extends Application implements Initializable {
 
 
             primaryStage.setScene(new Scene(root, 1000, 600));
-            primaryStage.setResizable(true);
+            //primaryStage.setResizable(true);
             primaryStage.show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
