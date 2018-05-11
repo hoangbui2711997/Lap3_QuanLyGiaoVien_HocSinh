@@ -150,17 +150,17 @@ public class HocSinh extends RecursiveTreeObject<HocSinh> {
 
             int id = InsertDB.getInstance().initInsert("HocSinh");//? cái id này để tự tăng hay là điền????
 
-            statement = "INSERT INTO HocSinh(MaHS, GioiTinh, HoTen, NgaySinh, DiaChi, DienThoai) VALUES " +
+            statement = "INSERT INTO HocSinh(GioiTinh, HoTen, NgaySinh, DiaChi, DienThoai) VALUES " +
                     "(" +
 //                    hocSinh.getMa() + ", " +
-                    id + ", " +
+//                    id + ", " +
                     "N'" + hocSinh.getGioiTinh() + "', " +
                     "'N" + hocSinh.getHoTen() + "', " +
                     "'" + hocSinh.getNgaySinh() + "', " +
                     "N'" + hocSinh.getDiaChi() + "', " +
-                    "'" + hocSinh.getDienThoai() +
+                    "'" + hocSinh.getDienThoai() + "'" +
                     ")";
-
+            System.out.println(statement);
 
             // wait form input
             // wait form input

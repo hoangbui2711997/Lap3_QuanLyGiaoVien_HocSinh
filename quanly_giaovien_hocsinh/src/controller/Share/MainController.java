@@ -21,6 +21,8 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
@@ -35,7 +37,9 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.data.*;
 import model.database.DB_Connection;
-import org.junit.jupiter.api.Test;
+import model.repository.RepositoryDiem;
+import model.repository.RepositoryGiaoVien;
+//import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -81,6 +85,19 @@ public class MainController implements Initializable {
     private JFXDrawer drawTop;
 
     private static Object key = new Object();
+    private List<HocKy> lstHocKy;
+    private List<HocSinh> lstHocSinh;
+    private List<KhoiHoc> lstKhoiHoc;
+    private List<LopHoc> lstLopHoc;
+    private List<MonHoc> lstMonHoc;
+    private List<NamHoc> lstNamHoc;
+    private List<PhanCong> lstPhanCong;
+    private List<GiaoVien> lstGiaoVien;
+    private List<XepLop> lstLop;
+    private List<Diem> lstDiem;
+    private JFXNodesList jfxNodeListRoot;
+    private JFXNodesList jfxNodeListControl;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -176,13 +193,13 @@ public class MainController implements Initializable {
         btnDel.setStyle("-fx-background-color: #ff4444; -fx-background-radius: 50px; -fx-border-radius: 50px;");
         setStyleButton(btnDel);
 
-        // Tạo nodeList chứa các node
-        JFXNodesList nodeList = new JFXNodesList();
+        // Tạo jfxNodeListRoot chứa các node
+        jfxNodeListRoot = new JFXNodesList();
 
         // Tạo subList
-        JFXNodesList jfxNodesList = new JFXNodesList();
+        jfxNodeListControl = new JFXNodesList();
         // Add và set hiệu ứng animation
-//            nodeList.addAnimatedNode(btnOption, (expanded, duration) ->
+//            jfxNodeListRoot.addAnimatedNode(btnOption, (expanded, duration) ->
 //                    new ArrayList<>() {
 //                        {
 //                            add(new KeyFrame(duration,
@@ -194,11 +211,11 @@ public class MainController implements Initializable {
 //                        }
 //                    }
 //            );
-        nodeList.addAnimatedNode(btnHome);
+        jfxNodeListRoot.addAnimatedNode(btnHome);
 
         // Add button
 
-        jfxNodesList.addAnimatedNode(btnOption, (expanded, duration) -> {
+        jfxNodeListControl.addAnimatedNode(btnOption, (expanded, duration) -> {
             return new ArrayList<>() {
                 {
                     add(new KeyFrame(duration,
@@ -210,22 +227,22 @@ public class MainController implements Initializable {
                 }
             };
         });
-        jfxNodesList.addAnimatedNode(btnAdd);
-        jfxNodesList.addAnimatedNode(btnUpdate);
-        jfxNodesList.addAnimatedNode(btnDel);
+        jfxNodeListControl.addAnimatedNode(btnAdd);
+        jfxNodeListControl.addAnimatedNode(btnUpdate);
+        jfxNodeListControl.addAnimatedNode(btnDel);
 
         // Đặt khoảng cách giữa 2 button
-        jfxNodesList.setSpacing(85);
+        jfxNodeListControl.setSpacing(85);
 
         // Độ quay của jfxNodeList
-        jfxNodesList.setRotate(270);
-        nodeList.setRotate(270);
-        nodeList.setSpacing(85);
+        jfxNodeListControl.setRotate(270);
+        jfxNodeListRoot.setRotate(270);
+        jfxNodeListRoot.setSpacing(85);
 
         // jfxNodeList là con của thằng NodeList
-        nodeList.addAnimatedNode(jfxNodesList);
+        jfxNodeListRoot.addAnimatedNode(jfxNodeListControl);
 //            AnchorPane.setLeftAnchor();
-        containerNav.getChildren().add(nodeList);
+        containerNav.getChildren().add(jfxNodeListRoot);
         containerNav.setPadding(new Insets(8, 0, 8, 15));
 
         JFXToolbar toolbar = new JFXToolbar();
@@ -238,9 +255,11 @@ public class MainController implements Initializable {
 
 
         // --------------- handle action btn
+        // Add action
         btnAdd.setOnAction(event -> {
             try {
                 actionBtn_Add();
+                treeTableView.refresh();
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -248,12 +267,70 @@ public class MainController implements Initializable {
             }
         });
 
+        // Delete action
+        btnDel.setOnAction(event -> {
+            System.out.println("I'm here");
+            actionBtn_Del();
+            treeTableView.refresh();
+        });
+
+        btnUpdate.setOnAction(e -> {
+            try {
+                handleActionJFXComboboxSwitchTable();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        });
+
+        // controller action
+        // expand control
+        treeTableView.setOnMouseClicked(e -> {
+            if (!jfxNodeListControl.isExpanded()) {
+                jfxNodeListControl.animateList();
+            }
+        });
 
         fitSizeMethod(toolbar, 15.0);
         return toolbar;
     }
 
-    public static Object lock = new Object();
+    private void actionBtn_Del() {
+        TreeItem item = (TreeItem) treeTableView.getSelectionModel().getSelectedItem();
+        System.out.println(item.toString());
+        if ("Giáo viên"
+                .equals(jfxCombobox.getValue())) {
+//            System.out.println("I'm here");
+//            System.out.println(item.getValue());
+//            System.out.println(item);
+
+            GiaoVien giaoVien = (GiaoVien) item.getValue();
+            if (RepositoryGiaoVien.
+                    del(giaoVien)) {
+                lstGiaoVien = RepositoryGiaoVien.getAll();
+//                treeTableView.getColumns().remove(item);
+
+//                System.out.println(RepositoryGiaoVien.getAll().size());
+            } else { // Nếu xóa không thành công?
+                new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
+                return;
+            }
+        } else if("Điểm".equals(jfxCombobox.getValue())) {
+            Diem diem = (Diem) item.getValue();
+            if(RepositoryDiem.
+                    del(diem)) {
+                lstDiem = RepositoryDiem.getAll();
+            }
+            else {
+                new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
+                return;
+            }
+        }
+
+        treeTableView.refresh();
+        new Alert(Alert.AlertType.INFORMATION, "Xóa thành công", ButtonType.OK).showAndWait();
+    }
+
+//    public static Object lock = new Object();
 
     public static Stage secondaryStage;
 
@@ -265,6 +342,8 @@ public class MainController implements Initializable {
             secondaryStage.setResizable(false);
             secondaryStage.showAndWait();
             secondaryStage.close();
+
+            lstGiaoVien = RepositoryGiaoVien.getAll();
         }
     }
 
@@ -310,7 +389,30 @@ public class MainController implements Initializable {
         return newName;
     }
 
+    private void expandNodeList(JFXNodesList root) {
+//        if (root != null) {
+//            if (!root.isExpanded()) {
+//                // make is expand
+//                root.animateList();
+//            }
+//            for (Node node : root.getChildren()) {
+//                if (node instanceof JFXNodesList) {
+//                    expandNodeList((JFXNodesList) node);
+//                }
+//            }
+//        }
+
+        if(root != null) {
+            if(!root.isExpanded()) {
+                // make is expand
+                root.animateList();;
+            }
+        }
+    }
+
     private void handleActionJFXComboboxSwitchTable() throws SQLException {
+        expandNodeList(jfxNodeListRoot);
+
         treeTableView.getColumns().clear();
         Field[] fields;
         JFXTreeTableColumn[] jfxTreeTableColumns = null;
@@ -324,14 +426,13 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, GiaoVien.class.getSimpleName());
 
-
-            List<GiaoVien> list = GiaoVien.Search.getAll();
-            if(list == null) {
-                list = new ArrayList<>();
+            lstGiaoVien = RepositoryGiaoVien.getAll();
+            if (lstGiaoVien == null) {
+                lstGiaoVien = new ArrayList<>();
             }
 
             ObservableList<GiaoVien> data = FXCollections.observableArrayList(
-                    list
+                    lstGiaoVien
             );
 
 //            TreeItem<GiaoVien> root = new RecursiveTreeItem(data);
@@ -347,14 +448,13 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, XepLop.class.getSimpleName());
 
-
-            List<XepLop> list = XepLop.Search.getAll();
-            if(list == null) {
-                list = new ArrayList<>();
+            lstLop = XepLop.Search.getAll();
+            if (lstLop == null) {
+                lstLop = new ArrayList<>();
             }
 
             ObservableList<XepLop> data = FXCollections.observableArrayList(
-                    list
+                    lstLop
             );
 
 //            TreeItem<XepLop> root = new RecursiveTreeItem(data);
@@ -370,14 +470,13 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, Diem.class.getSimpleName());
 
-
-            List<Diem> list = Diem.Search.getAll();
-            if(list == null) {
-                list = new ArrayList<>();
+            List<Diem> lstDiem = Diem.Search.getAll();
+            if (lstDiem == null) {
+                lstDiem = new ArrayList<>();
             }
 
             ObservableList<Diem> data = FXCollections.observableArrayList(
-                    list
+                    lstDiem
             );
 
 //            TreeItem<Diem> root = new RecursiveTreeItem(data);
@@ -392,14 +491,13 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, HocKy.class.getSimpleName());
 
-
-            List<HocKy> list = HocKy.Search.getAll();
-            if(list == null) {
-                list = new ArrayList<>();
+            lstHocKy = HocKy.Search.getAll();
+            if (lstHocKy == null) {
+                lstHocKy = new ArrayList<>();
             }
 
             ObservableList<HocKy> data = FXCollections.observableArrayList(
-                    list
+                    lstHocKy
             );
 
 //            TreeItem<HocKy> root = new RecursiveTreeItem(data);
@@ -414,14 +512,13 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, HocSinh.class.getSimpleName());
 
-
-            List<HocSinh> list = HocSinh.Search.getAll();
-            if(list == null) {
-                list = new ArrayList<>();
+            lstHocSinh = HocSinh.Search.getAll();
+            if (lstHocSinh == null) {
+                lstHocSinh = new ArrayList<>();
             }
 
             ObservableList<HocSinh> data = FXCollections.observableArrayList(
-                    list
+                    lstHocSinh
             );
 
 //            TreeItem<HocSinh> root = new RecursiveTreeItem(data);
@@ -436,14 +533,13 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, KhoiHoc.class.getSimpleName());
 
-
-            List<KhoiHoc> list = KhoiHoc.Search.getAll();
-            if(list == null) {
-                list = new ArrayList<>();
+            lstKhoiHoc = KhoiHoc.Search.getAll();
+            if (lstKhoiHoc == null) {
+                lstKhoiHoc = new ArrayList<>();
             }
 
             ObservableList<KhoiHoc> data = FXCollections.observableArrayList(
-                    list
+                    lstKhoiHoc
             );
 
 //            TreeItem<KhoiHoc> root = new RecursiveTreeItem(data);
@@ -458,18 +554,17 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, LopHoc.class.getSimpleName());
 
-
-            List<LopHoc> list = LopHoc.Search.getAll();
-            if(list == null) {
-                list = new ArrayList<>();
+            lstLopHoc = LopHoc.Search.getAll();
+            if (lstLopHoc == null) {
+                lstLopHoc = new ArrayList<>();
             }
 
-            if(list == null) {
-                list = new ArrayList<>();
+            if (lstLopHoc == null) {
+                lstLopHoc = new ArrayList<>();
             }
 
             ObservableList<LopHoc> data = FXCollections.observableArrayList(
-                    list
+                    lstLopHoc
             );
 
 //            TreeItem<LopHoc> root = new RecursiveTreeItem(data);
@@ -484,14 +579,13 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, MonHoc.class.getSimpleName());
 
-
-            List<MonHoc> list = MonHoc.Search.getAll();
-            if(list == null) {
-                list = new ArrayList<>();
+            lstMonHoc = MonHoc.Search.getAll();
+            if (lstMonHoc == null) {
+                lstMonHoc = new ArrayList<>();
             }
 
             ObservableList<MonHoc> data = FXCollections.observableArrayList(
-                    list
+                    lstMonHoc
             );
 
 //            TreeItem<MonHoc> root = new RecursiveTreeItem(data);
@@ -506,14 +600,13 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, NamHoc.class.getSimpleName());
 
-
-            List<NamHoc> list = NamHoc.Search.getAll();
-            if(list == null) {
-                list = new ArrayList<>();
+            lstNamHoc = NamHoc.Search.getAll();
+            if (lstNamHoc == null) {
+                lstNamHoc = new ArrayList<>();
             }
 
             ObservableList<NamHoc> data = FXCollections.observableArrayList(
-                    list
+                    lstNamHoc
             );
 
 //            TreeItem<NamHoc> root = new RecursiveTreeItem(data);
@@ -528,14 +621,13 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, PhanCong.class.getSimpleName());
 
-
-            List<PhanCong> list = PhanCong.Search.getAll();
-            if(list == null) {
-                list = new ArrayList<>();
+            lstPhanCong = PhanCong.Search.getAll();
+            if (lstPhanCong == null) {
+                lstPhanCong = new ArrayList<>();
             }
 
             ObservableList<PhanCong> data = FXCollections.observableArrayList(
-                    list
+                    lstPhanCong
             );
 
 //            TreeItem<PhanCong> root = new RecursiveTreeItem(data);

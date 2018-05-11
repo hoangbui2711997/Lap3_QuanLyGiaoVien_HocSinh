@@ -25,8 +25,8 @@ public class KhoiHoc extends RecursiveTreeObject<KhoiHoc> {
         return new KhoiHoc(maKH, tenKH);
     }
 
-    public KhoiHoc(SimpleStringProperty tenKH) {
-        this.tenKH = tenKH;
+    public KhoiHoc(String tenKH) {
+        this.tenKH = new SimpleStringProperty(tenKH);;
     }
 
     public int getMaKH() {
@@ -86,15 +86,15 @@ public class KhoiHoc extends RecursiveTreeObject<KhoiHoc> {
 
             int id = InsertDB.getInstance().initInsert("KhoiHoc");
 
-            statement = "INSERT INTO KhoiHoc(MaKH, TenKH) VALUES " +
+            statement = "INSERT INTO KhoiHoc(TenKH) VALUES " +
                     "(" +
 //                    khoiHoc.getMa() + ", " +
 //                    khoiHoc.getMaKH() + ", " +
-                    id                + ", " +
+//                    id                + ", " +
                     "N'" + khoiHoc.getTenKH() + "' " +
                     ")";
 
-
+            System.out.println(statement);
             // wait form input
             // wait form input
             // wait form input

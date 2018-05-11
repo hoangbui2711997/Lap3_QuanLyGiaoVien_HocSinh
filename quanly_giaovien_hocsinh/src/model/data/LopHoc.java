@@ -21,17 +21,17 @@ public class LopHoc extends RecursiveTreeObject<LopHoc> {
     public static SearchDB searchDB = SearchDB.getQueryDB();
 
     public LopHoc(String tenLH, int maNH, int maGV, int maKH) {
+        this.maNH = new SimpleIntegerProperty(maNH);
         this.maGV = new SimpleIntegerProperty(maGV);
         this.maKH = new SimpleIntegerProperty(maKH);
-        this.maLH = new SimpleIntegerProperty(maNH);
         this.tenLH = new SimpleStringProperty(tenLH);
     }
 
     private LopHoc(int maLH, String tenLH, int maNH, int maGV, int maKH) {
         this.maLH = new SimpleIntegerProperty(maLH);
         this.tenLH = new SimpleStringProperty(tenLH);
-        this.maGV = new SimpleIntegerProperty(maNH);
-        this.maKH = new SimpleIntegerProperty(maGV);
+        this.maGV = new SimpleIntegerProperty(maGV);
+        this.maNH = new SimpleIntegerProperty(maNH);
         this.maKH = new SimpleIntegerProperty(maKH);
     }
 
@@ -121,6 +121,10 @@ public class LopHoc extends RecursiveTreeObject<LopHoc> {
             return searchDB.getLopHoc(resultSet);
         }
 
+        public static LopHoc whereId(String id) throws SQLException {
+            return where("MaLH = " + id);
+        }
+
         public static List<LopHoc> getAll()throws SQLException{
             return searchDB.getDsLopHoc();
         }
@@ -131,15 +135,15 @@ public class LopHoc extends RecursiveTreeObject<LopHoc> {
         try {
             int id = InsertDB.getInstance().initInsert("LopHoc");
 
-            statement = "INSERT INTO LopHoc(MaLH, TenLH, MaNH, MaGV, MaKh) VALUES " +
+            statement = "INSERT INTO LopHoc(TenLH, MaNH, MaGV, MaKh) VALUES " +
                     "(" +
-                    lopHoc.getMaLH() + ", " +
+//                    lopHoc.getMaLH() + ", " +
                     "N'" + lopHoc.getTenLH() + "', " +
                     lopHoc.getMaNH() + ", " +
                     lopHoc.getMaGV() + ", " +
                     lopHoc.getMaKH() +
                     ")";
-
+            System.out.println(statement);
             InsertDB.getInstance().insertCommand(statement);
             return returnLopHoc(id, lopHoc);
         } catch (SQLException e) {

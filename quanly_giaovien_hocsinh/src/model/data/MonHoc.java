@@ -97,6 +97,10 @@ public class MonHoc extends RecursiveTreeObject<MonHoc> {
         public static List<MonHoc> getAll()throws SQLException{
             return searchDB.getDsMonHoc();
         }
+
+        public static MonHoc whereId(String id) throws SQLException {
+            return where("MaMH = " + id);
+        }
     }
 
     static String statement = "";
@@ -104,12 +108,12 @@ public class MonHoc extends RecursiveTreeObject<MonHoc> {
         try {
             int id = InsertDB.getInstance().initInsert("MonHoc");
 
-            statement = "INSERT INTO Monhoc(MaMH, TenMH) VALUES " +
+            statement = "INSERT INTO Monhoc(TenMH) VALUES " +
                     "(" +
-                    monHoc.getMaMH() + ", " +
-                    "N'" + monHoc.getTenMH() + "', " +
+//                    monHoc.getMaMH() + ", " +
+                    "N'" + monHoc.getTenMH() + "'" +
                     ")";
-
+            System.out.println(statement);
             InsertDB.getInstance().insertCommand(statement);
             return returnMonHoc(id, monHoc);
         } catch (SQLException e) {

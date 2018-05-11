@@ -4,6 +4,7 @@ import com.jfoenix.controls.*;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -16,27 +17,14 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import model.data.GiaoVien;
 import model.database.InsertDB;
+import model.repository.RepositoryGiaoVien;
 
 import javax.swing.*;
 
 public class GiaoVienController {
 
-    public static List<GiaoVien> giaoViens;
-
     @FXML
     private JFXComboBox jfxComboboxSex;
-
-    public static List<GiaoVien> getGiaoViens() {
-        return giaoViens;
-    }
-
-    static {
-        try {
-            giaoViens = GiaoVien.Search.getAll();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     private ResourceBundle resources;
@@ -86,30 +74,45 @@ public class GiaoVienController {
     }
 
     @FXML
-    void btnSubmitAction(ActionEvent event) throws SQLException {
-        if ("".equals(jfxComboboxSex.getValue().toString()) ||
-                "".equals(hoTen.getText()) || "".equals(diaChi.getText()) ||
-                "".equals(dienThoai.getText()) || "".equals(CMND.getText()) ||
-                "".equals(matKhau.getText()) || "".equals(ngaySinh.getValue().toString()) ||
-                "".equals(jfxComboboxRole.getValue().toString())) {
-            new Alert(Alert.AlertType.ERROR, "Chưa nhập đủ các trường", ButtonType.OK).showAndWait();
-        } else {
-            GiaoVien giaoVien = GiaoVien.getInstance(Integer.parseInt(MaGV.getText()),
-                    jfxComboboxSex.getValue().toString(),
-                    hoTen.getText(),
-                    diaChi.getText(),
-                    ngaySinh.getValue().toString(),
-                    dienThoai.getText(),
-                    CMND.getText(),
-                    matKhau.getText(),
-                    Integer.parseInt(jfxComboboxRole.getValue().toString()));
-
-            // Thêm giáo viên
-            GiaoVien.Insert(giaoVien);
-            giaoViens.add(giaoVien);
-            new Alert(Alert.AlertType.INFORMATION, "Thêm thành công", ButtonType.OK).showAndWait();
-            MainController.secondaryStage.close();
+    void btnSubmitAction(ActionEvent event, String option) throws SQLException {
+        if (!checkIsEmpty()) {
+            if ("Add".equals(option)) {
+                GiaoVien giaoVien = GiaoVien.getInstance(Integer.parseInt(MaGV.getText()),
+                        jfxComboboxSex.getValue().toString(),
+                        hoTen.getText(),
+                        diaChi.getText(),
+                        ngaySinh.getValue().toString(),
+                        dienThoai.getText(),
+                        CMND.getText(),
+                        matKhau.getText(),
+                        Integer.parseInt(jfxComboboxRole.getValue().toString())
+                );
+                // Thêm giáo viên
+                RepositoryGiaoVien.add(giaoVien);
+                new Alert(Alert.AlertType.INFORMATION, "Thêm thành công", ButtonType.OK).showAndWait();
+            } else {
+                GiaoVien giaoVien = GiaoVien.getInstance(Integer.parseInt(MaGV.getText()),
+                        jfxComboboxSex.getValue().toString(),
+                        hoTen.getText(),
+                        diaChi.getText(),
+                        ngaySinh.getValue().toString(),
+                        dienThoai.getText(),
+                        CMND.getText(),
+                        matKhau.getText(),
+                        Integer.parseInt(jfxComboboxRole.getValue().toString())
+                );
+                // Thêm giáo viên
+                RepositoryGiaoVien.edit(giaoVien);
+                new Alert(Alert.AlertType.INFORMATION, "Thêm thành công", ButtonType.OK).showAndWait();
+            }
         }
+        MainController.secondaryStage.close();
+
+    }
+
+    @FXML
+    void btnUpdateAction(ActionEvent event) {
+
     }
 
     @FXML
@@ -128,12 +131,32 @@ public class GiaoVienController {
         list.add("1"); // 1 la muc cao nhat
         list.add("2");
         jfxComboboxRole.getItems().addAll(list);
+        jfxComboboxRole.getSelectionModel().selectLast();
 
         List list1 = new ArrayList();
         list1.add("Nam");
         list1.add("Nữ");
         jfxComboboxSex.getItems().addAll(list1);
+        jfxComboboxSex.getSelectionModel().selectFirst();
 
         MaGV.setText(InsertDB.getInstance().initInsert("GiaoVien") + "");
+        ngaySinh.setValue(LocalDate.now());
+
+        btnCancel.setOnAction(e -> {
+            MainController.secondaryStage.close();
+        });
+    }
+
+    private boolean checkIsEmpty() {
+        if ("".equals(jfxComboboxSex.getValue().toString()) ||
+                "".equals(hoTen.getText()) || "".equals(diaChi.getText()) ||
+                "".equals(dienThoai.getText()) || "".equals(CMND.getText()) ||
+                "".equals(matKhau.getText()) || "".equals(ngaySinh.getValue().toString()) ||
+                "".equals(jfxComboboxRole.getValue().toString())) {
+            new Alert(Alert.AlertType.ERROR, "Chưa nhập đủ các trường", ButtonType.OK).showAndWait();
+            return true;
+        } else {
+            return false;
+        }
     }
 }

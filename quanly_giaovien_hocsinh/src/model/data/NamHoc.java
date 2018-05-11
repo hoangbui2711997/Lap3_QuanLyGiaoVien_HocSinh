@@ -112,14 +112,14 @@ public class NamHoc extends RecursiveTreeObject<NamHoc> {
         try {
             int id = InsertDB.getInstance().initInsert("NamHoc");
 
-            statement = "INSERT INTO NamHoc(MaNH, TenNH, Nambatdau, Namketthuc) VALUES " +
+            statement = "INSERT INTO NamHoc(TenNH, Nambatdau, Namketthuc) VALUES " +
                     "(" +
-                    namHoc.getMaNH() + ", " +
+//                    namHoc.getMaNH() + ", " +
                     "N'" + namHoc.getTenNH() + "', " +
                     namHoc.getNambatdau() + ", " +
                     namHoc.getNamketthuc() +
                     ")";
-
+            System.out.println(statement);
             InsertDB.getInstance().insertCommand(statement);
             return returnNamHoc(id, namHoc);
         } catch (SQLException e) {

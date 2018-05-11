@@ -143,6 +143,10 @@ public class HocKy extends RecursiveTreeObject<HocKy> {
             return searchDB.getHocKy(resultSet);
         }
 
+        public static HocKy whereId(String id) throws SQLException {
+            return where("MaHK = " + id);
+        }
+
 
         /**
          * @return Lay tat ca sinh vien trong csdl
@@ -161,9 +165,9 @@ public class HocKy extends RecursiveTreeObject<HocKy> {
 
             int id = InsertDB.getInstance().initInsert("HocKy");
 
-            statement = "INSERT INTO HocKy(MaHK,TenHK,ThangBatDau,NgayBatDau,ThangKetThuc,NgayKetThuc) VALUES (" +
+            statement = "INSERT INTO HocKy(TenHK,ThangBatDau,NgayBatDau,ThangKetThuc,NgayKetThuc) VALUES (" +
 //                    hocKy.getMa() + ", " +
-                    id               + ", " +
+//                    id               + ", " +
                     "N'" + hocKy.getTenHK() + "', " +
                     hocKy.getThangBatDau() + ", " +
                     hocKy.getNgayBatDau() + ", " +
@@ -171,7 +175,7 @@ public class HocKy extends RecursiveTreeObject<HocKy> {
                     hocKy.getNgayKetThuc() +
                     ")";
 
-
+            System.out.println(statement);
             // wait form input
             // wait form input
             // wait form input

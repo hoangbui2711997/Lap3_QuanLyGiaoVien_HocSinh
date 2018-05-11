@@ -96,11 +96,11 @@ public class SearchDB implements ISearch {
     public Diem getDiem(ResultSet resultSet) throws SQLException{
         try {
             Object maHS = resultSet.getObject(1);
-            Object diemHS1 = resultSet.getObject(2);
-            Object diemHS2 = resultSet.getObject(3);
+            Object maPC = resultSet.getObject(2);
+            Object diemHS1 = resultSet.getObject(3);
+            Object diemHS2 = resultSet.getObject(4);
 //            Object masv = resultSet.getObject(4);
-            Object diemHS3 = resultSet.getObject(4);
-            Object maPC = resultSet.getObject(5);
+            Object diemHS3 = resultSet.getObject(5);
 
             return Diem.getInstance(
                     (Integer) maHS,
@@ -173,7 +173,7 @@ public class SearchDB implements ISearch {
                     (Integer) maHS,
                     (String) gioiTinh,
                     (String) hoTen,
-                    (String) ngaySinh,
+                    ((Date) ngaySinh).toString(),
                     (String) diaChi,
                     (String) dienThoai
             );
@@ -266,7 +266,7 @@ public class SearchDB implements ISearch {
         Object maHK = resultSet.getObject(5);
 
         return PhanCong.getInstance(
-                (Integer) maPC,
+                (String) maPC,
                 (Integer) maMH,
                 (Integer) maGV,
                 (Integer) maLH,

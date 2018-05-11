@@ -186,6 +186,10 @@ public class GiaoVien extends RecursiveTreeObject<GiaoVien> {
             return searchDB.getGV(resultSet);
         }
 
+        public static GiaoVien whereId(String id) throws SQLException {
+            return where("MaGV = " + id);
+        }
+
 
         /**
          * @return Lay tat ca sinh vien trong csdl
@@ -248,6 +252,7 @@ public class GiaoVien extends RecursiveTreeObject<GiaoVien> {
             try {
                 statement = "DELETE GIAOVIEN WHERE " + where;
                 DeleteDB.getInstance().deleteCommand(statement);
+                System.out.printf(statement);
                 return true;
             } catch (SQLException e) {
                 System.out.println(e.getMessage());

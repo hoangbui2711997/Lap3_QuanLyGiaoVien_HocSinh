@@ -2,6 +2,7 @@ package model.data;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import model.database.DeleteDB;
 import model.database.InsertDB;
 import model.database.SearchDB;
@@ -12,15 +13,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class PhanCong extends RecursiveTreeObject<PhanCong> {
-    private SimpleIntegerProperty maPC;
+    private SimpleStringProperty maPC;
     private SimpleIntegerProperty maMH;
     private SimpleIntegerProperty maGV;
     private SimpleIntegerProperty maLH;
     private SimpleIntegerProperty maHK;
     public static SearchDB searchDB = SearchDB.getQueryDB();
 
-    private PhanCong(int maPC, int maMH, int maGV, int maLH, int maHK){
-        this.maPC = new SimpleIntegerProperty(maPC);
+    private PhanCong(String maPC, int maMH, int maGV, int maLH, int maHK){
+        this.maPC = new SimpleStringProperty(maPC);
         this.maMH = new SimpleIntegerProperty(maMH);
         this.maGV = new SimpleIntegerProperty(maGV);
         this.maLH = new SimpleIntegerProperty(maLH);
@@ -34,15 +35,15 @@ public class PhanCong extends RecursiveTreeObject<PhanCong> {
         this.maHK = new SimpleIntegerProperty(maHK);
     }
 
-    public static PhanCong getInstance(int maPC, int maMH, int maGV, int maLH, int maHK){
+    public static PhanCong getInstance(String maPC, int maMH, int maGV, int maLH, int maHK){
         return new PhanCong(maPC, maMH, maGV, maLH, maHK);
     }
 
-    public int getMaPC() {
+    public String getMaPC() {
         return maPC.get();
     }
 
-    public SimpleIntegerProperty maPCProperty() {
+    public SimpleStringProperty maPCProperty() {
         return maPC;
     }
 
@@ -78,7 +79,7 @@ public class PhanCong extends RecursiveTreeObject<PhanCong> {
         return maHK;
     }
 
-    public void setMaPC(int maPC) {
+    public void setMaPC(String maPC) {
         this.maPC.set(maPC);
     }
 
@@ -127,26 +128,33 @@ public class PhanCong extends RecursiveTreeObject<PhanCong> {
     static String statement = "";
     public static PhanCong Insert(PhanCong phanCong) throws SQLException{
         try {
-            int id = InsertDB.getInstance().initInsert("PhanCong");
+//            int id = InsertDB.getInstance().initInsert("PhanCong");
+            MonHoc mh = MonHoc.Search.whereId(phanCong.getMaMH() + "");
+            GiaoVien gv = GiaoVien.Search.whereId(phanCong.getMaGV() + "");
+            LopHoc lh = LopHoc.Search.whereId(phanCong.getMaLH() + "");
+            HocKy hk = HocKy.Search.whereId(phanCong.getMaHK() + "");
 
-            statement = "INSERT INTO PhanCong(MaPC, MaMH, MaGV, MALH, MaHK) VALUES " +
+            String maPC = (mh.getMaMH() + "" + gv.getMaGV() + "" + lh.getMaLH() + "" + hk.getMaHK());
+
+            statement = "INSERT INTO PhanCong(MaPC, MaMH, MaGV, MaLH, MaHK) VALUES " +
                     "(" +
-                    "N'" + phanCong.getMaPC() + "', " +
+                    "N'" + maPC + "', " +
                     phanCong.getMaMH() + ", " +
                     phanCong.getMaGV() + ", " +
                     phanCong.getMaLH() + ", " +
                     phanCong.getMaHK() +
                     ")";
 
+            System.out.println(statement);
             InsertDB.getInstance().insertCommand(statement);
-            return returnPhanCong(id, phanCong);
+            return returnPhanCong(maPC , phanCong);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
 
-    private static PhanCong returnPhanCong(int id, PhanCong phanCong) {
+    private static PhanCong returnPhanCong(String id, PhanCong phanCong) {
         return new PhanCong(id, phanCong.getMaMH(), phanCong.getMaGV(), phanCong.getMaLH(), phanCong.getMaHK());
     }
 

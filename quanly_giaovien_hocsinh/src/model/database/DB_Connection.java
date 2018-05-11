@@ -26,7 +26,6 @@ public class DB_Connection {
      * @return Connection giữa database và java
      */
     public synchronized static Connection getConnection() {
-
         try {
             synchronized (lock) {
                 if (conn == null) {

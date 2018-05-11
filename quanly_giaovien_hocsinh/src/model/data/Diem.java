@@ -23,14 +23,14 @@ public class Diem extends RecursiveTreeObject<Diem> {
         return new Diem(maHS, diemHS1, diemHS2, diemHS3, maPC);
     }
 
-    public Diem(int id, int maHS, int diemHS1, int diemHS2, int diemHS3, String maPC) {
-        this.diemHS1 = new SimpleIntegerProperty(diemHS1);
-        this.diemHS2 = new SimpleIntegerProperty(diemHS2);
-        this.diemHS3 = new SimpleIntegerProperty(diemHS3);
-        this.maPC = new SimpleStringProperty(maPC);
-    }
+//    private Diem(int diemHS1, int diemHS2, int diemHS3) {
+//        this.diemHS1 = new SimpleIntegerProperty(diemHS1);
+//        this.diemHS2 = new SimpleIntegerProperty(diemHS2);
+//        this.diemHS3 = new SimpleIntegerProperty(diemHS3);
+//        this.maPC = new SimpleStringProperty(maPC);
+//    }
 
-    private Diem(int maHS, int diemHS1, int diemHS2, int diemHS3, String maPC) {
+    public Diem(int maHS, int diemHS1, int diemHS2, int diemHS3, String maPC) {
         this.maHS = new SimpleIntegerProperty(maHS);
         this.diemHS1 = new SimpleIntegerProperty(diemHS1);
         this.diemHS2 = new SimpleIntegerProperty(diemHS2);
@@ -135,7 +135,7 @@ public class Diem extends RecursiveTreeObject<Diem> {
         try {
 
 
-            int id = InsertDB.getInstance().initInsert("Diem");
+//            int id = InsertDB.getInstance().initInsert("Diem");
 
             statement = "INSERT INTO Diem(MaHS, MaPC, DiemHS1, DiemHS2, DiemHS3) VALUES " +
                     "(" +
@@ -155,15 +155,15 @@ public class Diem extends RecursiveTreeObject<Diem> {
 //            Diem.Update.where("magd = " + id, new Diem(id, diem.getTen()));
 
             InsertDB.getInstance().insertCommand(statement);
-            return returnDiem(id, diem);
+            return returnDiem(diem);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
 
-    private static Diem returnDiem(int id, Diem diem) {
-        return new Diem(id, diem.getMaHS(), diem.getDiemHS1(), diem.getDiemHS2(), diem.getDiemHS3(), diem.getMaPC());
+    private static Diem returnDiem(Diem diem) {
+        return new Diem(diem.getMaHS(), diem.getDiemHS1(), diem.getDiemHS2(), diem.getDiemHS3(), diem.getMaPC());
     }
 
     public static class Delete {
@@ -183,6 +183,13 @@ public class Diem extends RecursiveTreeObject<Diem> {
             }
         }
 
+        /**
+         * Trong này thấy 2 tham số - tức là Điểm có 2 khóa
+         * Vậy ông phải truyền 2 tham số như dưới theo thứ tự để xóa Điểm mong muốn
+         * @param maHS Cái này trước - Mã học sinh
+         * @param maPC Cái này sau - Mã Phân công?  - Cái PC này ông ghi note vào là gì nhé - T quên mất rồi
+         * @return
+         */
         public static Boolean whereId(String maHS, String maPC) {
             return Delete.where("MaHS = " + maHS
             + " and MaPC = " + maPC);
