@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXNodesList?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="100.0" minWidth="600.0" style="-fx-background-color: #f2f2f2;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Share.ShareViewController">
+   <children>
+      <JFXToolbar fx:id="toolbar" layoutX="19.0" layoutY="26.0" prefHeight="70.0" prefWidth="569.0" style="-fx-border-style: solid; -fx-border-radius: 5px;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+         <right>
+            <JFXHamburger fx:id="hamburger" prefHeight="58.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+         </right>
+         <center>
+            <VBox fx:id="vBox" prefHeight="200.0" prefWidth="315.0" BorderPane.alignment="CENTER">
+               <padding>
+                  <Insets bottom="8.0" left="15.0" top="8.0" />
+               </padding>
+               <children>
+                  <JFXNodesList fx:id="nodesList" minHeight="45.0" minWidth="110.0" rotate="270.0" spacing="75.0">
+                     <VBox.margin>
+                        <Insets top="4.0" />
+                     </VBox.margin>
+                     <children>
+                        <JFXButton fx:id="btnRootNodeList" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#toggleOption" prefHeight="45.0" prefWidth="110.0" ripplerFill="#6f94d7" style="-fx-background-color: #3b5998; -fx-background-radius: 50px; -fx-border-radius: 50px;" text="Tùy chọn" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman" size="20.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnUpdatetNodeList" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" prefHeight="45.0" prefWidth="110.0" ripplerFill="#6f94d7" style="-fx-background-color: #00C851; -fx-background-radius: 50px; -fx-border-radius: 50px;" text="Cập nhật" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman" size="20.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnAddNodeList" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" prefHeight="45.0" prefWidth="110.0" ripplerFill="#6f94d7" style="-fx-background-color: #4285F4; -fx-background-radius: 50px; -fx-border-radius: 50px;" text="Thêm" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman" size="20.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="btnDelNodeList" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" prefHeight="45.0" prefWidth="110.0" ripplerFill="#6f94d7" style="-fx-background-color: #ff4444; -fx-background-radius: 50px; -fx-border-radius: 50px;" text="Xóa" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman" size="20.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </JFXNodesList>
+               </children>
+            </VBox>
+         </center>
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </JFXToolbar>
+   </children>
+</AnchorPane>
