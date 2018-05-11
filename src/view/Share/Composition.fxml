@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Share.Composition_">
+   <children>
+      <JFXButton fx:id="btnRootNodeList" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="169.0" layoutY="142.0" prefHeight="45.0" prefWidth="110.0" ripplerFill="#6f94d7" style="-fx-background-color: #3b5998; -fx-background-radius: 50px; -fx-border-radius: 50px;" text="Tùy chọn" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Times New Roman" size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnUpdatetNodeList" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="41.0" layoutY="75.0" prefHeight="45.0" prefWidth="110.0" ripplerFill="#6f94d7" style="-fx-background-color: #00C851; -fx-background-radius: 50px; -fx-border-radius: 50px;" text="Cập nhật" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Times New Roman" size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnAddNodeList" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="169.0" layoutY="75.0" onAction="#click" prefHeight="45.0" prefWidth="110.0" ripplerFill="#6f94d7" style="-fx-background-color: #4285F4; -fx-background-radius: 50px; -fx-border-radius: 50px;" text="Thêm" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Times New Roman" size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnDelNodeList" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" layoutX="41.0" layoutY="142.0" prefHeight="45.0" prefWidth="110.0" ripplerFill="#6f94d7" style="-fx-background-color: #ff4444; -fx-background-radius: 50px; -fx-border-radius: 50px;" text="Xóa" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Times New Roman" size="20.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>
