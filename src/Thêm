@@ -1,0 +1,302 @@
+insert into Staffs(Code, Name, PositionCode, AcademicCode, DegreeCode, Email, ImageStaff,
+ EducationFieldCode, PhoneNumber, ResearchInterests)
+values('999', N'Nguyễn Hải Dương', '02', '02', '01', N'haiduongnguyen(a)mta.edu.vn',
+(select BulkColumn from Openrowset(Bulk 'C:\Users\DEVON\Desktop\imageStaff\Bm-Nguyen_Hai_Duong.jpg', Single_Blob) as img),
+'010', 'Khong co', 'Hệ thống nhúng, Kỹ thuật vi xử lý')
+go
+
+insert into Staffs(Code, Name, PositionCode, AcademicCode, DegreeCode, Email, ImageStaff,
+ EducationFieldCode, PhoneNumber, ResearchInterests)
+values('1000', N'Hoàng Văn Phúc', '04', '02', '01', N'haiduongnguyen(a)mta.edu.vn',
+(select BulkColumn from Openrowset(Bulk 'C:\Users\DEVON\Desktop\imageStaff\Bm-Hoang_Van_Phuc.jpg', Single_Blob) as img),
+'010', 'Khong co', 'TK vi mạch, Thiết kế HT số, HT nhúng, IoT, DSP, DSR')
+go
+
+insert into Staffs(Code, Name, PositionCode, AcademicCode, DegreeCode, Email, ImageStaff,
+ EducationFieldCode, PhoneNumber, ResearchInterests)
+values('1001', N'Dương Quang Mạnh', '07', '02', '01', N'haiduongnguyen(a)mta.edu.vn',
+(select BulkColumn from Openrowset(Bulk 'C:\Users\DEVON\Desktop\imageStaff\Bm-Duong_Quang_Manh.JPG', Single_Blob) as img),
+'010', 'Khong co', 'Vi điện tử, Thiết kế hệ thống số')
+go
+
+insert into Staffs(Code, Name, PositionCode, AcademicCode, DegreeCode, Email, ImageStaff,
+ EducationFieldCode, PhoneNumber, ResearchInterests)
+values('1002', N'Phạm Tuấn Giáo', '05', '02', '01', N'haiduongnguyen(a)mta.edu.vn',
+(select BulkColumn from Openrowset(Bulk 'C:\Users\DEVON\Desktop\imageStaff\Bm-Pham_Tuan_Giao.jpg', Single_Blob) as img),
+'010', 'Khong co', 'Xử lý số tín hiệu, Xử lý tín hiệu mạng anten')
+go
+
+insert into Staffs(Code, Name, PositionCode, AcademicCode, DegreeCode, Email, ImageStaff,
+ EducationFieldCode, PhoneNumber, ResearchInterests)
+values('1003', N'Nguyễn Hoài Anh', '05', '02', '01', N'haiduongnguyen(a)mta.edu.vn',
+(select BulkColumn from Openrowset(Bulk 'C:\Users\DEVON\Desktop\imageStaff\KhongCoAnh.png', Single_Blob) as img),
+'010', 'Khong co', 'Vi điện tử, Hệ thống thông tin')
+go
+
+insert into Staffs(Code, Name, PositionCode, AcademicCode, DegreeCode, Email, ImageStaff,
+ EducationFieldCode, PhoneNumber, ResearchInterests)
+values('1004', N'Nguyễn Đình Tuấn', '05', '02', '01', N'haiduongnguyen(a)mta.edu.vn',
+(select BulkColumn from Openrowset(Bulk 'C:\Users\DEVON\Desktop\imageStaff\Bm-Nguyen_Dinh_Tuan.jpg', Single_Blob) as img),
+'010', 'Khong co', 'Thiết kế hệ thống số')
+go
+
+insert into Staffs(Code, Name, PositionCode, AcademicCode, DegreeCode, Email, ImageStaff,
+ EducationFieldCode, PhoneNumber, ResearchInterests)
+values('1005', N'Đào Văn Lân', '05', '02', '01', N'haiduongnguyen(a)mta.edu.vn',
+(select BulkColumn from Openrowset(Bulk 'C:\Users\DEVON\Desktop\imageStaff\Bm-Dao_Van_Lan.JPG', Single_Blob) as img),
+'010', 'Khong co', 'Thiết kế HT số, Hệ thống nhúng, IoT, Xử lý tiếng nói')
+go
+
+insert into Staffs(Code, Name, PositionCode, AcademicCode, DegreeCode, Email, ImageStaff,
+ EducationFieldCode, PhoneNumber, ResearchInterests)
+values('1006', N'Nguyễn Văn Tình', '05', '01', '03', N'haiduongnguyen(a)mta.edu.vn',
+(select BulkColumn from Openrowset(Bulk 'C:\Users\DEVON\Desktop\imageStaff\Bm-Nguyen_Van_Tinh.png', Single_Blob) as img),
+'010', 'Khong co', 'Thiết kế hệ thống số')
+go
+
+insert into Staffs(Code, Name, PositionCode, AcademicCode, DegreeCode, Email, ImageStaff,
+ EducationFieldCode, PhoneNumber, ResearchInterests)
+values('1007', N'Nguyễn Khoa Sang', '02', '01', '02', N'haiduongnguyen(a)mta.edu.vn',
+(select BulkColumn from Openrowset(Bulk 'C:\Users\DEVON\Desktop\imageStaff\Bm-Nguyen_Khoa_Sang.jpg', Single_Blob) as img),
+'010', 'Khong co', 'Lập trình hệ thống')
+go
+
+insert into Staffs(Code, Name, PositionCode, AcademicCode, DegreeCode, Email, ImageStaff,
+ EducationFieldCode, PhoneNumber, ResearchInterests)
+values('1008', N'Hoàng Thị Yến', '02', '01', '03', N'haiduongnguyen(a)mta.edu.vn',
+(select BulkColumn from Openrowset(Bulk 'C:\Users\DEVON\Desktop\imageStaff\Bm-Hoang_Thi_Yen.jpg', Single_Blob) as img),
+'010', 'Khong co', 'Lập trình hệ thống')
+go
+
+
+Bm-Nguyen Hai Duong
+
+
+   Nguyễn Hải Dương
+
+   Chức vụ: Chủ nhiệm Bộ môn
+
+   Học hàm, học vị: Giảng viên, Tiến sỹ
+
+   Môn học giảng dạy: Kỹ thuật VXL và lập trình hệ thống, Hệ thống nhúng
+
+   Hướng nghiên cứu: Hệ thống nhúng, Kỹ thuật vi xử lý
+
+   Email: haiduongnguyen(a)mta.edu.vn
+
+
+
+Bm-Hoang Van Phuc
+
+   Hoàng Văn Phúc
+
+   Chức vụ: Phó chủ nhiệm Bộ môn
+
+   Học hàm, học vị: Giảng viên, Tiến sỹ
+
+   Môn học giảng dạy: Thiết kế logic số, TK VLSI, Chuyên đề TK vi mạch
+
+   Hướng nghiên cứu: TK vi mạch, Thiết kế HT số, HT nhúng, IoT, DSP, DSR
+
+   Email: phuchv(a)mta.edu.vn
+
+  Bm-Duong Quang Manh
+
+   Dương Quang Mạnh
+
+   Chức vụ: Trưởng phòng thí nghiệm
+
+   Học hàm, học vị: Giảng viên, Thạc sỹ
+
+   Môn học giảng dạy: Cấu kiện điện tử, Điện tử số
+
+   Hướng nghiên cứu: Vi điện tử, Thiết kế hệ thống số
+
+   Email: manhdq(a)mta.edu.vn
+
+ Bm-Pham Tuan Giao  Phạm Tuấn Giáo
+
+   Chức vụ: Giáo viên
+
+   Học hàm, học vị: Giảng viên chính, Phó giáo sư, Tiến sỹ
+
+   Môn học giảng dạy: Cấu kiện điện tử, Điện tử số
+
+   Hướng nghiên cứu: Xử lý số tín hiệu, Xử lý tín hiệu mạng anten
+
+   Email: phamtuangiaotb(a)gmail.com
+
+
+
+   Nguyễn Hoài Anh
+
+   Chức vụ: Giáo viên
+
+   Học hàm, học vị: Giảng viên, Thạc sỹ
+
+   Môn học giảng dạy: Kỹ thuật xung, Cấu kiện điện tử
+
+   Hướng nghiên cứu: Vi điện tử, Hệ thống thông tin
+
+   Email: hoaianhcs1(a)gmail.com
+
+
+
+   Bm-Nguyen Dinh Tuan
+
+   Nguyễn Đình Tuấn
+
+   Chức vụ: Giáo viên
+
+   Học hàm, học vị: Giảng viên, Thạc sỹ
+
+   Môn học giảng dạy: Điện tử số, Thiết kế logic số
+
+   Hướng nghiên cứu: Thiết kế hệ thống số
+
+   Email: nguyentuanmta.cs1(a)gmail.com
+
+Bm-Dao Van Lan
+
+   Đào Văn Lân
+
+   Chức vụ: Giáo viên
+
+   Học hàm, học vị: Giảng viên, Thạc sỹ
+
+   Môn học giảng dạy: Thiết kế logic số, Kỹ thuật VXL và lập trình Assembly
+
+   Hướng nghiên cứu: Thiết kế HT số, Hệ thống nhúng, IoT, Xử lý tiếng nói
+
+   Email: kqha1025(a)gmail.com
+
+Bm-Nguyen Van Tinh
+
+   Nguyễn Văn Tình
+
+   Chức vụ: Giáo viên
+
+   Học hàm, học vị: Trợ giảng, Kỹ sư
+
+   Môn học giảng dạy: Điện tử số, Thiết kế logic số
+
+   Hướng nghiên cứu: Thiết kế hệ thống số
+
+   Email: tinh.vxl(a)gmail.com
+
+Bm-Nguyen Khoa Sang
+
+   Nguyễn Khoa Sang
+
+   Chức vụ: Giáo viên
+
+   Học hàm, học vị: Trợ giảng, Thạc sỹ
+
+   Môn học giảng dạy: Kỹ thuật VXL và lập trình Assembly
+
+   Hướng nghiên cứu: Lập trình hệ thống
+
+   Email: nguyenkhoasang(a)gmail.com
+
+Bm-Hoang Thi Yen
+
+   Hoàng Thị Yến
+
+   Chức vụ: Giáo viên
+
+   Học hàm, học vị: Trợ giảng, Kỹ sư
+
+   Môn học giảng dạy: Kỹ thuật VXL và lập trình Assembly
+
+   Hướng nghiên cứu: Lập trình hệ thống
+
+   Email: hoangyenmta(a)gmail.com
+
+TQKien
+
+   Trịnh Quang Kiên
+
+   Chức vụ: Giáo viên, NCS
+
+   Học hàm, học vị: Giảng viên, Thạc sỹ
+
+   Môn học giảng dạy: Điện tử số, Thiết kế logic số
+
+   Hướng nghiên cứu: Thiết kế vi mạch, Thiết kế HT số, Hệ thống nhúng
+
+   Email: quangkien82(a)gmail.com
+
+ Bm-Vu Hoang Gia
+
+   Vũ Hoàng Gia
+
+   Chức vụ: Giáo viên, NCS
+
+   Học hàm, học vị: Trợ giảng, Thạc sỹ
+
+   Môn học giảng dạy: Kỹ thuật VXL và lập trình Assembly
+
+   Hướng nghiên cứu: Lập trình hệ thống
+
+   Email: hoanggiamta(a)gmail.com
+
+
+
+   Trần Thị Hồng Thắm
+
+   Chức vụ: Giáo viên, NCS
+
+   Học hàm, học vị: Trợ giảng, Thạc sỹ
+
+   Môn học giảng dạy: Kỹ thuật VXL và lập trình Assembly
+
+   Hướng nghiên cứu: Lập trình hệ thống
+
+   Email: tranhongtham1984(a)gmail.com
+
+
+
+   Đào Đình Hà
+
+   Chức vụ: Giáo viên, NCS
+
+   Học hàm, học vị: Trợ giảng, Kỹ sư
+
+   Môn học giảng dạy: Cấu kiện điện tử
+
+   Hướng nghiên cứu: Vi điện tử
+
+   Email: havixuly(a)gmail.com
+
+NHÂN VIÊN KỸ THUẬT
+  Bm-Doan Thi Xuan
+
+   Đoàn Thị Xuân
+
+   Chức vụ: Nhân viên kỹ thuật
+
+   Học hàm, học vị: Kỹ sư
+
+   Môn học phụ trách: Thí nghiệm Cấu kiện điện tử
+
+   Email:
+
+ Bm-Nguyen Van Duong  Nguyễn Văn Dương
+
+   Chức vụ: Nhân viên kỹ thuật
+
+   Học hàm, học vị: Kỹ sư
+
+   Môn học phụ trách: Thí nghiệm Cấu kiện điện tử, Điện tử số
+
+   Email:
+
+ Bm-Le Mai Loan  Lê Mai Loan
+
+   Chức vụ: Nhân viên kỹ thuật
+
+   Học hàm, học vị: Kỹ sư
+
+   Môn học phụ trách: Thí nghiệm Cấu kiện điện tử, Điện tử số
+
+   Email: lemailoanhvqs(a)gmail.com
