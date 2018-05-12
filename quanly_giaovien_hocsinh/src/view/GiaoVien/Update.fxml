@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="515.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GiaoVienController">
+    <children>
+        <AnchorPane layoutX="30.0" layoutY="16.0" prefHeight="440.0" prefWidth="508.0" style="-fx-border-style: solid;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="16.0">
+            <children>
+                <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="270.0" layoutY="487.0" minHeight="30.0" minWidth="110.0" onAction="#btnUpdateAction" prefHeight="30.0" prefWidth="110.0" ripplerFill="BLACK" style="-fx-background-color: #4285F4;" text="Xác nhận" textFill="WHITE" underline="true" />
+                <JFXButton fx:id="btnCancel" buttonType="RAISED" layoutX="400.0" layoutY="487.0" minHeight="30.0" minWidth="110.0" onAction="#btnCancelAction" ripplerFill="BLACK" style="-fx-background-color: #ff4444;" text="Hủy" textFill="WHITE" underline="true" />
+                <Label layoutX="30.0" layoutY="49.0" prefHeight="32.0" prefWidth="135.0" text="Mã giáo viên">
+                    <font>
+                        <Font name="Times New Roman Bold" size="12.0" />
+                    </font>
+                    <effect>
+                        <Lighting>
+                            <bumpInput>
+                                <Shadow />
+                            </bumpInput>
+                            <light>
+                                <Light.Distant />
+                            </light>
+                        </Lighting>
+                    </effect>
+                </Label>
+                <Label layoutX="30.0" layoutY="141.0" prefHeight="32.0" prefWidth="135.0" text="Giới tính">
+                    <font>
+                        <Font name="Times New Roman Bold" size="12.0" />
+                    </font>
+                    <effect>
+                        <Lighting>
+                            <bumpInput>
+                                <Shadow />
+                            </bumpInput>
+                            <light>
+                                <Light.Distant />
+                            </light>
+                        </Lighting>
+                    </effect>
+                </Label>
+                <Label layoutX="30.0" layoutY="187.0" prefHeight="32.0" prefWidth="135.0" text="Địa chỉ">
+                    <font>
+                        <Font name="Times New Roman Bold" size="12.0" />
+                    </font>
+                    <effect>
+                        <Lighting>
+                            <bumpInput>
+                                <Shadow />
+                            </bumpInput>
+                            <light>
+                                <Light.Distant />
+                            </light>
+                        </Lighting>
+                    </effect>
+                </Label>
+                <Label layoutX="30.0" layoutY="233.0" prefHeight="32.0" prefWidth="135.0" text="Ngày sinh">
+                    <font>
+                        <Font name="Times New Roman Bold" size="12.0" />
+                    </font>
+                    <effect>
+                        <Lighting>
+                            <bumpInput>
+                                <Shadow />
+                            </bumpInput>
+                            <light>
+                                <Light.Distant />
+                            </light>
+                        </Lighting>
+                    </effect>
+                </Label>
+                <Label layoutX="30.0" layoutY="279.0" prefHeight="32.0" prefWidth="135.0" text="Điện thoại">
+                    <font>
+                        <Font name="Times New Roman Bold" size="12.0" />
+                    </font>
+                    <effect>
+                        <Lighting>
+                            <bumpInput>
+                                <Shadow />
+                            </bumpInput>
+                            <light>
+                                <Light.Distant />
+                            </light>
+                        </Lighting>
+                    </effect>
+                </Label>
+                <Label layoutX="30.0" layoutY="325.0" prefHeight="32.0" prefWidth="135.0" text="CMND">
+                    <font>
+                        <Font name="Times New Roman Bold" size="12.0" />
+                    </font>
+                    <effect>
+                        <Lighting>
+                            <bumpInput>
+                                <Shadow />
+                            </bumpInput>
+                            <light>
+                                <Light.Distant />
+                            </light>
+                        </Lighting>
+                    </effect>
+                </Label>
+                <Label layoutX="30.0" layoutY="371.0" prefHeight="32.0" prefWidth="135.0" text="Mật khẩu">
+                    <font>
+                        <Font name="Times New Roman Bold" size="12.0" />
+                    </font>
+                    <effect>
+                        <Lighting>
+                            <bumpInput>
+                                <Shadow />
+                            </bumpInput>
+                            <light>
+                                <Light.Distant />
+                            </light>
+                        </Lighting>
+                    </effect>
+                </Label>
+                <Label layoutX="30.0" layoutY="417.0" prefHeight="32.0" prefWidth="135.0" text="Mức quản lý">
+                    <font>
+                        <Font name="Times New Roman Bold" size="12.0" />
+                    </font>
+                    <effect>
+                        <Lighting>
+                            <bumpInput>
+                                <Shadow />
+                            </bumpInput>
+                            <light>
+                                <Light.Distant />
+                            </light>
+                        </Lighting>
+                    </effect>
+                </Label>
+                <JFXTextField fx:id="MaGV" disable="true" editable="false" layoutX="165.0" layoutY="49.0" minHeight="32.0" minWidth="200.0">
+                    <font>
+                        <Font name="Times New Roman" size="14.0" />
+                    </font>
+                </JFXTextField>
+                <JFXTextField fx:id="diaChi" layoutX="165.0" layoutY="187.0" minHeight="32.0" minWidth="200.0" promptText="Điền địa chỉ mới">
+                    <font>
+                        <Font name="Times New Roman" size="14.0" />
+                    </font>
+                </JFXTextField>
+                <JFXTextField fx:id="dienThoai" layoutX="165.0" layoutY="279.0" minHeight="32.0" minWidth="200.0" promptText="Điền số điện thoại mới">
+                    <font>
+                        <Font name="Times New Roman" size="14.0" />
+                    </font>
+                </JFXTextField>
+                <JFXTextField fx:id="CMND" layoutX="165.0" layoutY="325.0" minHeight="32.0" minWidth="200.0" promptText="Điền CMND mới">
+                    <font>
+                        <Font name="Times New Roman" size="14.0" />
+                    </font>
+                </JFXTextField>
+                <Label alignment="CENTER" layoutX="165.0" layoutY="-1.0" prefHeight="32.0" prefWidth="237.0" text="Sửa Giáo Viên" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+                    <font>
+                        <Font name="Times New Roman Bold" size="18.0" />
+                    </font>
+                </Label>
+                <JFXDatePicker fx:id="ngaySinh" layoutX="165.0" layoutY="235.0" prefHeight="28.0" prefWidth="200.0" promptText="Chọn ngày sinh mới" />
+                <JFXPasswordField fx:id="matKhau" layoutX="165.0" layoutY="371.0" prefHeight="32.0" prefWidth="200.0" promptText="Điền mật khẩu mới">
+                    <font>
+                        <Font name="Times New Roman" size="14.0" />
+                    </font>
+                </JFXPasswordField>
+                <Label layoutX="30.0" layoutY="98.0" prefHeight="32.0" prefWidth="135.0" text="Họ tên">
+                    <font>
+                        <Font name="Times New Roman Bold" size="12.0" />
+                    </font>
+                    <effect>
+                        <Lighting>
+                            <bumpInput>
+                                <Shadow />
+                            </bumpInput>
+                            <light>
+                                <Light.Distant />
+                            </light>
+                        </Lighting>
+                    </effect>
+                </Label>
+                <JFXTextField fx:id="hoTen" layoutX="165.0" layoutY="98.0" minHeight="32.0" minWidth="200.0" promptText="Điền họ tên mới">
+                    <font>
+                        <Font name="Times New Roman" size="14.0" />
+                    </font>
+                </JFXTextField>
+                <JFXComboBox fx:id="jfxComboboxRole" layoutX="165.0" layoutY="414.0" prefHeight="32.0" prefWidth="110.0" />
+                <JFXComboBox fx:id="jfxComboboxSex" layoutX="165.0" layoutY="141.0" prefHeight="32.0" prefWidth="200.0" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
