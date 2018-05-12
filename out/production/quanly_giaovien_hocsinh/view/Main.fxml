@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="primaryPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Share.MainController">
+   <children>
+      <AnchorPane fx:id="paneMid" layoutY="100.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <AnchorPane fx:id="paneMain" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <JFXTreeTableView fx:id="treeTableView" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </JFXTreeTableView>
+               </children>
+            </AnchorPane>
+            <JFXDrawer fx:id="drawLeft" defaultDrawerSize="200.0" layoutY="-100.0" maxWidth="250.0" prefHeight="600.0" prefWidth="210.0" AnchorPane.bottomAnchor="-100.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-100.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="paneTop" layoutX="170.0" minHeight="100.0" minWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="paneBottom" layoutY="500.0" prefHeight="100.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <JFXDrawer fx:id="drawBottom" alignment="CENTER_LEFT" defaultDrawerSize="0.0" prefHeight="100.0" prefWidth="609.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="191.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label alignment="CENTER" minHeight="100.0" prefHeight="100.0" prefWidth="194.0" text="Nhóm 11 - Lab 3" textFill="#ff005e">
+                     <font>
+                        <Font name="Times New Roman Bold Italic" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding></JFXDrawer>
+            <JFXComboBox fx:id="jfxCombobox" labelFloat="true" layoutX="609.0" layoutY="29.0" prefHeight="42.0" prefWidth="182.0" promptText="Bảng Dữ Liệu" AnchorPane.rightAnchor="15.0">
+               <opaqueInsets>
+                  <Insets left="30.0" />
+               </opaqueInsets>
+            </JFXComboBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

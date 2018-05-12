@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="anchor" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManageController">
+   <children>
+      <JFXButton fx:id="buttonPattern" buttonType="RAISED" layoutX="78.0" layoutY="104.0" style="-fx-background-color: yellow; -fx-border-radius: 50px; -fx-border-style: solid;" text="Hello">
+         <font>
+            <Font name="Times New Roman Bold" size="14.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

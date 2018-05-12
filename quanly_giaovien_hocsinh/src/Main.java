@@ -23,7 +23,7 @@ public class Main extends Application implements Initializable {
     public void start(Stage primaryStage) throws IOException {
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("view/Login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("view/Login/Login.fxml"));
 //        Parent root = FXMLLoader.load(getClass().getResource("view/Share/Composition.fxml"));
 
             //        leftPane =
