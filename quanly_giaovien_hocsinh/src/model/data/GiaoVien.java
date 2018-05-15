@@ -280,7 +280,7 @@ public class GiaoVien extends RecursiveTreeObject<GiaoVien> {
                         "SET " +
 //                        "MaHS = N'" + newGiaoVien.getMaHS() + ", " +
 //                        "MaPC = N'" + newGiaoVien.getMaPC() + ", " +
-                        "MaGV = " + newGiaoVien.getMaGV() + ", " +
+//                        "MaGV = " + newGiaoVien.getMaGV() + ", " +
                         "GioiTinh = N'" + newGiaoVien.getMaGV() + "', " +
                         "HoTen = N'" + newGiaoVien.getHoTen() + "', " +
                         "DiaChi = N'" + newGiaoVien.getDiaChi() + "', " +

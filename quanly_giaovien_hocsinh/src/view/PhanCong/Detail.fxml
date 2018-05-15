@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PhanCongController">
+    <children>
+        <Label alignment="CENTER" layoutX="236.0" layoutY="25.0" prefHeight="35.0" prefWidth="436.0" style="-fx-border-style: solid;" text="Chi Tiết Phân Công" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="20.0">
+            <font>
+                <Font name="System Bold" size="16.0" />
+            </font>
+        </Label>
+        <AnchorPane layoutX="20.0" layoutY="77.0" prefHeight="400.0" prefWidth="400.0" style="-fx-border-style: solid;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="128.0">
+            <children>
+                <Label layoutX="38.0" layoutY="26.0" prefHeight="35.0" prefWidth="220.0" style="-fx-border-style: solid;" text="Phân công số: " AnchorPane.leftAnchor="35.0" />
+                <Label layoutX="38.0" layoutY="89.0" prefHeight="35.0" prefWidth="351.0" style="-fx-border-style: solid;" text="Giáo viên được phân công:" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="5.0" />
+                <Label layoutX="38.0" layoutY="150.0" prefHeight="35.0" prefWidth="220.0" style="-fx-border-style: solid;" text="Lớp học: " AnchorPane.leftAnchor="35.0" />
+                <Label layoutX="38.0" layoutY="211.0" prefHeight="35.0" prefWidth="220.0" style="-fx-border-style: solid;" text="Khối học:" AnchorPane.leftAnchor="35.0" />
+                <Label layoutX="38.0" layoutY="272.0" prefHeight="35.0" prefWidth="220.0" style="-fx-border-style: solid;" text="Môn học: " AnchorPane.leftAnchor="35.0" />
+                <JFXButton layoutX="272.0" layoutY="150.0" prefHeight="35.0" prefWidth="117.0" text="Chi tiết lớp học" textFill="#007bff" underline="true" />
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="397.0" layoutY="77.0" prefHeight="400.0" prefWidth="400.0" style="-fx-border-style: solid;" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="128.0">
+            <children>
+                <Label alignment="CENTER_RIGHT" layoutX="21.0" layoutY="89.0" prefHeight="35.0" prefWidth="150.0" style="-fx-border-style: solid;" text="Học kỳ" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="89.0" />
+                <Label alignment="CENTER" layoutX="135.0" layoutY="23.0" prefHeight="35.0" prefWidth="150.0" style="-fx-border-style: solid;" text="Thời Gian" AnchorPane.topAnchor="15.0">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER_RIGHT" layoutX="16.0" layoutY="150.0" prefHeight="35.0" prefWidth="150.0" style="-fx-border-style: solid;" text="Năm học" AnchorPane.leftAnchor="15.0" />
+                <Label alignment="CENTER_RIGHT" layoutX="16.0" layoutY="211.0" prefHeight="35.0" prefWidth="150.0" style="-fx-border-style: solid;" text="Thời gian bắt đầu" AnchorPane.leftAnchor="15.0" />
+                <Label alignment="CENTER_RIGHT" layoutX="16.0" layoutY="272.0" prefHeight="35.0" prefWidth="150.0" style="-fx-border-style: solid;" text="Thời gian kết thúc" AnchorPane.leftAnchor="15.0" />
+                <Label layoutX="194.0" layoutY="89.0" prefHeight="35.0" prefWidth="200.0" style="-fx-border-style: solid;" AnchorPane.rightAnchor="15.0" />
+                <Label layoutX="189.0" layoutY="150.0" prefHeight="35.0" prefWidth="200.0" style="-fx-border-style: solid;" AnchorPane.rightAnchor="15.0" />
+                <Label layoutX="189.0" layoutY="211.0" prefHeight="35.0" prefWidth="200.0" style="-fx-border-style: solid;" AnchorPane.rightAnchor="15.0" />
+                <Label layoutX="189.0" layoutY="272.0" prefHeight="35.0" prefWidth="200.0" style="-fx-border-style: solid;" AnchorPane.rightAnchor="15.0" />
+            </children>
+        </AnchorPane>
+        <JFXButton cancelButton="true" layoutX="654.0" layoutY="537.0" prefHeight="35.0" prefWidth="117.0" style="-fx-background-color: rgba(141, 132, 132, 0.1);" text="Đóng" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="30.0" />
+        <Label layoutX="38.0" layoutY="73.0" prefHeight="35.0" prefWidth="220.0" style="-fx-border-style: solid;" text="Phân công số: " AnchorPane.leftAnchor="35.0" />
+    </children>
+</AnchorPane>

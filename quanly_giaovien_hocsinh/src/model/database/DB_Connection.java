@@ -14,7 +14,7 @@ public class DB_Connection {
     /**
      * Thay đổi giống tên password trong sql server
      */
-    private static String PASSWORD = "hoangbui";
+    private static String PASSWORD = "tThangbe1";
     private static Connection conn = null;
     private static Object lock = new Object();
 

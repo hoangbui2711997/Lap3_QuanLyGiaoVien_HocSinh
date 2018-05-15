@@ -87,7 +87,7 @@ public class RepositoryGiaoVien {
         try {
             checkNull();
 
-            GiaoVien.Update.where(giaoVien.getMaGV() + "", giaoVien);
+            GiaoVien.Update.whereId(giaoVien.getMaGV() + "", giaoVien);
             GiaoVien oldGiaoVien =
                     lstGiaoVien
                             .stream()
@@ -98,7 +98,7 @@ public class RepositoryGiaoVien {
             int index = lstGiaoVien.indexOf(oldGiaoVien);
             lstGiaoVien.set(index, giaoVien);
 
-            GiaoVien.Insert(giaoVien);
+//            GiaoVien.Insert(giaoVien);
         } catch (Exception e) {
             return false;
         } finally {

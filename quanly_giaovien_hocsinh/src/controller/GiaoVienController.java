@@ -19,100 +19,85 @@ import model.data.GiaoVien;
 import model.database.InsertDB;
 import model.repository.RepositoryGiaoVien;
 
-import javax.swing.*;
-
 public class GiaoVienController {
 
     @FXML
-    private JFXComboBox jfxComboboxSex;
+    public JFXComboBox jfxComboboxSex;
 
     @FXML
-    private ResourceBundle resources;
+    public ResourceBundle resources;
 
     @FXML
-    private URL location;
+    public URL location;
 
     @FXML
-    private JFXButton btnSubmit;
+    public JFXButton btnSubmit;
 
     @FXML
-    private JFXButton btnCancel;
+    public JFXButton btnCancel;
 
     @FXML
-    private JFXTextField MaGV;
+    public JFXTextField MaGV;
 
     @FXML
-    private JFXTextField gioiTinh;
+    public JFXTextField gioiTinh;
 
     @FXML
-    private JFXTextField diaChi;
+    public JFXTextField diaChi;
 
     @FXML
-    private JFXTextField dienThoai;
+    public JFXTextField dienThoai;
 
     @FXML
-    private JFXTextField CMND;
+    public JFXTextField CMND;
 
     @FXML
-    private JFXTextField hoTen;
+    public JFXTextField hoTen;
 
     @FXML
-    private JFXComboBox jfxComboboxRole;
+    public JFXComboBox jfxComboboxRole;
 
     @FXML
-    private JFXDatePicker ngaySinh;
+    public JFXDatePicker ngaySinh;
 
     @FXML
-    private JFXPasswordField matKhau;
+    public JFXPasswordField matKhau;
 
     @FXML
-    private AnchorPane rootPane;
+    public AnchorPane rootPane;
+
+    public GiaoVien oldGiaoVien;
+
+    /**
+     * Báo xem action sẽ là action nào
+     */
+    public static String action;
 
     @FXML
     void btnCancelAction(ActionEvent event) throws SQLException {
 
     }
 
-    @FXML
-    void btnSubmitAction(ActionEvent event, String option) throws SQLException {
-        if (!checkIsEmpty()) {
-            if ("Add".equals(option)) {
-                GiaoVien giaoVien = GiaoVien.getInstance(Integer.parseInt(MaGV.getText()),
-                        jfxComboboxSex.getValue().toString(),
-                        hoTen.getText(),
-                        diaChi.getText(),
-                        ngaySinh.getValue().toString(),
-                        dienThoai.getText(),
-                        CMND.getText(),
-                        matKhau.getText(),
-                        Integer.parseInt(jfxComboboxRole.getValue().toString())
-                );
-                // Thêm giáo viên
-                RepositoryGiaoVien.add(giaoVien);
-                new Alert(Alert.AlertType.INFORMATION, "Thêm thành công", ButtonType.OK).showAndWait();
-            } else {
-                GiaoVien giaoVien = GiaoVien.getInstance(Integer.parseInt(MaGV.getText()),
-                        jfxComboboxSex.getValue().toString(),
-                        hoTen.getText(),
-                        diaChi.getText(),
-                        ngaySinh.getValue().toString(),
-                        dienThoai.getText(),
-                        CMND.getText(),
-                        matKhau.getText(),
-                        Integer.parseInt(jfxComboboxRole.getValue().toString())
-                );
-                // Thêm giáo viên
-                RepositoryGiaoVien.edit(giaoVien);
-                new Alert(Alert.AlertType.INFORMATION, "Thêm thành công", ButtonType.OK).showAndWait();
-            }
-        }
-        MainController.secondaryStage.close();
+    void handleAdd(ActionEvent event) throws SQLException {
+
+        GiaoVien giaoVien = getGiaoVienFromForm();
+        // Thêm giáo viên
+        RepositoryGiaoVien.add(giaoVien);
+        new Alert(Alert.AlertType.INFORMATION, "Thêm thành công", ButtonType.OK).showAndWait();
 
     }
 
-    @FXML
-    void btnUpdateAction(ActionEvent event) {
-
+    private GiaoVien getGiaoVienFromForm() {
+        return GiaoVien.getInstance(Integer.parseInt(MaGV.getText()),
+                    jfxComboboxSex.getValue().toString(),
+                    hoTen.getText(),
+                    diaChi.getText(),
+                    ngaySinh.getValue().toString(),
+                    dienThoai.getText(),
+                    CMND.getText(),
+                    matKhau.getText(),
+                    Integer.parseInt(jfxComboboxRole.getValue().toString())
+            );
     }
 
     @FXML
@@ -147,6 +132,11 @@ public class GiaoVienController {
         });
     }
 
+    /**
+     * Kiểm tra xem nhập có hợp lệ không
+     *
+     * @return
+     */
     private boolean checkIsEmpty() {
         if ("".equals(jfxComboboxSex.getValue().toString()) ||
                 "".equals(hoTen.getText()) || "".equals(diaChi.getText()) ||
@@ -159,4 +149,30 @@ public class GiaoVienController {
             return false;
         }
     }
+
+    public void btnSubmitAction(ActionEvent actionEvent) throws SQLException {
+        if (!checkIsEmpty()) {
+            if (action.equals("Add")) {
+                handleAdd(actionEvent);
+            } else if(action.equals("Update")){
+                handleUpdate(actionEvent);
+            }
+        }
+        MainController.secondaryStage.close();
+    }
+
+    private void handleUpdate(ActionEvent actionEvent) throws SQLException {
+        // Truyền giá trị update vào 1 đối tượng xong update
+        GiaoVien giaoVien = getGiaoVienFromForm();
+
+        // Sửa giáo viên
+//        GiaoVien.Update.whereId(MaGV.getText() + "", giaoVien);
+        RepositoryGiaoVien.edit(giaoVien);
+
+
+        new Alert(Alert.AlertType.INFORMATION, "Sửa thành công", ButtonType.OK).showAndWait();
+        MainController.secondaryStage.close();
+    }
+
+
 }

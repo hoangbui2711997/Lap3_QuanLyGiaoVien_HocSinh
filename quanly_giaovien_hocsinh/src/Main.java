@@ -1,9 +1,11 @@
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,10 +18,10 @@ public class Main extends Application implements Initializable {
     public void start(Stage primaryStage) throws IOException {
 
 
-            Parent root = FXMLLoader.load(getClass().getResource("view/Main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("view/Main.fxml"));
 //        Parent root = FXMLLoader.load(getClass().getResource("view/Share/Composition.fxml"));
 
-            //        leftPane =
+        //        leftPane =
 
 //        topPane =
 //        topPane = FXMLLoader.load(getClass().getResource("view/Share/TopPane.fxml"));
@@ -33,9 +35,10 @@ public class Main extends Application implements Initializable {
 //        Scene scene = new Scene(root, 800, 600);
 
 
-            primaryStage.setScene(new Scene(root, 1000, 600));
-            primaryStage.setResizable(true);
-            primaryStage.show();
+        primaryStage.setScene(new Scene(root, 1000, 600));
+        primaryStage.setFullScreen(true);
+        primaryStage.setResizable(true);
+        primaryStage.show();
     }
 
     @FXML
