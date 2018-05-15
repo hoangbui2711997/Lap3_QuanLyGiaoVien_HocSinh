@@ -11,18 +11,7 @@ public class Test {
     public void doTest1() throws SQLException {
         KhoiHoc kh  = new KhoiHoc("Test");
         KhoiHoc.Insert(kh);
-        NamHoc nh = new NamHoc(LocalDate.now().getYear(), LocalDate.now().getYear() + 1, "Test");
-        NamHoc.Insert(nh);
 
-        HocSinh hs = new HocSinh("Nam", "I am Test",
-                Date.valueOf(LocalDate.now()).toString(), "Dia chi Test", "123456789");
-        HocSinh.Insert(hs);
-
-        HocKy hocKy = new HocKy("Hoc Ky 1", 1,1,2,2);
-        HocKy.Insert(hocKy);
-
-        MonHoc mh = new MonHoc("Test");
-        MonHoc.Insert(mh);
     }
 
     @org.junit.jupiter.api.Test

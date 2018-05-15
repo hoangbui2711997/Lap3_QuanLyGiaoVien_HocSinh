@@ -37,8 +37,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.data.*;
 import model.database.DB_Connection;
-import model.repository.RepositoryDiem;
-import model.repository.RepositoryGiaoVien;
+import model.repository.*;
 //import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -314,13 +313,36 @@ public class MainController implements Initializable {
                 new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
                 return;
             }
-        } else if("Điểm".equals(jfxCombobox.getValue())) {
+        } else if ("Điểm".equals(jfxCombobox.getValue())) {
             Diem diem = (Diem) item.getValue();
-            if(RepositoryDiem.
+            if (RepositoryDiem.
                     del(diem)) {
                 lstDiem = RepositoryDiem.getAll();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
+                return;
             }
-            else {
+        } else if ("Học Sinh".equals(jfxCombobox.getValue())) {
+            HocSinh hocSinh = (HocSinh) item.getValue();
+            if (RepositoryHocSinh.del(hocSinh)) {
+                lstHocSinh = RepositoryHocSinh.getAll();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
+                return;
+            }
+        } else if ("Môn Học".equals(jfxCombobox.getValue())) {
+            MonHoc monHoc = (MonHoc) item.getValue();
+            if(RepositoryMonHoc.del(monHoc)) {
+                lstMonHoc = RepositoryMonHoc.getAll();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
+                return;
+            }
+        } else if ("Lớp Học".equals(jfxCombobox.getValue())){
+            LopHoc lopHoc = (LopHoc) item.getValue();
+            if(RepositoryLopHoc.del(lopHoc)){
+                lstLopHoc = RepositoryLopHoc.getAll();
+            } else{
                 new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
                 return;
             }
