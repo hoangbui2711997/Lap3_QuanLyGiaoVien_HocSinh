@@ -1,7 +1,6 @@
 package model.repository;
 
 import model.data.Diem;
-import model.data.Diem;
 
 import java.sql.SQLException;
 import java.util.List;
