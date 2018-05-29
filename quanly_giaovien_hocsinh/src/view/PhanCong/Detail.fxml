@@ -5,42 +5,114 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PhanCongController">
+<AnchorPane fx:id="sceneRoot" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PhanCongController">
     <children>
-        <Label alignment="CENTER" layoutX="236.0" layoutY="25.0" prefHeight="35.0" prefWidth="436.0" style="-fx-border-style: solid;" text="Chi Tiết Phân Công" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="20.0">
+        <Label alignment="CENTER" layoutX="250.0" layoutY="20.0" prefHeight="61.0" prefWidth="800.0" style="-fx-background-color: #6c757d9c;" text="Chi Tiết Phân Công" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <font>
-                <Font name="System Bold" size="16.0" />
+                <Font name="Times New Roman Bold Italic" size="20.0" />
             </font>
         </Label>
         <AnchorPane layoutX="20.0" layoutY="77.0" prefHeight="400.0" prefWidth="400.0" style="-fx-border-style: solid;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="128.0">
             <children>
-                <Label layoutX="38.0" layoutY="26.0" prefHeight="35.0" prefWidth="220.0" style="-fx-border-style: solid;" text="Phân công số: " AnchorPane.leftAnchor="35.0" />
-                <Label layoutX="38.0" layoutY="89.0" prefHeight="35.0" prefWidth="351.0" style="-fx-border-style: solid;" text="Giáo viên được phân công:" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="5.0" />
-                <Label layoutX="38.0" layoutY="150.0" prefHeight="35.0" prefWidth="220.0" style="-fx-border-style: solid;" text="Lớp học: " AnchorPane.leftAnchor="35.0" />
-                <Label layoutX="38.0" layoutY="211.0" prefHeight="35.0" prefWidth="220.0" style="-fx-border-style: solid;" text="Khối học:" AnchorPane.leftAnchor="35.0" />
-                <Label layoutX="38.0" layoutY="272.0" prefHeight="35.0" prefWidth="220.0" style="-fx-border-style: solid;" text="Môn học: " AnchorPane.leftAnchor="35.0" />
-                <JFXButton layoutX="272.0" layoutY="150.0" prefHeight="35.0" prefWidth="117.0" text="Chi tiết lớp học" textFill="#007bff" underline="true" />
+                <Label alignment="CENTER" layoutX="2.0" layoutY="2.0" prefHeight="70.0" prefWidth="398.0" style="-fx-background-color: #17a2b894;" text="Thông tin" textFill="WHITE" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+               <font>
+                  <Font name="Times New Roman" size="18.0" />
+               </font></Label>
+                <Label fx:id="lbGiaoVien" layoutX="173.0" layoutY="94.0" prefHeight="35.0" prefWidth="220.0" style="-fx-border-style: solid; -fx-border-width: 0 0 2 0; -fx-border-color: green;" AnchorPane.leftAnchor="155.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="93.0">
+               <font>
+                  <Font name="Times New Roman Bold" size="13.0" />
+               </font></Label>
+                <Label fx:id="lbLopHoc" layoutX="157.0" layoutY="272.0" prefHeight="35.0" prefWidth="235.0" style="-fx-border-style: solid; -fx-border-width: 0 0 2 0; -fx-border-color: green;" AnchorPane.leftAnchor="156.0">
+               <font>
+                  <Font name="Times New Roman Bold" size="13.0" />
+               </font></Label>
+                <Label fx:id="lbKhoiHoc" layoutX="157.0" layoutY="150.0" prefHeight="35.0" prefWidth="235.0" style="-fx-border-style: solid; -fx-border-width: 0 0 2 0; -fx-border-color: green;" AnchorPane.leftAnchor="156.0">
+               <font>
+                  <Font name="Times New Roman Bold" size="13.0" />
+               </font></Label>
+                <Label fx:id="lbMonHoc" layoutX="158.0" layoutY="211.0" prefHeight="35.0" prefWidth="235.0" style="-fx-border-style: solid; -fx-border-width: 0 0 2 0; -fx-border-color: green;" AnchorPane.leftAnchor="157.0">
+               <font>
+                  <Font name="Times New Roman Bold" size="13.0" />
+               </font></Label>
+                <JFXButton fx:id="btnDetailLopHoc" layoutX="14.0" layoutY="332.0" onAction="#actionBtnDetail" prefHeight="35.0" prefWidth="135.0" style="-fx-font-size: 15px;" text="Chi tiết lớp học" textFill="#007bff" underline="true">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font></JFXButton>
+            <Label fx:id="lbKhoiHoc1" layoutX="14.0" layoutY="94.0" prefHeight="35.0" prefWidth="135.0" style="-fx-border-style: solid; -fx-border-width: 0 0 2 0; -fx-border-color: red;" text="GV được phân công:">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbKhoiHoc11" layoutX="14.0" layoutY="150.0" prefHeight="35.0" prefWidth="135.0" style="-fx-border-style: solid; -fx-border-width: 0 0 2 0; -fx-border-color: red;" text="Khối học:">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbKhoiHoc12" layoutX="14.0" layoutY="211.0" prefHeight="35.0" prefWidth="135.0" style="-fx-border-style: solid; -fx-border-width: 0 0 2 0; -fx-border-color: red;" text="Môn học: ">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbKhoiHoc111" layoutX="14.0" layoutY="272.0" prefHeight="35.0" prefWidth="135.0" style="-fx-border-style: solid; -fx-border-width: 0 0 2 0; -fx-border-color: red;" text="Lớp học: ">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
         <AnchorPane layoutX="397.0" layoutY="77.0" prefHeight="400.0" prefWidth="400.0" style="-fx-border-style: solid;" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="128.0">
             <children>
-                <Label alignment="CENTER_RIGHT" layoutX="21.0" layoutY="89.0" prefHeight="35.0" prefWidth="150.0" style="-fx-border-style: solid;" text="Học kỳ" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="89.0" />
-                <Label alignment="CENTER" layoutX="135.0" layoutY="23.0" prefHeight="35.0" prefWidth="150.0" style="-fx-border-style: solid;" text="Thời Gian" AnchorPane.topAnchor="15.0">
+                <Label layoutX="21.0" layoutY="89.0" prefHeight="35.0" prefWidth="135.0" style="-fx-border-style: solid; -fx-border-width: 0 0 2 0; -fx-border-color: red;" text="Học kỳ" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="90.0">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font></Label>
+                <Label alignment="CENTER" layoutX="2.0" layoutY="2.0" prefHeight="70.0" prefWidth="398.0" style="-fx-background-color: #007bff85;" text="Thời Gian" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
                     <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="Times New Roman" size="18.0" />
                     </font>
                 </Label>
-                <Label alignment="CENTER_RIGHT" layoutX="16.0" layoutY="150.0" prefHeight="35.0" prefWidth="150.0" style="-fx-border-style: solid;" text="Năm học" AnchorPane.leftAnchor="15.0" />
-                <Label alignment="CENTER_RIGHT" layoutX="16.0" layoutY="211.0" prefHeight="35.0" prefWidth="150.0" style="-fx-border-style: solid;" text="Thời gian bắt đầu" AnchorPane.leftAnchor="15.0" />
-                <Label alignment="CENTER_RIGHT" layoutX="16.0" layoutY="272.0" prefHeight="35.0" prefWidth="150.0" style="-fx-border-style: solid;" text="Thời gian kết thúc" AnchorPane.leftAnchor="15.0" />
-                <Label layoutX="194.0" layoutY="89.0" prefHeight="35.0" prefWidth="200.0" style="-fx-border-style: solid;" AnchorPane.rightAnchor="15.0" />
-                <Label layoutX="189.0" layoutY="150.0" prefHeight="35.0" prefWidth="200.0" style="-fx-border-style: solid;" AnchorPane.rightAnchor="15.0" />
-                <Label layoutX="189.0" layoutY="211.0" prefHeight="35.0" prefWidth="200.0" style="-fx-border-style: solid;" AnchorPane.rightAnchor="15.0" />
-                <Label layoutX="189.0" layoutY="272.0" prefHeight="35.0" prefWidth="200.0" style="-fx-border-style: solid;" AnchorPane.rightAnchor="15.0" />
+                <Label layoutX="16.0" layoutY="150.0" prefHeight="35.0" prefWidth="135.0" style="-fx-border-style: solid; -fx-border-width: 0 0 2 0; -fx-border-color: red;" text="Năm học" AnchorPane.leftAnchor="15.0">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font></Label>
+                <Label layoutX="16.0" layoutY="211.0" prefHeight="35.0" prefWidth="135.0" style="-fx-border-style: solid; -fx-border-width: 0 0 2 0; -fx-border-color: red;" text="Thời gian bắt đầu" AnchorPane.leftAnchor="15.0">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font></Label>
+                <Label layoutX="16.0" layoutY="272.0" prefHeight="35.0" prefWidth="135.0" style="-fx-border-style: solid; -fx-border-width: 0 0 2 0; -fx-border-color: red;" text="Thời gian kết thúc" AnchorPane.leftAnchor="15.0">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font></Label>
+                <Label fx:id="lbHocKy" layoutX="194.0" layoutY="89.0" prefHeight="35.0" prefWidth="200.0" style="-fx-border-style: solid; -fx-border-width: 0 0 2 0; -fx-border-color: green;" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="90.0">
+               <font>
+                  <Font name="Times New Roman Bold" size="13.0" />
+               </font></Label>
+                <Label fx:id="lbNamHoc" layoutX="189.0" layoutY="150.0" prefHeight="35.0" prefWidth="200.0" style="-fx-border-style: solid; -fx-border-width: 0 0 2 0; -fx-border-color: green;" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="35.0">
+               <font>
+                  <Font name="Times New Roman Bold" size="13.0" />
+               </font></Label>
+                <Label fx:id="lbThoiGianBD" layoutX="189.0" layoutY="211.0" prefHeight="35.0" prefWidth="200.0" style="-fx-border-style: solid; -fx-border-width: 0 0 2 0; -fx-border-color: green;" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="35.0">
+               <font>
+                  <Font name="Times New Roman Bold" size="13.0" />
+               </font></Label>
+                <Label fx:id="lbThoiGianKT" layoutX="189.0" layoutY="272.0" prefHeight="35.0" prefWidth="200.0" style="-fx-border-style: solid; -fx-border-width: 0 0 2 0; -fx-border-color: green;" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="35.0">
+               <font>
+                  <Font name="Times New Roman Bold" size="13.0" />
+               </font></Label>
             </children>
         </AnchorPane>
-        <JFXButton cancelButton="true" layoutX="654.0" layoutY="537.0" prefHeight="35.0" prefWidth="117.0" style="-fx-background-color: rgba(141, 132, 132, 0.1);" text="Đóng" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="30.0" />
-        <Label layoutX="38.0" layoutY="73.0" prefHeight="35.0" prefWidth="220.0" style="-fx-border-style: solid;" text="Phân công số: " AnchorPane.leftAnchor="35.0" />
+        <JFXButton fx:id="btnCancel" cancelButton="true" layoutX="654.0" layoutY="537.0" onMouseClicked="#actionBtnCancel" prefHeight="35.0" prefWidth="117.0" style="-fx-background-color: #ffc107a3#ffc107a3;" text="Đóng" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="30.0">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font></JFXButton>
+        <Label fx:id="lbMaPhanCong" layoutX="172.0" layoutY="73.0" prefHeight="35.0" prefWidth="235.0" style="-fx-border-style: solid; -fx-border-width: 0 0 2 0; -fx-border-color: green;" AnchorPane.leftAnchor="155.0">
+         <font>
+            <Font name="Times New Roman Bold" size="13.0" />
+         </font></Label>
+      <Label fx:id="lbMaPhanCong1" layoutX="14.0" layoutY="73.0" prefHeight="35.0" prefWidth="135.0" style="-fx-border-style: solid; -fx-border-width: 0 0 2 0; -fx-border-color: red;" text="Phân công số: ">
+         <font>
+            <Font name="Times New Roman Bold" size="13.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

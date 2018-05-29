@@ -149,9 +149,9 @@ public class NamHoc extends RecursiveTreeObject<NamHoc> {
             }
         }
 
-//        public static Boolean whereId(String where) {
-//            return NamHoc.Delete.where("MaNH = " + where);
-//        }
+        public static Boolean whereId(String where) {
+            return NamHoc.Delete.where("MaNH = " + where);
+        }
     }
 
     public static class Update{
@@ -161,7 +161,22 @@ public class NamHoc extends RecursiveTreeObject<NamHoc> {
          * @return
          * throws SqlException
          */
-        public static Boolean where(int where, NamHoc namHoc) throws SQLException{
+        public static Boolean where(String where, NamHoc namHoc) throws SQLException{
+            try {
+                statement = "UPDATE NamHoc " +
+                        "SET " +
+//                        "MaNH = " + namHoc.getMaNH() + ", " +
+                        "TenNH = N'" + namHoc.getTenNH() + "', " +
+                        "WHERE " + where;
+                UpdateDB.getInstance().updateCommand(statement);
+                return true;
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                return false;
+            }
+        }
+
+        public static Boolean whereId(int where, NamHoc namHoc) throws SQLException{
             try {
                 statement = "UPDATE NamHoc " +
                         "SET " +

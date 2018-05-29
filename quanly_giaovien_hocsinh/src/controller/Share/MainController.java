@@ -3,16 +3,14 @@ package controller.Share;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import controller.GiaoVienController;
+import controller.PhanCongController;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
-import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,35 +19,32 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Duration;
+import javafx.util.StringConverter;
 import model.data.*;
 import model.database.DB_Connection;
 import model.repository.*;
-//import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.zip.GZIPInputStream;
+
+//import org.junit.jupiter.api.Test;
 
 public class MainController implements Initializable {
 
@@ -83,20 +78,14 @@ public class MainController implements Initializable {
     @FXML
     private JFXDrawer drawTop;
 
-    private static Object key = new Object();
-    private List<HocKy> lstHocKy;
-    private List<HocSinh> lstHocSinh;
-    private List<KhoiHoc> lstKhoiHoc;
-    private List<LopHoc> lstLopHoc;
-    private List<MonHoc> lstMonHoc;
-    private List<NamHoc> lstNamHoc;
-    private List<PhanCong> lstPhanCong;
-    private List<GiaoVien> lstGiaoVien;
-    private List<XepLop> lstLop;
-    private List<Diem> lstDiem;
+    @FXML
+    private JFXDrawer drawMain;
+
+    private JFXButton btnShowDetailPhanCong;
     private JFXNodesList jfxNodeListRoot;
     private JFXNodesList jfxNodeListControl;
-
+    public static Stage secondaryStage;
+    public static Stage tertiary;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -104,11 +93,9 @@ public class MainController implements Initializable {
             // Khởi tạo --
 //            fitSizeMethod(treeTableView, 0.0);
             // Khoi tao ket noi
-            DB_Connection.getConnection();
 
-
+            // add item to comboBox select list
             setSelectCombobox();
-
 
             // Để mặc định tàng hình
             drawLeft.setVisible(true);
@@ -137,7 +124,6 @@ public class MainController implements Initializable {
             // Lay toolbar
             JFXToolbar toolbar = getJfxToolbar(hamburger);
 
-
             // Thêm toolbar cho AnchorPane
             top.getChildren().add(toolbar);
 
@@ -153,18 +139,11 @@ public class MainController implements Initializable {
             paneTop.getChildren().add(top);
             fitSizeMethod(top, 0.0);
 
-
-            // Action handle here
-            jfxCombobox.setOnAction(e -> {
-                try {
-                    handleActionJFXComboboxSwitchTable();
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-            });
         } catch (Exception e) {
-            System.out.println(e.getCause());
+//            System.out.println(e.getCause());
         }
+
+
     }
 
     private JFXToolbar getJfxToolbar(JFXHamburger hamburger) {
@@ -192,6 +171,10 @@ public class MainController implements Initializable {
         btnDel.setStyle("-fx-background-color: #ff4444; -fx-background-radius: 50px; -fx-border-radius: 50px;");
         setStyleButton(btnDel);
 
+        btnShowDetailPhanCong = new JFXButton("Chi tiết");
+        btnShowDetailPhanCong.setStyle("-fx-background-color: #ea4335; -fx-background-radius: 50px; -fx-border-radius: 50px;");
+        setStyleButton(btnShowDetailPhanCong);
+
         // Tạo jfxNodeListRoot chứa các node
         jfxNodeListRoot = new JFXNodesList();
 
@@ -213,7 +196,6 @@ public class MainController implements Initializable {
         jfxNodeListRoot.addAnimatedNode(btnHome);
 
         // Add button
-
         jfxNodeListControl.addAnimatedNode(btnOption, (expanded, duration) -> {
             return new ArrayList<>() {
                 {
@@ -228,8 +210,10 @@ public class MainController implements Initializable {
         });
         jfxNodeListControl.addAnimatedNode(btnAdd);
         jfxNodeListControl.addAnimatedNode(btnUpdate);
+        jfxNodeListControl.addAnimatedNode(btnShowDetailPhanCong);
         jfxNodeListControl.addAnimatedNode(btnDel);
-
+        btnShowDetailPhanCong.setVisible(false);
+        btnShowDetailPhanCong.setDisable(true);
         // Đặt khoảng cách giữa 2 button
         jfxNodeListControl.setSpacing(85);
 
@@ -250,7 +234,7 @@ public class MainController implements Initializable {
 
 
         toolbar.setPadding(new Insets(15, 10, 15, 5));
-        toolbar.setStyle("-fx-border-style: solid; -fx-border-radius: 5px;");
+//        toolbar.setStyle("-fx-border-style: solid; -fx-border-radius: 5px;");
 
 
         // --------------- handle action btn
@@ -268,15 +252,30 @@ public class MainController implements Initializable {
 
         // Delete action
         btnDel.setOnAction(event -> {
-            System.out.println("I'm here");
+//            System.out.println("I'm here");
             actionBtn_Del();
             treeTableView.refresh();
         });
 
+        // Update action
         btnUpdate.setOnAction(e -> {
             try {
-                handleActionJFXComboboxSwitchTable();
+//                handleActionJFXComboboxSwitchTable();
+                actionBtn_Update();
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            } catch (IOException e1) {
+                e1.printStackTrace();
             } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        });
+
+        // Show Detail PhanCong action
+        btnShowDetailPhanCong.setOnAction(e -> {
+            try {
+                actionBtn_DetailPhanCong();
+            } catch (IOException e1) {
                 e1.printStackTrace();
             }
         });
@@ -294,30 +293,28 @@ public class MainController implements Initializable {
     }
 
     private void actionBtn_Del() {
+
         TreeItem item = (TreeItem) treeTableView.getSelectionModel().getSelectedItem();
-        System.out.println(item.toString());
+//        System.out.println(item.toString());
         if ("Giáo viên"
                 .equals(jfxCombobox.getValue())) {
-//            System.out.println("I'm here");
-//            System.out.println(item.getValue());
-//            System.out.println(item);
-
+////            System.out.println("I'm here");
+////            System.out.println(item.getValue());
+////            System.out.println(item);
             GiaoVien giaoVien = (GiaoVien) item.getValue();
             if (RepositoryGiaoVien.
                     del(giaoVien)) {
-                lstGiaoVien = RepositoryGiaoVien.getAll();
 //                treeTableView.getColumns().remove(item);
 
-//                System.out.println(RepositoryGiaoVien.getAll().size());
+////                System.out.println(RepositoryGiaoVien.getAll().size());
             } else { // Nếu xóa không thành công?
                 new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
                 return;
             }
-        } else if("Điểm".equals(jfxCombobox.getValue())) {
+        } else if ("Điểm".equals(jfxCombobox.getValue())) {
             Diem diem = (Diem) item.getValue();
-            if(RepositoryDiem.
+            if (RepositoryDiem.
                     del(diem)) {
-                lstDiem = RepositoryDiem.getAll();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
                 return;
@@ -325,27 +322,27 @@ public class MainController implements Initializable {
         } else if ("Học Sinh".equals(jfxCombobox.getValue())) {
             HocSinh hocSinh = (HocSinh) item.getValue();
             if (RepositoryHocSinh.del(hocSinh)) {
-                lstHocSinh = RepositoryHocSinh.getAll();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
                 return;
             }
         } else if ("Môn Học".equals(jfxCombobox.getValue())) {
             MonHoc monHoc = (MonHoc) item.getValue();
-            if(RepositoryMonHoc.del(monHoc)) {
-                lstMonHoc = RepositoryMonHoc.getAll();
+            if (RepositoryMonHoc.del(monHoc)) {
             } else {
                 new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
                 return;
             }
-        } else if ("Lớp Học".equals(jfxCombobox.getValue())){
+        } else if ("Lớp Học".equals(jfxCombobox.getValue())) {
             LopHoc lopHoc = (LopHoc) item.getValue();
-            if(RepositoryLopHoc.del(lopHoc)){
-                lstLopHoc = RepositoryLopHoc.getAll();
-            } else{
+            if (RepositoryLopHoc.del(lopHoc)) {
+            } else {
                 new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
                 return;
             }
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
+            return;
         }
 
         treeTableView.refresh();
@@ -354,19 +351,136 @@ public class MainController implements Initializable {
 
 //    public static Object lock = new Object();
 
-    public static Stage secondaryStage;
-
     private void actionBtn_Add() throws IOException, InterruptedException {
+        GiaoVienController.action = "Add";
+        Parent root = null;
         if ("Giáo viên".equals(jfxCombobox.getValue())) {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/GiaoVien/Add.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/view/GiaoVien/Add_Update.fxml"));
+        }
+
+        if (root != null) {
             secondaryStage = new Stage();
             secondaryStage.setScene(new Scene(root, 600, 549));
             secondaryStage.setResizable(false);
             secondaryStage.showAndWait();
             secondaryStage.close();
-
-            lstGiaoVien = RepositoryGiaoVien.getAll();
         }
+    }
+
+    private void actionBtn_Update() throws IOException, InterruptedException, SQLException {
+        GiaoVienController.action = "Update";
+        Parent root = null;
+        if ("Giáo viên".equals(jfxCombobox.getValue())) {
+            root = updateGiaoVien();
+        }
+
+        if (root != null) {
+            secondaryStage = new Stage();
+            secondaryStage.setScene(new Scene(root, 600, 549));
+            secondaryStage.setResizable(false);
+            secondaryStage.showAndWait();
+            secondaryStage.close();
+        }
+
+        try {
+            handleActionJFXComboboxSwitchTable();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void actionBtn_DetailPhanCong() throws IOException {
+//        GiaoVienController.action = "Add";
+        Parent root = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PhanCong/Detail.fxml"));
+        root = loader.load();
+
+        TreeItem<PhanCong> phanCongTreeItem = (TreeItem<PhanCong>) treeTableView.getSelectionModel().getSelectedItem();
+        PhanCong pc = phanCongTreeItem.getValue();
+
+////        System.out.println(phanCongTreeItem.toString());
+
+        PhanCongController phanCongController = loader.getController();
+        phanCongController.phanCong = pc;
+        phanCongController.init();
+
+//        phanCongController.lbGiaoVien = ;
+
+        if (root != null) {
+            secondaryStage = new Stage();
+            secondaryStage.setScene(new Scene(root, 800, 600));
+            secondaryStage.setResizable(false);
+            secondaryStage.showAndWait();
+            secondaryStage.close();
+        }
+    }
+
+    /**
+     * Xử lý update Giáo viên
+     *
+     * @return
+     * @throws IOException
+     */
+    private Parent updateGiaoVien() throws IOException {
+        Parent root;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/GiaoVien/Add_Update.fxml"));
+        root = loader.load();
+
+        List<GiaoVien> lstGiaoVien = RepositoryGiaoVien.getAll();
+
+        int pos = treeTableView.getSelectionModel().getSelectedIndex();
+        GiaoVien oldGiaoVien = lstGiaoVien.get(pos);
+        GiaoVienController updateController = loader.getController();
+
+        int i = 0;
+
+        // update gia tri ra combobox
+        i = getPositionValue(updateController.jfxComboboxSex, oldGiaoVien.getGioiTinh() + "");
+
+        updateController.jfxComboboxSex.getSelectionModel().select(
+                i
+        );
+        // ---------------------------
+
+
+        // update gia tri ra combobox
+        i = getPositionValue(updateController.jfxComboboxRole, oldGiaoVien.getRole() + "");
+
+        updateController.jfxComboboxRole.getSelectionModel().select(
+                i
+        );
+        // ----------------------------
+
+        updateController.oldGiaoVien = oldGiaoVien;
+        updateController.hoTen.setText(oldGiaoVien.getHoTen());
+        updateController.MaGV.setText(oldGiaoVien.getMaGV() + "");
+        updateController.ngaySinh.setValue(LocalDate.parse(oldGiaoVien.getNgaySinh()));
+        updateController.CMND.setText(oldGiaoVien.getCMND());
+        updateController.dienThoai.setText(oldGiaoVien.getDienThoai());
+        updateController.diaChi.setText(oldGiaoVien.getDiaChi());
+        updateController.matKhau.setText(oldGiaoVien.getMatkhau());
+        return root;
+    }
+
+    /**
+     * Lấy vị trí của giá trị trong comboBox
+     *
+     * @param jfxCombobox comboBox
+     * @param value       giá trị muốn lấy vị trí
+     * @return
+     */
+    private int getPositionValue(JFXComboBox<String> jfxCombobox, String value) {
+        // update gia tri ra combobox
+        for (int i = 0; i < jfxCombobox.getItems().size(); i++) {
+//            System.out.println(jfxCombobox.getItems().get(i));
+            if (jfxCombobox.getItems().get(i).toString().trim()
+                    .equals(
+                            value.trim())
+                    ) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -379,7 +493,7 @@ public class MainController implements Initializable {
         AnchorPane.setLeftAnchor(node, value);
     }
 
-    private void setSelectCombobox() {
+    private void setSelectCombobox() throws SQLException {
         List items = new ArrayList();
         items.add("Điểm");
         items.add("Giáo viên");
@@ -393,9 +507,13 @@ public class MainController implements Initializable {
         items.add("Xếp lớp");
 
         jfxCombobox.getItems().addAll(items);
+
+//        jfxCombobox.setValue("Giáo viên");
+//        handleActionJFXComboboxSwitchTable();
     }
 
-    private String getName(String name) {
+    //Of field
+    private String getNameOfField(String name) {
 
         StringBuffer stringBuffer = new StringBuffer("");
         for (int i = name.length() - 1; i >= 0; i--) {
@@ -424,19 +542,22 @@ public class MainController implements Initializable {
 //            }
 //        }
 
-        if(root != null) {
-            if(!root.isExpanded()) {
+        if (root != null) {
+            if (!root.isExpanded()) {
                 // make is expand
-                root.animateList();;
+                root.animateList();
+                ;
             }
         }
     }
 
+    @FXML
     private void handleActionJFXComboboxSwitchTable() throws SQLException {
         expandNodeList(jfxNodeListRoot);
 
         treeTableView.getColumns().clear();
         Field[] fields;
+        // Mang cac truong trong jfxTreeTableView
         JFXTreeTableColumn[] jfxTreeTableColumns = null;
 
         // bảng chọn
@@ -448,13 +569,8 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, GiaoVien.class.getSimpleName());
 
-            lstGiaoVien = RepositoryGiaoVien.getAll();
-            if (lstGiaoVien == null) {
-                lstGiaoVien = new ArrayList<>();
-            }
-
             ObservableList<GiaoVien> data = FXCollections.observableArrayList(
-                    lstGiaoVien
+                    RepositoryGiaoVien.getAll()
             );
 
 //            TreeItem<GiaoVien> root = new RecursiveTreeItem(data);
@@ -470,13 +586,9 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, XepLop.class.getSimpleName());
 
-            lstLop = XepLop.Search.getAll();
-            if (lstLop == null) {
-                lstLop = new ArrayList<>();
-            }
 
             ObservableList<XepLop> data = FXCollections.observableArrayList(
-                    lstLop
+                    RepositoryXepLop.getAll()
             );
 
 //            TreeItem<XepLop> root = new RecursiveTreeItem(data);
@@ -492,13 +604,8 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, Diem.class.getSimpleName());
 
-            List<Diem> lstDiem = Diem.Search.getAll();
-            if (lstDiem == null) {
-                lstDiem = new ArrayList<>();
-            }
-
             ObservableList<Diem> data = FXCollections.observableArrayList(
-                    lstDiem
+                    RepositoryDiem.getAll()
             );
 
 //            TreeItem<Diem> root = new RecursiveTreeItem(data);
@@ -513,13 +620,8 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, HocKy.class.getSimpleName());
 
-            lstHocKy = HocKy.Search.getAll();
-            if (lstHocKy == null) {
-                lstHocKy = new ArrayList<>();
-            }
-
             ObservableList<HocKy> data = FXCollections.observableArrayList(
-                    lstHocKy
+                    RepositoryHocKy.getAll()
             );
 
 //            TreeItem<HocKy> root = new RecursiveTreeItem(data);
@@ -534,13 +636,8 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, HocSinh.class.getSimpleName());
 
-            lstHocSinh = HocSinh.Search.getAll();
-            if (lstHocSinh == null) {
-                lstHocSinh = new ArrayList<>();
-            }
-
             ObservableList<HocSinh> data = FXCollections.observableArrayList(
-                    lstHocSinh
+                    RepositoryHocSinh.getAll()
             );
 
 //            TreeItem<HocSinh> root = new RecursiveTreeItem(data);
@@ -555,19 +652,14 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, KhoiHoc.class.getSimpleName());
 
-            lstKhoiHoc = KhoiHoc.Search.getAll();
-            if (lstKhoiHoc == null) {
-                lstKhoiHoc = new ArrayList<>();
-            }
-
             ObservableList<KhoiHoc> data = FXCollections.observableArrayList(
-                    lstKhoiHoc
+                    RepositoryKhoiHoc.getAll()
             );
 
 //            TreeItem<KhoiHoc> root = new RecursiveTreeItem(data);
 
 //            TreeItem<KhoiHoc> treeItem = new RecursiveTreeItem(data, null,RecursiveTreeItem::getChildren);
-            TreeItem<KhoiHoc> root = new RecursiveTreeItem<KhoiHoc>(data, RecursiveTreeObject::getChildren);
+            TreeItem<KhoiHoc> root = new RecursiveTreeItem<KhoiHoc>(data, param -> param.getChildren());
             treeTableView.setRoot(root);
         } else if ("Lớp học".equals(tableSelected)) {
             fields = LopHoc.class.getDeclaredFields();
@@ -576,17 +668,8 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, LopHoc.class.getSimpleName());
 
-            lstLopHoc = LopHoc.Search.getAll();
-            if (lstLopHoc == null) {
-                lstLopHoc = new ArrayList<>();
-            }
-
-            if (lstLopHoc == null) {
-                lstLopHoc = new ArrayList<>();
-            }
-
             ObservableList<LopHoc> data = FXCollections.observableArrayList(
-                    lstLopHoc
+                    RepositoryLopHoc.getAll()
             );
 
 //            TreeItem<LopHoc> root = new RecursiveTreeItem(data);
@@ -601,13 +684,8 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, MonHoc.class.getSimpleName());
 
-            lstMonHoc = MonHoc.Search.getAll();
-            if (lstMonHoc == null) {
-                lstMonHoc = new ArrayList<>();
-            }
-
             ObservableList<MonHoc> data = FXCollections.observableArrayList(
-                    lstMonHoc
+                    RepositoryMonHoc.getAll()
             );
 
 //            TreeItem<MonHoc> root = new RecursiveTreeItem(data);
@@ -622,13 +700,8 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, NamHoc.class.getSimpleName());
 
-            lstNamHoc = NamHoc.Search.getAll();
-            if (lstNamHoc == null) {
-                lstNamHoc = new ArrayList<>();
-            }
-
             ObservableList<NamHoc> data = FXCollections.observableArrayList(
-                    lstNamHoc
+                    RepositoryNamHoc.getAll()
             );
 
 //            TreeItem<NamHoc> root = new RecursiveTreeItem(data);
@@ -643,19 +716,17 @@ public class MainController implements Initializable {
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
             jfxTreeTableColumns = getJfxTreeTableColumns(strFields, PhanCong.class.getSimpleName());
 
-            lstPhanCong = PhanCong.Search.getAll();
-            if (lstPhanCong == null) {
-                lstPhanCong = new ArrayList<>();
-            }
+//            System.out.println(RepositoryPhanCong.getAll());
 
             ObservableList<PhanCong> data = FXCollections.observableArrayList(
-                    lstPhanCong
+                    RepositoryPhanCong.getAll()
             );
 
 //            TreeItem<PhanCong> root = new RecursiveTreeItem(data);
 
 //            TreeItem<PhanCong> treeItem = new RecursiveTreeItem(data, null,RecursiveTreeItem::getChildren);
             TreeItem<PhanCong> root = new RecursiveTreeItem<PhanCong>(data, RecursiveTreeObject::getChildren);
+            btnShowDetailPhanCong.setDisable(false);
             treeTableView.setRoot(root);
         }
 
@@ -666,7 +737,8 @@ public class MainController implements Initializable {
         String[] strFields = new String[fields.length - 2];
         int i = 0;
         for (Field field : fields) {
-            String name = getName(field.toString());
+            String name = getNameOfField(field.toString());
+
             if (name != null) {
                 strFields[i] = name;
                 i++;
@@ -682,27 +754,71 @@ public class MainController implements Initializable {
             for (int j = 0; j < jfxTreeTableColumns.length; j++) {
                 jfxTreeTableColumns[j] = new JFXTreeTableColumn(strFields[j]);
 
-//                System.out.println(treeTableView.getWidth());
+                setStyleColumn(jfxTreeTableColumns[j], GiaoVien.class.getSimpleName());
+////                System.out.println(treeTableView.getWidth());
+                if (jfxTreeTableColumns[j].getText() != null) {
+                    if (jfxTreeTableColumns[j].getText().equals("maGV")) {
+                        jfxTreeTableColumns[j].setText("Mã Giáo Viên");
+                    } else if (jfxTreeTableColumns[j].getText().equals("gioiTinh")) {
+                        jfxTreeTableColumns[j].setText("Giới Tính");
+                    } else if (jfxTreeTableColumns[j].getText().equals("hoTen")) {
+                        jfxTreeTableColumns[j].setText("Họ Tên");
+                    } else if (jfxTreeTableColumns[j].getText().equals("diaChi")) {
+                        jfxTreeTableColumns[j].setText("Địa Chỉ");
+                    } else if (jfxTreeTableColumns[j].getText().equals("ngaySinh")) {
+                        jfxTreeTableColumns[j].setText("Ngày Sinh");
+                    } else if (jfxTreeTableColumns[j].getText().equals("dienThoai")) {
+                        jfxTreeTableColumns[j].setText("Điện Thoại");
+                    } else if (jfxTreeTableColumns[j].getText().equals("matkhau")) {
+                        jfxTreeTableColumns[j].setText("Mật Khẩu");
+                    } else if (jfxTreeTableColumns[j].getText().equals("role")) {
+                        jfxTreeTableColumns[j].setText("Vai Trò");
+                    }
+                    jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
+                    jfxTreeTableColumns[j].setMaxWidth(200.0);
 
-                jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
-                jfxTreeTableColumns[j].setMaxWidth(200.0);
-                jfxTreeTableColumns[j].setCellValueFactory(
-                        new TreeItemPropertyValueFactory<GiaoVien, String>(strFields[j])
-                );
+                    jfxTreeTableColumns[j].setCellValueFactory(
+                            new TreeItemPropertyValueFactory<GiaoVien, String>(strFields[j])
+                    );
+                }
             }
         } else if (object.equals("XepLop")) {
             for (int j = 0; j < jfxTreeTableColumns.length; j++) {
                 jfxTreeTableColumns[j] = new JFXTreeTableColumn(strFields[j]);
+                setStyleColumn(jfxTreeTableColumns[j], XepLop.class.getSimpleName());
 
-                jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
-                jfxTreeTableColumns[j].setMaxWidth(200.0);
-                jfxTreeTableColumns[j].setCellValueFactory(
-                        new TreeItemPropertyValueFactory<XepLop, String>(strFields[j])
-                );
+                if (jfxTreeTableColumns[j].getText() != null) {
+
+                    if (jfxTreeTableColumns[j].getText().equals("maHS")) {
+                        jfxTreeTableColumns[j].setText("Mã Học Sinh");
+                    } else if (jfxTreeTableColumns[j].getText().equals("maLH")) {
+                        jfxTreeTableColumns[j].setText("Mã Lớp Học");
+                    }
+
+                    jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
+                    jfxTreeTableColumns[j].setMaxWidth(200.0);
+                    jfxTreeTableColumns[j].setCellValueFactory(
+                            new TreeItemPropertyValueFactory<XepLop, String>(strFields[j])
+                    );
+
+                }
             }
         } else if (object.equals("Diem")) {
             for (int j = 0; j < jfxTreeTableColumns.length; j++) {
                 jfxTreeTableColumns[j] = new JFXTreeTableColumn(strFields[j]);
+                setStyleColumn(jfxTreeTableColumns[j], Diem.class.getSimpleName());
+
+                if (jfxTreeTableColumns[j].getText().equals("maHS")) {
+                    jfxTreeTableColumns[j].setText("Mã Học Sinh");
+                } else if (jfxTreeTableColumns[j].getText().equals("diemHS1")) {
+                    jfxTreeTableColumns[j].setText("Điểm Hệ Só 1");
+                } else if (jfxTreeTableColumns[j].getText().equals("diemHS2")) {
+                    jfxTreeTableColumns[j].setText("Điểm Hệ Só 2");
+                } else if (jfxTreeTableColumns[j].getText().equals("diemHS3")) {
+                    jfxTreeTableColumns[j].setText("Điểm Hệ Só 3");
+                } else if (jfxTreeTableColumns[j].getText().equals("maPC")) {
+                    jfxTreeTableColumns[j].setText("Mã Phân Công");
+                }
 
                 jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
                 jfxTreeTableColumns[j].setMaxWidth(200.0);
@@ -713,6 +829,21 @@ public class MainController implements Initializable {
         } else if (object.equals("HocKy")) {
             for (int j = 0; j < jfxTreeTableColumns.length; j++) {
                 jfxTreeTableColumns[j] = new JFXTreeTableColumn(strFields[j]);
+                setStyleColumn(jfxTreeTableColumns[j], HocKy.class.getSimpleName());
+
+                if (jfxTreeTableColumns[j].getText().equals("maHK")) {
+                    jfxTreeTableColumns[j].setText("Mã Học Kỳ");
+                } else if (jfxTreeTableColumns[j].getText().equals("tenHK")) {
+                    jfxTreeTableColumns[j].setText("Tên Học Kỳ");
+                } else if (jfxTreeTableColumns[j].getText().equals("thangBatDau")) {
+                    jfxTreeTableColumns[j].setText("Tháng Bắt Đầu");
+                } else if (jfxTreeTableColumns[j].getText().equals("ngayBatDau")) {
+                    jfxTreeTableColumns[j].setText("Ngày Bắt Đầu");
+                } else if (jfxTreeTableColumns[j].getText().equals("thangKetThuc")) {
+                    jfxTreeTableColumns[j].setText("Tháng Kết Thúc");
+                } else if (jfxTreeTableColumns[j].getText().equals("ngayKetThuc")) {
+                    jfxTreeTableColumns[j].setText("Ngày Kết Thúc");
+                }
 
                 jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
                 jfxTreeTableColumns[j].setMaxWidth(200.0);
@@ -723,6 +854,21 @@ public class MainController implements Initializable {
         } else if (object.equals("HocSinh")) {
             for (int j = 0; j < jfxTreeTableColumns.length; j++) {
                 jfxTreeTableColumns[j] = new JFXTreeTableColumn(strFields[j]);
+                setStyleColumn(jfxTreeTableColumns[j], HocSinh.class.getSimpleName());
+
+                if (jfxTreeTableColumns[j].getText().equals("maHS")) {
+                    jfxTreeTableColumns[j].setText("Mã Học Sinh");
+                } else if (jfxTreeTableColumns[j].getText().equals("gioiTinh")) {
+                    jfxTreeTableColumns[j].setText("Giới Tính");
+                } else if (jfxTreeTableColumns[j].getText().equals("hoTen")) {
+                    jfxTreeTableColumns[j].setText("Họ Tên");
+                } else if (jfxTreeTableColumns[j].getText().equals("ngaySinh")) {
+                    jfxTreeTableColumns[j].setText("Ngày Sinh");
+                } else if (jfxTreeTableColumns[j].getText().equals("diaChi")) {
+                    jfxTreeTableColumns[j].setText("Địa Chỉ");
+                } else if (jfxTreeTableColumns[j].getText().equals("dienThoai")) {
+                    jfxTreeTableColumns[j].setText("Điện Thoại");
+                }
 
                 jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
                 jfxTreeTableColumns[j].setMaxWidth(200.0);
@@ -733,6 +879,13 @@ public class MainController implements Initializable {
         } else if (object.equals("KhoiHoc")) {
             for (int j = 0; j < jfxTreeTableColumns.length; j++) {
                 jfxTreeTableColumns[j] = new JFXTreeTableColumn(strFields[j]);
+                setStyleColumn(jfxTreeTableColumns[j], KhoiHoc.class.getSimpleName());
+
+                if (jfxTreeTableColumns[j].getText().equals("maKH")) {
+                    jfxTreeTableColumns[j].setText("Mã Khối Học");
+                } else if (jfxTreeTableColumns[j].getText().equals("tenKH")) {
+                    jfxTreeTableColumns[j].setText("Tên Khối Học");
+                }
 
                 jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
                 jfxTreeTableColumns[j].setMaxWidth(200.0);
@@ -743,6 +896,20 @@ public class MainController implements Initializable {
         } else if (object.equals("LopHoc")) {
             for (int j = 0; j < jfxTreeTableColumns.length; j++) {
                 jfxTreeTableColumns[j] = new JFXTreeTableColumn(strFields[j]);
+                setStyleColumn(jfxTreeTableColumns[j], LopHoc.class.getSimpleName());
+
+                if (jfxTreeTableColumns[j].getText().equals("maLH")) {
+                    jfxTreeTableColumns[j].setText("Mã Lớp Học");
+                } else if (jfxTreeTableColumns[j].getText().equals("maNH")) {
+                    jfxTreeTableColumns[j].setText("Mã Năm Học");
+                } else if (jfxTreeTableColumns[j].getText().equals("maGV")) {
+                    jfxTreeTableColumns[j].setText("Mã Giáo Viên");
+                } else if (jfxTreeTableColumns[j].getText().equals("maKH")) {
+                    jfxTreeTableColumns[j].setText("Mã Khối Học");
+                } else if (jfxTreeTableColumns[j].getText().equals("tenLH")) {
+                    jfxTreeTableColumns[j].setText("Tên Lớp Học");
+                }
+
 
                 jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
                 jfxTreeTableColumns[j].setMaxWidth(200.0);
@@ -753,6 +920,13 @@ public class MainController implements Initializable {
         } else if (object.equals("MonHoc")) {
             for (int j = 0; j < jfxTreeTableColumns.length; j++) {
                 jfxTreeTableColumns[j] = new JFXTreeTableColumn(strFields[j]);
+                setStyleColumn(jfxTreeTableColumns[j], MonHoc.class.getSimpleName());
+
+                if (jfxTreeTableColumns[j].getText().equals("maMH")) {
+                    jfxTreeTableColumns[j].setText("Mã Môn Học");
+                } else if (jfxTreeTableColumns[j].getText().equals("tenMH")) {
+                    jfxTreeTableColumns[j].setText("Tên Môn Học");
+                }
 
                 jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
                 jfxTreeTableColumns[j].setMaxWidth(200.0);
@@ -763,6 +937,18 @@ public class MainController implements Initializable {
         } else if (object.equals("NamHoc")) {
             for (int j = 0; j < jfxTreeTableColumns.length; j++) {
                 jfxTreeTableColumns[j] = new JFXTreeTableColumn(strFields[j]);
+                setStyleColumn(jfxTreeTableColumns[j], NamHoc.class.getSimpleName());
+
+                if (jfxTreeTableColumns[j].getText().equals("maMH")) {
+                    jfxTreeTableColumns[j].setText("Mã Môn Học");
+                } else if (jfxTreeTableColumns[j].getText().equals("Nambatdau")) {
+                    jfxTreeTableColumns[j].setText("Năm Bắt Đầu");
+                } else if (jfxTreeTableColumns[j].getText().equals("Namketthuc")) {
+                    jfxTreeTableColumns[j].setText("Năm Kết Thúc");
+                } else if (jfxTreeTableColumns[j].getText().equals("tenNH")) {
+                    jfxTreeTableColumns[j].setText("Tên Năm Học");
+                }
+
 
                 jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
                 jfxTreeTableColumns[j].setMaxWidth(200.0);
@@ -773,6 +959,19 @@ public class MainController implements Initializable {
         } else if (object.equals("PhanCong")) {
             for (int j = 0; j < jfxTreeTableColumns.length; j++) {
                 jfxTreeTableColumns[j] = new JFXTreeTableColumn(strFields[j]);
+                setStyleColumn(jfxTreeTableColumns[j], PhanCong.class.getSimpleName());
+
+                if (jfxTreeTableColumns[j].getText().equals("maPC")) {
+                    jfxTreeTableColumns[j].setText("Mã Phân Công");
+                } else if (jfxTreeTableColumns[j].getText().equals("maMH")) {
+                    jfxTreeTableColumns[j].setText("Mã Môn Học");
+                } else if (jfxTreeTableColumns[j].getText().equals("maGV")) {
+                    jfxTreeTableColumns[j].setText("Mã Giáo Viên");
+                } else if (jfxTreeTableColumns[j].getText().equals("maLH")) {
+                    jfxTreeTableColumns[j].setText("Mã Lớp Học");
+                } else if (jfxTreeTableColumns[j].getText().equals("maHK")) {
+                    jfxTreeTableColumns[j].setText("Mã Học Kỳ");
+                }
 
                 jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
                 jfxTreeTableColumns[j].setMaxWidth(200.0);
@@ -790,11 +989,28 @@ public class MainController implements Initializable {
         hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
             drawLeft.toggle();
 
-            if (drawLeft.isShowing()) {
-                AnchorPane.setLeftAnchor(paneMain, 200.0);
-                AnchorPane.setLeftAnchor(drawBottom, 200.0);
-                AnchorPane.setLeftAnchor(paneTop, 200.0);
+            TranslateTransition aniMain = new TranslateTransition(new Duration(350), paneMain);
+            TranslateTransition aniTop = new TranslateTransition(new Duration(350), paneTop);
+            TranslateTransition aniBottom = new TranslateTransition(new Duration(350), paneBottom);
+            TranslateTransition aniHamburger = new TranslateTransition(new Duration(350), hamburger);
+            TranslateTransition aniJfxCombobox = new TranslateTransition(new Duration(350), jfxCombobox);
 
+            if (drawLeft.isOpening()) {
+                aniMain.setToX(200);
+                aniTop.setToX(200);
+                aniBottom.setToX(200);
+                aniHamburger.setToX(-200);
+                aniJfxCombobox.setToX(-200);
+
+//                AnchorPane.setLeftAnchor(paneMain, 200.0);
+//                AnchorPane.setLeftAnchor(drawBottom, 200.0);
+//                AnchorPane.setLeftAnchor(paneTop, 200.0);
+
+                aniMain.play();
+                aniTop.play();
+                aniBottom.play();
+                aniHamburger.play();
+                aniJfxCombobox.play();
 //                    drawBottom.setPadding(new Insets(0, 0, 0, 230));
 
 //                    drawLeft.setStyle("-fx-background-color: black;");
@@ -809,9 +1025,21 @@ public class MainController implements Initializable {
 //                        });
 //                    }).start();
             } else {
-                AnchorPane.setLeftAnchor(paneMain, 0.0);
-                AnchorPane.setLeftAnchor(drawBottom, 0.0);
-                AnchorPane.setLeftAnchor(paneTop, 0.0);
+                aniMain.setToX(0);
+                aniTop.setToX(0);
+                aniBottom.setToX(0);
+                aniHamburger.setToX(0);
+                aniJfxCombobox.setToX(0);
+//                AnchorPane.setLeftAnchor(paneMain, 0.0);
+//                AnchorPane.setLeftAnchor(drawBottom, 0.0);
+//                AnchorPane.setLeftAnchor(paneTop, 0.0);
+
+                aniMain.play();
+                aniTop.play();
+                aniBottom.play();
+                aniHamburger.play();
+                aniJfxCombobox.play();
+
 //                    drawBottom.setPadding(new Insets(0, 0, 0, 30));
 //                    drawLeft.setStyle("-fx-background-color: inherit;");
 ////                    drawLeft.setVisible(!drawLeft.isVisible());
@@ -829,4 +1057,43 @@ public class MainController implements Initializable {
         btnOption.setFont(new Font("Times New Roman", 20));
         btnOption.setTextFill(Color.WHITE);
     }
+
+    private void setStyleColumn(JFXTreeTableColumn jfxTreeTableColumn, String type) {
+//        System.out.println(jfxTreeTableColumn);
+
+        if (jfxTreeTableColumn.getText().startsWith("ma") && !jfxTreeTableColumn.getText().equals("matkhau")) {
+            jfxTreeTableColumn.setStyle("-fx-alignment: CENTER; -fx-font-weight: 900");
+            return;
+        } else if ("GiaoVien".equals(type)) {
+            for (Field field : GiaoVien.class.getDeclaredFields()) {
+                if (jfxTreeTableColumn.getText().equals(field.getName())) {
+//                    System.out.println(field.getType().getSimpleName());
+//                    System.out.println(field.getName());
+                    if (field.getType().getSimpleName().equals("SimpleStringProperty")) {
+                        jfxTreeTableColumn.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
+                    } else if (field.getType().getSimpleName().equals("SimpleIntegerProperty")) {
+//                TextFieldTreeTableCell<GiaoVien, Integer> textFieldTreeTableCell = new TextFieldTreeTableCell();
+                        jfxTreeTableColumn.setCellFactory(TextFieldTreeTableCell
+                                .forTreeTableColumn(new StringConverter<Integer>() {
+                                    @Override
+                                    public String toString(Integer object) {
+                                        return object + "";
+                                    }
+
+                                    @Override
+                                    public Integer fromString(String string) {
+                                        return Integer.parseInt(string);
+                                    }
+                                }));
+                    }
+                    break;
+                }
+            }
+        }
+
+//        jfxTreeTableColumn.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
+        jfxTreeTableColumn.setStyle("-fx-alignment: CENTER");
+        jfxTreeTableColumn.setEditable(true);
+    }
 }
+

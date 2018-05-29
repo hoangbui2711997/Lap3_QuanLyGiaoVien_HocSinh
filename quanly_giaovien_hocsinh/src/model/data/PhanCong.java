@@ -164,7 +164,7 @@ public class PhanCong extends RecursiveTreeObject<PhanCong> {
          * @param where DK Xóa
          * @return
          */
-        public static Boolean whereID(String where) {
+        public static Boolean where(String where) {
             try {
                 statement = "DELETE PHANCONG WHERE " + where;
                 DeleteDB.getInstance().deleteCommand(statement);
@@ -175,9 +175,9 @@ public class PhanCong extends RecursiveTreeObject<PhanCong> {
             }
         }
 
-//        public static Boolean whereId(String where) {
-//            return LopHoc.Delete.where("MaLH = " + where);
-//        }
+        public static Boolean whereId(String where) {
+            return LopHoc.Delete.where("MaLH = " + where);
+        }
     }
 
     public static class Update{
@@ -187,7 +187,7 @@ public class PhanCong extends RecursiveTreeObject<PhanCong> {
          * @return
          * throws SqlException
          */
-        public static Boolean where(int where, PhanCong phanCong) throws SQLException{
+        public static Boolean where(String where, PhanCong phanCong) throws SQLException{
             try {
                 statement = "UPDATE PhanCong " +
                         "SET " +
@@ -196,13 +196,17 @@ public class PhanCong extends RecursiveTreeObject<PhanCong> {
                         "MaGV = " + phanCong.getMaGV() + ", " +
                         "MaLH = " + phanCong.getMaLH() + ", " +
                         "MaHK = " + phanCong.getMaHK() +
-                        "WHERE MaPC = " + where;
+                        "WHERE " + where;
                 UpdateDB.getInstance().updateCommand(statement);
                 return true;
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
                 return false;
             }
+        }
+
+        public static Boolean whereId(String where, PhanCong phanCong) throws SQLException{
+            return where("MaPC = " + where, phanCong);
         }
     }
 }

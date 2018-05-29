@@ -27,11 +27,11 @@ public class Test {
 //
 //
 //
-//        PhanCong phanCong = new PhanCong(52, 4, 52, 2);
-//        PhanCong.Insert(phanCong);
+        PhanCong phanCong = new PhanCong(52, 4, 52, 2);
+        PhanCong.Insert(phanCong);
 
-        Diem diem = new Diem(979, 1,2,3, "524522");
-        Diem.Insert(diem);
+//        Diem diem = new Diem(979, 1,2,3, "524522");
+//        Diem.Insert(diem);
 
 
     }

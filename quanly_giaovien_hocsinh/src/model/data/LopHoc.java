@@ -173,9 +173,9 @@ public class LopHoc extends RecursiveTreeObject<LopHoc> {
             }
         }
 
-//        public static Boolean whereId(String where) {
-//            return LopHoc.Delete.where("MaLH = " + where);
-//        }
+        public static Boolean whereId(String where) {
+            return LopHoc.Delete.where("MaLH = " + where);
+        }
     }
 
     public static class Update{

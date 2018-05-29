@@ -78,9 +78,9 @@ public class XepLop extends RecursiveTreeObject<XepLop> {
             }
         }
 
-//        public static Boolean whereId(String where) {
-//            return NamHoc.Delete.where("MaNH = " + where);
-//        }
+        public static Boolean whereId(String maHocSinh, String maLopHoc) {
+            return NamHoc.Delete.where("MaHS = " + maHocSinh + "and MaLH = " + maLopHoc);
+        }
     }
 
     public static class Search{
@@ -101,7 +101,7 @@ public class XepLop extends RecursiveTreeObject<XepLop> {
     static String statement = "";
     public static XepLop Insert(XepLop xepLop) throws SQLException{
         try {
-            int id = InsertDB.getInstance().initInsert("XepLop");
+//            int id = InsertDB.getInstance().initInsert("XepLop");
 
             statement = "INSERT INTO XepLop(MaHS, MaLH) VALUES " +
                     "(" +
@@ -110,37 +110,38 @@ public class XepLop extends RecursiveTreeObject<XepLop> {
                     ")";
 
             InsertDB.getInstance().insertCommand(statement);
-            return returnXepLop(id, xepLop);
+            return xepLop;
+//            return returnXepLop(id, xepLop);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
 
-    private static XepLop returnXepLop(int id, XepLop xepLop) {
-        return new XepLop(id, xepLop.getMaLH());
-    }
+//    private static XepLop returnXepLop(int id, XepLop xepLop) {
+//        return new XepLop(id, xepLop.getMaLH());
+//    }
 
-    public static class Update{
-        /**
-         * @param where
-         * @param xepLop
-         * @return
-         * throws SqlException
-         */
-        public static Boolean where(int where, XepLop xepLop) throws SQLException{
-            try {
-                statement = "UPDATE XepLop " +
-                        "SET " +
-                        "MaHS = " + xepLop.getMaHS() + ", " +
-                        "MaLH = " + xepLop.getMaLH() +
-                        "WHERE MaHS = " + where;
-                UpdateDB.getInstance().updateCommand(statement);
-                return true;
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-                return false;
-            }
-        }
-    }
+//    public static class Update{
+//        /**
+//         * @param where
+//         * @param xepLop
+//         * @return
+//         * throws SqlException
+//         */
+//        public static Boolean where(int where, XepLop xepLop) throws SQLException{
+//            try {
+//                statement = "UPDATE XepLop " +
+//                        "SET " +
+//                        "MaHS = " + xepLop.getMaHS() + ", " +
+//                        "MaLH = " + xepLop.getMaLH() +
+//                        "WHERE MaHS = " + where;
+//                UpdateDB.getInstance().updateCommand(statement);
+//                return true;
+//            } catch (SQLException e) {
+//                System.out.println(e.getMessage());
+//                return false;
+//            }
+//        }
+//    }
 }

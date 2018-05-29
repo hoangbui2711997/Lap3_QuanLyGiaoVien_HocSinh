@@ -14,7 +14,7 @@
          <children>
             <AnchorPane fx:id="paneMain" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <JFXTreeTableView fx:id="treeTableView" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <JFXTreeTableView fx:id="treeTableView" editable="true" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <padding>
                         <Insets bottom="10.0" />
                      </padding>
@@ -37,8 +37,9 @@
                </children>
                <padding>
                   <Insets left="30.0" />
-               </padding></JFXDrawer>
-            <JFXComboBox fx:id="jfxCombobox" labelFloat="true" layoutX="609.0" layoutY="29.0" prefHeight="42.0" prefWidth="182.0" promptText="Bảng Dữ Liệu" AnchorPane.rightAnchor="15.0">
+               </padding>
+            </JFXDrawer>
+            <JFXComboBox fx:id="jfxCombobox" labelFloat="true" layoutX="609.0" layoutY="29.0" onAction="#handleActionJFXComboboxSwitchTable" prefHeight="42.0" prefWidth="182.0" promptText="Bảng Dữ Liệu" AnchorPane.rightAnchor="15.0">
                <opaqueInsets>
                   <Insets left="30.0" />
                </opaqueInsets>
