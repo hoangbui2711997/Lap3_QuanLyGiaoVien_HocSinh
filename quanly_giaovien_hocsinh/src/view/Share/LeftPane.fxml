@@ -13,44 +13,44 @@
    <children>
       <VBox layoutX="50.0" layoutY="37.0" prefHeight="600.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="120.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgUser" fitHeight="120.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
-                  <Insets left="35.0" right="20.0" top="10.0" />
+                  <Insets left="20.0" right="20.0" top="10.0" />
                </VBox.margin>
                <image>
                   <Image url="@../../images/User.PNG" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" prefHeight="40.0" prefWidth="208.0" style="-fx-background-color: #e7e7e7;" text="User">
+            <Label fx:id="lbNameUser" alignment="CENTER" prefHeight="40.0" prefWidth="208.0" style="-fx-background-color: #e7e7e7;" text="User">
                <font>
                   <Font name="Times New Roman Bold" size="20.0" />
                </font>
             </Label>
             <AnchorPane prefHeight="380.0" prefWidth="208.0">
                <children>
-                  <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="36.0" prefHeight="31.0" prefWidth="168.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 10px; -fx-border-style: solid; -fx-border-radius: 10px;" text="Thông tin X" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0">
+                  <JFXButton fx:id="btnThongTin" buttonType="RAISED" layoutX="20.0" layoutY="241.0" onAction="#actionBtnInfoAdmin" prefHeight="31.0" prefWidth="168.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 10px; -fx-border-style: solid; -fx-border-radius: 10px;" text="Thông tin" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="241.0">
                      <font>
                         <Font name="Times New Roman" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="70.0" prefHeight="31.0" prefWidth="168.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 10px; -fx-border-style: solid; -fx-border-radius: 10px;" text="Thông tin Y">
+                  <JFXButton fx:id="btnUpdateDB" buttonType="RAISED" layoutX="20.0" layoutY="279.0" prefHeight="31.0" prefWidth="168.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 10px; -fx-border-style: solid; -fx-border-radius: 10px;" text="Cập nhật CSDL">
                      <font>
                         <Font name="Times New Roman" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="121.0" prefHeight="31.0" prefWidth="168.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 10px; -fx-border-style: solid; -fx-border-radius: 10px;" text="Thông tin Z">
+                  <JFXButton fx:id="btnExit" buttonType="RAISED" layoutX="20.0" layoutY="317.0" onAction="#actionBtnExit" prefHeight="31.0" prefWidth="168.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 10px; -fx-border-style: solid; -fx-border-radius: 10px;" text="Thoát">
                      <font>
                         <Font name="Times New Roman" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="159.0" prefHeight="31.0" prefWidth="168.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 10px; -fx-border-style: solid; -fx-border-radius: 10px;" text="Thoát">
+                  <Label alignment="CENTER" layoutX="20.0" layoutY="14.0" prefHeight="31.0" prefWidth="119.0" style="-fx-border-width: 0 0 2px 0; -fx-border-style: solid;" text="Thống kê" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="69.0" AnchorPane.topAnchor="14.0">
                      <font>
                         <Font name="Times New Roman" size="14.0" />
                      </font>
-                  </JFXButton>
+                  </Label>
                </children>
             </AnchorPane>
-            <Label alignment="CENTER" prefHeight="51.0" prefWidth="208.0" text="Role: Admin" textFill="#b93d81">
+            <Label fx:id="lbRole" alignment="CENTER" prefHeight="51.0" prefWidth="208.0" text="Role: Admin" textFill="#b93d81">
                <font>
                   <Font name="Times New Roman Bold Italic" size="14.0" />
                </font>

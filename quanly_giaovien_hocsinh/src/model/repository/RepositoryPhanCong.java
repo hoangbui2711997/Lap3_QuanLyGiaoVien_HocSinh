@@ -13,7 +13,11 @@ public class RepositoryPhanCong {
 
     }
 
-    public synchronized static List<PhanCong> getAll() {
+    static void updateUnSynchronizedDataBase() throws SQLException {
+        lstPhanCong = PhanCong.Search.getAll();
+    }
+
+    public static List<PhanCong> getAll() {
         try {
             if (lstPhanCong == null) {
                 lstPhanCong = PhanCong.Search.getAll();

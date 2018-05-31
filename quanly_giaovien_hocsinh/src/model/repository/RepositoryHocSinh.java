@@ -14,7 +14,11 @@ public class RepositoryHocSinh {
 
     }
 
-    public synchronized static List<HocSinh> getAll() {
+    static void updateUnSynchronizedDataBase() throws SQLException {
+        lstHocSinh = HocSinh.Search.getAll();
+    }
+
+    public static List<HocSinh> getAll() {
         try {
             if (lstHocSinh == null) {
                 lstHocSinh = HocSinh.Search.getAll(); }

@@ -3,7 +3,6 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import controller.Share.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -50,7 +49,12 @@ public class LoginController {
                         .equals(txtCMND.getText()))
                 ) {
 
-            MainApp.makeForm(Layout.LAYOUT_MAIN);
+            MainApp.makeForm(Layout.LAYOUT_MAIN,
+                    RepositoryGiaoVien.getAll()
+                    .stream()
+                    .filter(e -> e.getCMND().equals(txtCMND.getText()))
+                    .findFirst()
+                    .get());
         }
     }
 }

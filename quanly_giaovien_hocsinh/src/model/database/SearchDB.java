@@ -73,11 +73,15 @@ public class SearchDB implements ISearch {
             Object CMND = resultSet.getObject(7);
             Object matKhau = resultSet.getObject(8);
             Object role = resultSet.getObject(9);
-
+            Object ngayGiaNhap = resultSet.getObject(10);
+            String ngayNgungDay = resultSet.getObject(11) == null ? "Vẫn dạy" : ((Date)resultSet.getObject(11)).toString();
+            String anhGiaoVien = resultSet.getObject(12) == null ? "file:/C:/Users/hoang/TTN/Lap3_QuanLyGiaoVien_HocSinh/out/production/quanly_giaovien_hocsinh/images/User.PNG" : resultSet.getObject(12).toString();
 
             return GiaoVien.getInstance((Integer) maGV, (String) gioiTinh,
                     (String) hoTen, (String) diaChi, ((Date) ngaySinh).toString(),
-                    (String) dienThoai, (String) CMND, (String) matKhau, (Integer) role);
+                    (String) dienThoai, (String) CMND, (String) matKhau, (Integer) role,
+                    ngayGiaNhap.toString(), ngayNgungDay,
+                    (String) anhGiaoVien);
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -165,17 +169,27 @@ public class SearchDB implements ISearch {
             Object maHS = resultSet.getObject(1);
             Object gioiTinh = resultSet.getObject(2);
             Object hoTen = resultSet.getObject(3);
-            Object ngaySinh = resultSet.getObject(4);
+            String ngaySinh = resultSet.getObject(4) == null ?
+                    "Không có" :
+                    ((Date) resultSet.getObject(4)).toString();
             Object diaChi = resultSet.getObject(5);
             Object dienThoai = resultSet.getObject(6);
+            String ngayTotNghiep = resultSet.getObject(7)  == null ?
+                    "Chưa tốt nghiệp" :
+                    ((Date) resultSet.getObject(7)).toString();
+            String ngayNhapHoc = resultSet.getObject(8) == null ?
+                    "Không có" :
+                    ((Date) resultSet.getObject(8)).toString();
 
             return HocSinh.getInstance(
                     (Integer) maHS,
                     (String) gioiTinh,
                     (String) hoTen,
-                    ((Date) ngaySinh).toString(),
+                    ngaySinh,
                     (String) diaChi,
-                    (String) dienThoai
+                    (String) dienThoai,
+                    ngayNhapHoc,
+                    ngayTotNghiep
             );
         }catch (SQLException e) {
             System.out.println(e.getMessage());

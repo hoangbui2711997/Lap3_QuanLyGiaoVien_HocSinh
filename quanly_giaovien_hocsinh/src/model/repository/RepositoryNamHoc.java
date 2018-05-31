@@ -13,7 +13,11 @@ public class RepositoryNamHoc {
 
     }
 
-    public synchronized static List<NamHoc> getAll() {
+    static void updateUnSynchronizedDataBase() throws SQLException {
+        lstNamHoc = NamHoc.Search.getAll();
+    }
+
+    public static List<NamHoc> getAll() {
         try {
             if (lstNamHoc == null) {
                 lstNamHoc = NamHoc.Search.getAll();

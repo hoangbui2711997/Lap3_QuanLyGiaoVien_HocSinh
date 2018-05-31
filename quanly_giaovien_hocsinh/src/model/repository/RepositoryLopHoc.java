@@ -13,7 +13,11 @@ public class RepositoryLopHoc {
 
     }
 
-    public synchronized static List<LopHoc> getAll() {
+    static void updateUnSynchronizedDataBase() throws SQLException {
+        lstLopHoc = LopHoc.Search.getAll();
+    }
+
+    public static List<LopHoc> getAll() {
         try {
             if (lstLopHoc == null) {
                 lstLopHoc = LopHoc.Search.getAll();

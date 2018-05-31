@@ -22,6 +22,45 @@ public class GiaoVien extends RecursiveTreeObject<GiaoVien> {
     private SimpleStringProperty CMND;
     private SimpleStringProperty matkhau;
     private SimpleIntegerProperty role;
+    private SimpleStringProperty anhGiaoVien;
+    private SimpleStringProperty ngayGiaNhap;
+    private SimpleStringProperty ngayNgungDay;
+
+    public String getAnhGiaoVien() {
+        return anhGiaoVien.get();
+    }
+
+    public SimpleStringProperty anhGiaoVienProperty() {
+        return anhGiaoVien;
+    }
+
+    public void setAnhGiaoVien(String anhGiaoVien) {
+        this.anhGiaoVien.set(anhGiaoVien);
+    }
+
+    public String getNgayGiaNhap() {
+        return ngayGiaNhap.get();
+    }
+
+    public SimpleStringProperty ngayGiaNhapProperty() {
+        return ngayGiaNhap;
+    }
+
+    public void setNgayGiaNhap(String ngayGiaNhap) {
+        this.ngayGiaNhap.set(ngayGiaNhap);
+    }
+
+    public String getNgayNgungDay() {
+        return ngayNgungDay.get();
+    }
+
+    public SimpleStringProperty ngayNgungDayProperty() {
+        return ngayNgungDay;
+    }
+
+    public void setNgayNgungDay(String ngayNgungDay) {
+        this.ngayNgungDay.set(ngayNgungDay);
+    }
 
     public int getRole() {
         return role.get();
@@ -35,22 +74,16 @@ public class GiaoVien extends RecursiveTreeObject<GiaoVien> {
         this.role.set(role);
     }
 
-    public static GiaoVien getInstance(int maGV, String gioiTinh, String hoTen, String diaChi, String ngaySinh, String dienThoai, String CMND, String matkhau, int role) {
-        return new GiaoVien(maGV, gioiTinh, hoTen, diaChi, ngaySinh, dienThoai, CMND, matkhau, role);
+    public static GiaoVien getInstance(int maGV, String gioiTinh, String hoTen, String diaChi, String ngaySinh,
+                                       String dienThoai, String CMND, String matkhau, int role, String ngayGiaNhap,
+                                       String ngayNgungDay, String anhGiaoVien) {
+        return new GiaoVien(maGV, gioiTinh, hoTen, diaChi, ngaySinh, dienThoai, CMND, matkhau, role,
+                ngayGiaNhap, ngayNgungDay, anhGiaoVien);
     }
 
-    public GiaoVien(String gioiTinh, String hoTen, String diaChi, String ngaySinh, String dienThoai, String CMND, String matkhau, int role) {
-        this.gioiTinh = new SimpleStringProperty(gioiTinh);
-        this.hoTen = new SimpleStringProperty(hoTen);
-        this.diaChi = new SimpleStringProperty(diaChi);
-        this.ngaySinh = new SimpleStringProperty(ngaySinh);
-        this.dienThoai = new SimpleStringProperty(dienThoai);
-        this.CMND = new SimpleStringProperty(CMND);
-        this.matkhau = new SimpleStringProperty(matkhau);
-        this.role = new SimpleIntegerProperty(role);
-    }
-
-    private GiaoVien(int maGV, String gioiTinh, String hoTen, String diaChi, String ngaySinh, String dienThoai, String CMND, String matkhau, int role) {
+    private GiaoVien(int maGV, String gioiTinh, String hoTen, String diaChi, String ngaySinh, String dienThoai,
+                     String CMND, String matkhau, int role, String ngayGiaNhap,
+                     String ngayNgungDay, String anhGiaoVien) {
         this.maGV = new SimpleIntegerProperty(maGV);
         this.gioiTinh = new SimpleStringProperty(gioiTinh);
         this.hoTen = new SimpleStringProperty(hoTen);
@@ -60,6 +93,9 @@ public class GiaoVien extends RecursiveTreeObject<GiaoVien> {
         this.CMND = new SimpleStringProperty(CMND);
         this.matkhau = new SimpleStringProperty(matkhau);
         this.role = new SimpleIntegerProperty(role);
+        this.ngayGiaNhap = new SimpleStringProperty(ngayGiaNhap);
+        this.ngayNgungDay = new SimpleStringProperty(ngayNgungDay);
+        this.anhGiaoVien = new SimpleStringProperty(anhGiaoVien);
     }
 
     @Override
@@ -207,7 +243,7 @@ public class GiaoVien extends RecursiveTreeObject<GiaoVien> {
             int id = InsertDB.getInstance().initInsert("GiaoVien");
 
 //            statement = "INSERT INTO GiaoVien(MaGV, GioiTinh, HoTen, DiaChi, NgaySinh, DienThoai, CMND, matkhau, role) VALUES " +
-            statement = "INSERT INTO GiaoVien(GioiTinh, HoTen, DiaChi, NgaySinh, DienThoai, CMND, matkhau, role) VALUES " +
+            statement = "INSERT INTO GiaoVien(GioiTinh, HoTen, DiaChi, NgaySinh, DienThoai, CMND, matkhau, role, anhGiaoVien) VALUES " +
                     "(" +
 //                    giaoVien.getMaGV() + ", " +
                     "N'" + giaoVien.getGioiTinh() + "', " +
@@ -217,7 +253,8 @@ public class GiaoVien extends RecursiveTreeObject<GiaoVien> {
                     "'" + giaoVien.getDienThoai() + "', " +
                     "'" + giaoVien.getCMND() + "', " +
                     "N'" + giaoVien.getMatkhau() + "', " +
-                    giaoVien.getRole() +
+                    giaoVien.getRole() + ", " +
+                    "'" + giaoVien.getAnhGiaoVien() + "' " +
                     ")";
 
             System.out.println(statement);
@@ -239,7 +276,7 @@ public class GiaoVien extends RecursiveTreeObject<GiaoVien> {
         // int maGV, String gioiTinh, String hoTen, String diaChi, String ngaySinh, String dienThoai, String CMND, String matkhau, int role
         return new GiaoVien(id, giaoVien.getGioiTinh(), giaoVien.getHoTen(), giaoVien.getDiaChi(),
                 giaoVien.getNgaySinh(), giaoVien.getDienThoai(), giaoVien.getCMND(), giaoVien.getMatkhau(),
-                giaoVien.getRole());
+                giaoVien.getRole(), giaoVien.getNgayGiaNhap(), giaoVien.getNgayNgungDay(), giaoVien.getAnhGiaoVien());
     }
 
     public static class Delete {
@@ -288,7 +325,8 @@ public class GiaoVien extends RecursiveTreeObject<GiaoVien> {
                         "DienThoai = '" + newGiaoVien.getDienThoai() + "', " +
                         "CMND = '" + newGiaoVien.getCMND() + "', " +
                         "matkhau = N'" + newGiaoVien.getMatkhau() + "', " +
-                        "role = " + newGiaoVien.getRole() + " " +
+                        "role = " + newGiaoVien.getRole() + ", " +
+                        "anhGiaoVien = '" + newGiaoVien.getAnhGiaoVien() + "' " +
                         "WHERE " + where;
                 UpdateDB.getInstance().updateCommand(statement);
                 return true;
@@ -300,6 +338,16 @@ public class GiaoVien extends RecursiveTreeObject<GiaoVien> {
 
         public static Boolean whereId(String where, GiaoVien gv) throws SQLException {
             return GiaoVien.Update.where("MaGV = " + where, gv);
+        }
+
+        public static void updateNgayNgungDay(String id, String ngayNgungDay) {
+            statement = "UPDATE GiaoVien " +
+                    "SET " +
+//                        "MaHS = N'" + newHocSinh.getMaHS() + ", " +
+//                        "MaPC = N'" + newHocSinh.getMaPC() + ", " +
+
+                    "ngayNgungDay = '" + ngayNgungDay + "' " +
+                    "WHERE MaGV = " + id;
         }
     }
 }

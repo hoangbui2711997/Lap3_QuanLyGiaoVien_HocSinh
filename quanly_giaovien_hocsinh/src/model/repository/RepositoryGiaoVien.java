@@ -15,7 +15,11 @@ public class RepositoryGiaoVien {
 
     }
 
-    public synchronized static List<GiaoVien> getAll() {
+    static void updateUnSynchronizedDataBase() throws SQLException {
+        lstGiaoVien = GiaoVien.Search.getAll();
+    }
+
+    public static List<GiaoVien> getAll() {
         try {
             if (lstGiaoVien == null) {
                 lstGiaoVien = GiaoVien.Search.getAll();

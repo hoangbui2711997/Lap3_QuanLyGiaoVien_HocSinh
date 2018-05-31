@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<AnchorPane fx:id="rootPane" prefHeight="515.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GiaoVienController">
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="720.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GiaoVienController">
    <children>
-      <AnchorPane layoutX="30.0" layoutY="16.0" prefHeight="440.0" prefWidth="508.0" style="-fx-border-style: solid;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="16.0">
+      <AnchorPane fx:id="mainPane" layoutX="30.0" layoutY="16.0" prefHeight="440.0" prefWidth="508.0" style="-fx-border-style: solid;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="16.0">
          <children>
-            <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="270.0" layoutY="487.0" minHeight="30.0" minWidth="110.0" onAction="#btnSubmitAction" prefHeight="30.0" prefWidth="110.0" ripplerFill="BLACK" style="-fx-background-color: #4285F4;" text="Xác nhận" textFill="WHITE" underline="true" />
-            <JFXButton fx:id="btnCancel" buttonType="RAISED" layoutX="400.0" layoutY="487.0" minHeight="30.0" minWidth="110.0" onAction="#btnCancelAction" ripplerFill="BLACK" style="-fx-background-color: #ff4444;" text="Hủy" textFill="WHITE" underline="true" />
+            <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="471.0" layoutY="646.0" minHeight="30.0" minWidth="110.0" onAction="#btnSubmitAction" prefHeight="30.0" prefWidth="110.0" ripplerFill="BLACK" style="-fx-background-color: #4285F4;" text="Xác nhận" textFill="WHITE" underline="true" AnchorPane.rightAnchor="159.0" />
+            <JFXButton fx:id="btnCancel" buttonType="RAISED" layoutX="603.0" layoutY="646.0" minHeight="30.0" minWidth="110.0" onAction="#btnCancelAction" ripplerFill="BLACK" style="-fx-background-color: #ff4444;" text="Hủy" textFill="WHITE" underline="true" AnchorPane.rightAnchor="27.0" />
             <Label layoutX="30.0" layoutY="49.0" prefHeight="32.0" prefWidth="135.0" text="Mã giáo viên">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
@@ -71,7 +80,7 @@
                   </Lighting>
                </effect>
             </Label>
-            <Label layoutX="30.0" layoutY="279.0" prefHeight="32.0" prefWidth="135.0" text="Điện thoại">
+            <Label layoutX="386.0" layoutY="49.0" prefHeight="32.0" prefWidth="135.0" text="Điện thoại" AnchorPane.rightAnchor="219.0">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
@@ -86,7 +95,7 @@
                   </Lighting>
                </effect>
             </Label>
-            <Label layoutX="30.0" layoutY="325.0" prefHeight="32.0" prefWidth="135.0" text="CMND">
+            <Label layoutX="386.0" layoutY="98.0" prefHeight="32.0" prefWidth="135.0" text="CMND" AnchorPane.rightAnchor="219.0">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
@@ -101,7 +110,7 @@
                   </Lighting>
                </effect>
             </Label>
-            <Label layoutX="30.0" layoutY="371.0" prefHeight="32.0" prefWidth="135.0" text="Mật khẩu">
+            <Label layoutX="386.0" layoutY="141.0" prefHeight="32.0" prefWidth="135.0" text="Mật khẩu" AnchorPane.rightAnchor="219.0">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
@@ -116,7 +125,7 @@
                   </Lighting>
                </effect>
             </Label>
-            <Label layoutX="30.0" layoutY="417.0" prefHeight="32.0" prefWidth="135.0" text="Mức quản lý">
+            <Label layoutX="386.0" layoutY="187.0" prefHeight="32.0" prefWidth="135.0" text="Mức quản lý" AnchorPane.rightAnchor="219.0">
                <font>
                   <Font name="Times New Roman Bold" size="12.0" />
                </font>
@@ -140,24 +149,22 @@
                <font>
                   <Font name="Times New Roman" size="14.0" />
                </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </JFXTextField>
-            <JFXTextField fx:id="dienThoai" layoutX="165.0" layoutY="279.0" minHeight="32.0" minWidth="200.0" promptText="Điền điện thoại">
+            <JFXTextField fx:id="dienThoai" layoutX="521.0" layoutY="49.0" minHeight="32.0" minWidth="200.0" promptText="Điền điện thoại" AnchorPane.rightAnchor="19.0">
                <font>
                   <Font name="Times New Roman" size="14.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="CMND" layoutX="165.0" layoutY="325.0" minHeight="32.0" minWidth="200.0" promptText="Điền CMND">
+            <JFXTextField fx:id="CMND" layoutX="521.0" layoutY="98.0" minHeight="32.0" minWidth="200.0" promptText="Điền CMND" AnchorPane.rightAnchor="19.0">
                <font>
                   <Font name="Times New Roman" size="14.0" />
                </font>
             </JFXTextField>
-            <Label alignment="CENTER" layoutX="165.0" layoutY="-1.0" prefHeight="32.0" prefWidth="237.0" text="Thêm Giáo Viên" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
-               <font>
-                  <Font name="Times New Roman Bold" size="18.0" />
-               </font>
-            </Label>
             <JFXDatePicker fx:id="ngaySinh" layoutX="165.0" layoutY="235.0" prefHeight="28.0" prefWidth="200.0" promptText="Chọn ngày sinh của bạn" />
-            <JFXPasswordField fx:id="matKhau" layoutX="165.0" layoutY="371.0" prefHeight="32.0" prefWidth="200.0" promptText="Điền mật khẩu">
+            <JFXPasswordField fx:id="matKhau" layoutX="521.0" layoutY="141.0" prefHeight="32.0" prefWidth="200.0" promptText="Điền mật khẩu" AnchorPane.rightAnchor="19.0">
                <font>
                   <Font name="Times New Roman" size="14.0" />
                </font>
@@ -182,9 +189,35 @@
                   <Font name="Times New Roman" size="14.0" />
                </font>
             </JFXTextField>
-            <JFXComboBox fx:id="jfxComboboxRole" layoutX="165.0" layoutY="414.0" prefHeight="32.0" prefWidth="110.0" />
+            <JFXComboBox fx:id="jfxComboboxRole" layoutX="521.0" layoutY="187.0" prefHeight="32.0" prefWidth="110.0" AnchorPane.rightAnchor="109.0" />
             <JFXComboBox fx:id="jfxComboboxSex" layoutX="165.0" layoutY="141.0" prefHeight="32.0" prefWidth="200.0" />
+            <AnchorPane layoutX="176.0" layoutY="303.0" style="-fx-border-style: solid; -fx-border-color: red;" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="302.0">
+               <children>
+                  <ImageView fx:id="imgGiaoVien" fitHeight="315.0" fitWidth="350.0" onMouseClicked="#getImage" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </AnchorPane>
+            <Label layoutX="30.0" layoutY="432.0" prefHeight="32.0" prefWidth="135.0" text="Ảnh giáo viên">
+               <font>
+                  <Font name="Times New Roman Bold" size="12.0" />
+               </font>
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </effect>
+            </Label>
+            <JFXButton fx:id="btnDetailImg" buttonType="RAISED" layoutX="537.0" layoutY="303.0" minHeight="30.0" minWidth="110.0" onAction="#actionBtnLookImg" prefHeight="30.0" prefWidth="110.0" ripplerFill="BLACK" style="-fx-background-color: #673ab77a;" text="Xem chi tiết ảnh" textFill="WHITE" underline="true" AnchorPane.leftAnchor="536.0" />
          </children>
       </AnchorPane>
+      <Label fx:id="lbGiaoVien" alignment="CENTER" layoutX="175.0" layoutY="9.0" prefHeight="32.0" prefWidth="237.0" text="Thêm Giáo Viên" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="162.0" AnchorPane.topAnchor="25.0">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

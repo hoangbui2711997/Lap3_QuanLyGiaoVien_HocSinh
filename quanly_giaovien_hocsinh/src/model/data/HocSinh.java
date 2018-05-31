@@ -19,6 +19,36 @@ public class HocSinh extends RecursiveTreeObject<HocSinh> {
     private SimpleStringProperty ngaySinh;
     private SimpleStringProperty diaChi;
     private SimpleStringProperty dienThoai;
+    private SimpleStringProperty ngayTotNghiep;
+    private SimpleStringProperty ngayNhapHoc;
+
+    public SimpleStringProperty dienThoaiProperty() {
+        return dienThoai;
+    }
+
+    public String getNgayTotNghiep() {
+        return ngayTotNghiep.get();
+    }
+
+    public SimpleStringProperty ngayTotNghiepProperty() {
+        return ngayTotNghiep;
+    }
+
+    public void setNgayTotNghiep(String ngayTotNghiep) {
+        this.ngayTotNghiep.set(ngayTotNghiep);
+    }
+
+    public String getNgayNhapHoc() {
+        return ngayNhapHoc.get();
+    }
+
+    public SimpleStringProperty ngayNhapHocProperty() {
+        return ngayNhapHoc;
+    }
+
+    public void setNgayNhapHoc(String ngayNhapHoc) {
+        this.ngayNhapHoc.set(ngayNhapHoc);
+    }
 
     @Override
     public String toString() {
@@ -29,11 +59,14 @@ public class HocSinh extends RecursiveTreeObject<HocSinh> {
                 ", ngaySinh=" + ngaySinh +
                 ", diaChi=" + diaChi +
                 ", dienThoai=" + dienThoai +
+                ", ngayTotNghiep=" + ngayTotNghiep +
+                ", ngayNhapHoc=" + ngayNhapHoc +
                 '}';
     }
 
-    public static HocSinh getInstance(int maHS, String gioiTinh, String hoTen, String ngaySinh, String diaChi, String dienThoai) {
-        return new HocSinh(maHS, gioiTinh, hoTen, ngaySinh, diaChi, dienThoai);
+    public static HocSinh getInstance(int maHS, String gioiTinh, String hoTen, String ngaySinh, String diaChi,
+                                      String dienThoai, String ngayNhapHoc, String ngayTotNghiep) {
+        return new HocSinh(maHS, gioiTinh, hoTen, ngaySinh, diaChi, dienThoai, ngayNhapHoc, ngayTotNghiep);
     }
 
     public HocSinh(String gioiTinh, String hoTen, String ngaySinh, String diaChi, String dienThoai) {
@@ -44,13 +77,16 @@ public class HocSinh extends RecursiveTreeObject<HocSinh> {
         this.dienThoai = new SimpleStringProperty(dienThoai);
     }
 
-    private HocSinh(int maHS, String gioiTinh, String hoTen, String ngaySinh, String diaChi, String dienThoai) {
+    private HocSinh(int maHS, String gioiTinh, String hoTen, String ngaySinh, String diaChi, String dienThoai,
+                    String ngayNhapHoc, String ngayTotNghiep) {
         this.maHS = new SimpleIntegerProperty(maHS);
         this.gioiTinh = new SimpleStringProperty(gioiTinh);
         this.hoTen = new SimpleStringProperty(hoTen);
         this.ngaySinh = new SimpleStringProperty(ngaySinh);
         this.diaChi = new SimpleStringProperty(diaChi);
         this.dienThoai = new SimpleStringProperty(dienThoai);
+        this.ngayNhapHoc = new SimpleStringProperty(ngayNhapHoc);
+        this.ngayTotNghiep = new SimpleStringProperty(ngayTotNghiep);
     }
 
     public int getMaHS() {
@@ -178,7 +214,7 @@ public class HocSinh extends RecursiveTreeObject<HocSinh> {
 
     private static HocSinh returnHocSinh(int id, HocSinh hocSinh) {
         return new HocSinh(id, hocSinh.getGioiTinh(), hocSinh.getHoTen(), hocSinh.getNgaySinh(),
-                hocSinh.getDiaChi(), hocSinh.getDienThoai());
+                hocSinh.getDiaChi(), hocSinh.getDienThoai(), hocSinh.getNgayNhapHoc(), hocSinh.getNgayTotNghiep());
     }
 
     public static class Delete {
@@ -232,8 +268,18 @@ public class HocSinh extends RecursiveTreeObject<HocSinh> {
             }
         }
 
-        public static Boolean whereId(String where, HocSinh gd) throws SQLException {
-            return HocSinh.Update.where("MaHS = " + where, gd);
+        public static Boolean whereId(String id, HocSinh gd) throws SQLException {
+            return HocSinh.Update.where("MaHS = " + id, gd);
+        }
+
+        public static void updateNgayTotNghiep(String id, String ngayTotNghiep) {
+            statement = "UPDATE HocSinh " +
+                    "SET " +
+//                        "MaHS = N'" + newHocSinh.getMaHS() + ", " +
+//                        "MaPC = N'" + newHocSinh.getMaPC() + ", " +
+
+                    "ngayTotNghiep = '" + ngayTotNghiep + "' " +
+                    "WHERE MaHS = " + id;
         }
     }
 }

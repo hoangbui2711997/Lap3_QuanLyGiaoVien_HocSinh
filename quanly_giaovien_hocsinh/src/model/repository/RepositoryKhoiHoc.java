@@ -13,7 +13,11 @@ public class RepositoryKhoiHoc {
 
     }
 
-    public synchronized static List<KhoiHoc> getAll() {
+    static void updateUnSynchronizedDataBase() throws SQLException {
+        lstKhoiHoc = KhoiHoc.Search.getAll();
+    }
+
+    public static List<KhoiHoc> getAll() {
         try {
             if (lstKhoiHoc == null) {
                 lstKhoiHoc = KhoiHoc.Search.getAll();

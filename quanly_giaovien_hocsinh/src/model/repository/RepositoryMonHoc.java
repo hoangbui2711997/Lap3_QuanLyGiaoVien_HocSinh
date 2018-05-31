@@ -12,7 +12,11 @@ public class RepositoryMonHoc {
 
     }
 
-    public synchronized static List<MonHoc> getAll() {
+    static void updateUnSynchronizedDataBase() throws SQLException {
+        lstMonHoc = MonHoc.Search.getAll();
+    }
+
+    public static List<MonHoc> getAll() {
         try {
             if (lstMonHoc == null) {
                 lstMonHoc = MonHoc.Search.getAll();

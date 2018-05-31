@@ -2,7 +2,11 @@ package controller;
 
 import com.jfoenix.controls.*;
 
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.attribute.FileAttribute;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,14 +16,24 @@ import java.util.ResourceBundle;
 import controller.Share.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import model.data.GiaoVien;
 import model.database.InsertDB;
 import model.repository.RepositoryGiaoVien;
 
 public class GiaoVienController {
+
+    @FXML
+    AnchorPane mainPane;
 
     @FXML
     public JFXComboBox jfxComboboxSex;
@@ -66,6 +80,18 @@ public class GiaoVienController {
     @FXML
     public AnchorPane rootPane;
 
+    @FXML
+    public Label lbGiaoVien;
+
+    @FXML
+    private ImageView imgGiaoVien;
+
+    @FXML
+    private JFXButton btnDetailImg;
+
+    @FXML
+    ImageView imgView;
+
     public GiaoVien oldGiaoVien;
 
     /**
@@ -89,14 +115,17 @@ public class GiaoVienController {
 
     private GiaoVien getGiaoVienFromForm() {
         return GiaoVien.getInstance(Integer.parseInt(MaGV.getText()),
-                    jfxComboboxSex.getValue().toString(),
-                    hoTen.getText(),
-                    diaChi.getText(),
-                    ngaySinh.getValue().toString(),
-                    dienThoai.getText(),
-                    CMND.getText(),
-                    matKhau.getText(),
-                    Integer.parseInt(jfxComboboxRole.getValue().toString())
+                jfxComboboxSex.getValue().toString(),
+                hoTen.getText(),
+                diaChi.getText(),
+                ngaySinh.getValue().toString(),
+                dienThoai.getText(),
+                CMND.getText(),
+                matKhau.getText(),
+                Integer.parseInt(jfxComboboxRole.getValue().toString()),
+                LocalDate.now().toString(),
+                null,
+                imgGiaoVien.getImage().getUrl()
             );
     }
 
@@ -130,6 +159,53 @@ public class GiaoVienController {
         btnCancel.setOnAction(e -> {
             MainController.secondaryStage.close();
         });
+
+
+    }
+
+    public void init() {
+        if(oldGiaoVien != null) {
+            int i = 0;
+
+            // update gia tri ra combobox
+            i = getPositionValue(jfxComboboxSex, oldGiaoVien.getGioiTinh() + "");
+
+            jfxComboboxSex.getSelectionModel().select(
+                    i
+            );
+            // ---------------------------
+
+
+            // update gia tri ra combobox
+            i = getPositionValue(jfxComboboxRole, oldGiaoVien.getRole() + "");
+
+            jfxComboboxRole.getSelectionModel().select(
+                    i
+            );
+            // ----------------------------
+
+            hoTen.setText(oldGiaoVien.getHoTen());
+            MaGV.setText(oldGiaoVien.getMaGV() + "");
+            ngaySinh.setValue(LocalDate.parse(oldGiaoVien.getNgaySinh()));
+            CMND.setText(oldGiaoVien.getCMND());
+            dienThoai.setText(oldGiaoVien.getDienThoai());
+            diaChi.setText(oldGiaoVien.getDiaChi());
+            matKhau.setText(oldGiaoVien.getMatkhau());
+            lbGiaoVien.setText("Giáo Viên");
+            System.out.println(oldGiaoVien.getAnhGiaoVien());
+            if(!oldGiaoVien.getAnhGiaoVien().equals("Chưa có ảnh")) {
+                Image img = new Image(oldGiaoVien.getAnhGiaoVien());
+
+//        System.out.println(img.getUrl());
+
+                imgGiaoVien.setImage(img);
+//        System.out.println(imgGiaoVien.getImage().getUrl());
+                imgGiaoVien.setFitHeight(315);
+                imgGiaoVien.setFitWidth(550);
+            } else {
+
+            }
+        }
     }
 
     /**
@@ -174,5 +250,75 @@ public class GiaoVienController {
         MainController.secondaryStage.close();
     }
 
+    /**
+     * Lấy vị trí của giá trị trong comboBox
+     *
+     * @param jfxCombobox comboBox
+     * @param value       giá trị muốn lấy vị trí
+     * @return
+     */
+    private int getPositionValue(JFXComboBox<String> jfxCombobox, String value) {
+        // update gia tri ra combobox
+        for (int i = 0; i < jfxCombobox.getItems().size(); i++) {
+//            System.out.println(jfxCombobox.getItems().get(i));
+            if (jfxCombobox.getItems().get(i).toString().trim()
+                    .equals(
+                            value.trim())
+                    ) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
-}
+    @FXML
+    void getImage(MouseEvent event) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        File fileImage = fileChooser.showOpenDialog(MainController.secondaryStage);
+
+        String getImgDir;
+        getImgDir = this.getClass().getResource("/images").toString().replace("/", "\\").substring(6);
+//        System.out.println(getImgDir);
+        File fileDir = new File(getImgDir);
+        if (!fileDir.exists()) {
+            fileDir.mkdir();
+        }
+
+        InputStream inputStream = Files.newInputStream(fileImage.toPath());
+
+//        System.out.println(getImgDir);
+        String imgPath = getImgDir + "\\" + fileImage.getName();
+        File file = new File(imgPath);
+//        System.out.println(file.getAbsolutePath());
+
+        if(!file.exists()) {
+            file.createNewFile();
+        }
+//        System.out.println(this.getClass().getResource("/images"));
+        FileOutputStream fileOutputStream = new FileOutputStream(file);
+        fileOutputStream.write(inputStream.readAllBytes());
+
+        Image img = new Image(String
+                .valueOf(this.getClass().getResource("/images")) + "\\" + file.getName());
+
+//        System.out.println(img.getUrl());
+
+        imgGiaoVien.setImage(img);
+//        System.out.println(imgGiaoVien.getImage().getUrl());
+        imgGiaoVien.setFitHeight(315);
+        imgGiaoVien.setFitWidth(550);
+    }
+
+    @FXML
+    private void actionBtnLookImg(ActionEvent e) throws IOException {
+//        System.load((
+//                this.getClass()
+//                        .getResource("/images") + "/" +
+//                        "tuoi-tre-dang-gia-bao-nhieu-u547-d20161012-t113832-888179.u3059.d20170616.t095744.390222.jpg")
+//                .substring(6).replace("/", "\\"));
+//        Process process = new ProcessBuilder("C:/Users/hoang/TTN/Lap3_QuanLyGiaoVien_HocSinh/out/production/quanly_giaovien_hocsinh/images/tuoi-tre-dang-gia-bao-nhieu-u547-d20161012-t113832-888179.u3059.d20170616.t095744.390222.jpg").start();
+
+//        Runtime runtime = Runtime.getRuntime();
+//        Process process = runtime.exec("C:/Users/hoang/TTN/Lap3_QuanLyGiaoVien_HocSinh/out/production/quanly_giaovien_hocsinh/images/tuoi-tre-dang-gia-bao-nhieu-u547-d20161012-t113832-888179.u3059.d20170616.t095744.390222.jpg");
+    }
+    }

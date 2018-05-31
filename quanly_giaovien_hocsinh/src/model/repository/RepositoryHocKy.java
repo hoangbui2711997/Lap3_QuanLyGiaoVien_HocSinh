@@ -13,7 +13,11 @@ public class RepositoryHocKy {
 
     }
 
-    public synchronized static List<HocKy> getAll() {
+    static void updateUnSynchronizedDataBase() throws SQLException {
+        lstHocKy = HocKy.Search.getAll();
+    }
+
+    public static List<HocKy> getAll() {
         try {
             if (lstHocKy == null) {
                 lstHocKy = HocKy.Search.getAll();

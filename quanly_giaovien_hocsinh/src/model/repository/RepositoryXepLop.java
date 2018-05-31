@@ -13,7 +13,11 @@ public class RepositoryXepLop {
 
     }
 
-    public synchronized static List<XepLop> getAll() {
+    static void updateUnSynchronizedDataBase() throws SQLException {
+        lstXepLop = XepLop.Search.getAll();
+    }
+
+    public static List<XepLop> getAll() {
         try {
             if (lstXepLop == null) {
                 lstXepLop = XepLop.Search.getAll();

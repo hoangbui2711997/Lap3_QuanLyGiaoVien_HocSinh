@@ -14,7 +14,11 @@ public class RepositoryDiem {
 
     }
 
-    public synchronized static List<Diem> getAll() {
+    static void updateUnSynchronizedDataBase() throws SQLException {
+        lstDiem = Diem.Search.getAll();
+    }
+
+    public static List<Diem> getAll() {
         try {
             if (lstDiem == null) {
                 lstDiem = Diem.Search.getAll();
@@ -46,7 +50,6 @@ public class RepositoryDiem {
     }
 
     /**
-     *
      * @param diem Đây là tham số điểm
      * @return
      */
@@ -63,7 +66,7 @@ public class RepositoryDiem {
                     e -> e.getMaHS() == diem.getMaHS() && e.getMaPC().equals(diem.getMaPC())
             );
 
-            if(isRemoved) {
+            if (isRemoved) {
                 // 2 tham số giống ở trên - và theo thứ tự -- Chú ý là nếu có 2 khóa. Còn 1 khóa thì xóa như bình thường.
                 // Bên Giáo viên có xóa 1 khóa rồi nhé
                 Diem.Delete.whereId(diem.getMaHS() + "", diem.getMaPC() + "");
