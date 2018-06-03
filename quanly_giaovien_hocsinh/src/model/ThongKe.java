@@ -41,4 +41,45 @@ public class ThongKe {
         String statement = "select [dbo].func_LaySoLuongHocSinhNamXXXX(" + nam + ") as 'Soluong'";
         return getResult(statement);
     }
+
+    public static int laySoLuongHSNhapHocNam(int nam) throws SQLException {
+        String statement = "select count(hs.MaHS) " +
+                "from HocSinh hs " +
+                "where YEAR(hs.ngayNhapHoc) = " + nam;
+        return getResult(statement);
+    }
+
+    public static int laySoLuongHSNam(int nam) throws SQLException {
+        String statement = "select count(hs.MaHs) " +
+                "from HocSinh hs " +
+                "where hs.ngayTotNgiep is null and YEAR(hs.ngayNhapHoc) < " + nam;
+        return getResult(statement);
+    }
+
+    public static int laySoLuongHSTotNghiepNam(int nam) throws SQLException {
+        String statement = "" +
+                "select count(hs.MaHs) " +
+                "from HocSinh hs " +
+                "where Year(hs.ngayTotNgiep) = " + nam;
+        return getResult(statement);
+    }
+
+    public static int laySoLuongGVBatDauDayNam(int nam) throws SQLException {
+        String statement = "select count(gv.MaGV) from GiaoVien gv " +
+                "where YEAR(gv.ngayGiaNhap) = " + nam;
+        return getResult(statement);
+    }
+
+    public static int laySoLuongGVNam(int nam) throws SQLException {
+        String statement = "select count(gv.MaGV) " +
+                "from GiaoVien gv " +
+                "where gv.ngayNgungDay is null and Year(gv.ngayGiaNhap) < " + nam;
+        return getResult(statement);
+    }
+
+    public static int laySoLuongGVKetThucDayNam(int nam) throws SQLException {
+        String statement = "select count(gv.MaGV) from GiaoVien gv " +
+                "where YEAR(gv.ngayNgungDay) = " + nam;
+        return getResult(statement);
+    }
 }

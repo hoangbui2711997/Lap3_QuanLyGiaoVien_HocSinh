@@ -217,6 +217,106 @@ public class ThongKeController {
 
             thread1.start();
         });
+
+        jfxcbbSLGVBatDauDayNam.setOnAction(e -> {
+            String year = (String) jfxcbbSLGVBatDauDayNam.getValue();
+            int iYear = Integer.parseInt(year);
+            lbGiaoVienBatDauGiangDayNam.setVisible(false);
+            spGVGDBatDau.setVisible(true);
+
+            Thread thread1 = new Thread(() -> {
+                try {
+                    int laySoLuongGVBatDauDayNam = ThongKe.laySoLuongGVBatDauDayNam(iYear);
+                    int laySoLuongGVNam = ThongKe.laySoLuongGVNam(iYear);
+                    String strBatDauDay = laySoLuongGVBatDauDayNam + "/" + laySoLuongGVNam + " giáo viên";
+
+                    Platform.runLater(() -> {
+                        lbGiaoVienBatDauGiangDayNam.setText(strBatDauDay);
+                        lbGiaoVienBatDauGiangDayNam.setVisible(true);
+                        spGVGDBatDau.setVisible(false);
+                    });
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            });
+
+            thread1.start();
+        });
+
+        jfxcbbSLGVNghiDayNam.setOnAction(e -> {
+            String year = (String) jfxcbbSLGVNghiDayNam.getValue();
+            int iYear = Integer.parseInt(year);
+            lbGiaoVienNghiDayNam.setVisible(false);
+            spGVGDKetThuc.setVisible(true);
+
+            Thread thread1 = new Thread(() -> {
+                try {
+                    int laySoLuongGVNghiDayNam = ThongKe.laySoLuongGVKetThucDayNam(iYear);
+                    int laySoLuongGVNam = ThongKe.laySoLuongGVNam(iYear);
+                    String strNghiDay = laySoLuongGVNghiDayNam + "/" + laySoLuongGVNam + " giáo viên";
+
+                    Platform.runLater(() -> {
+                        lbGiaoVienNghiDayNam.setText(strNghiDay);
+                        lbGiaoVienNghiDayNam.setVisible(true);
+                        spGVGDKetThuc.setVisible(false);
+                    });
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            });
+
+            thread1.start();
+        });
+
+        jfxcbbSLNhapHocNam.setOnAction(e -> {
+            String year = (String) jfxcbbSLNhapHocNam.getValue();
+            int iYear = Integer.parseInt(year);
+            lbSLNhapHocNam.setVisible(false);
+            spHSNhapHoc.setVisible(true);
+
+            Thread thread1 = new Thread(() -> {
+                try {
+                    int laySoLuongHSNhapHocNam = ThongKe.laySoLuongHSNhapHocNam(iYear);
+                    int laySoLuongHSNam = ThongKe.laySoLuongHSNam(iYear);
+                    String strNhapHoc = laySoLuongHSNhapHocNam + "/" + laySoLuongHSNam + " học sinh";
+
+                    Platform.runLater(() -> {
+                        lbSLNhapHocNam.setText(strNhapHoc);
+                        lbSLNhapHocNam.setVisible(true);
+                        spHSNhapHoc.setVisible(false);
+                    });
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            });
+
+            thread1.start();
+        });
+
+        jfxcbbSLTotNghiepNam.setOnAction(e -> {
+            String year = (String) jfxcbbSLGVNghiDayNam.getValue();
+            int iYear = Integer.parseInt(year);
+            lbSoLuongTotNghiepNam.setVisible(false);
+            spHSTotNghiep.setVisible(true);
+
+            Thread thread1 = new Thread(() -> {
+                try {
+                    int laySoLuongHSTotNghiepNam = ThongKe.laySoLuongHSTotNghiepNam(iYear);
+                    int laySoLuongHSNam = ThongKe.laySoLuongHSNam(iYear);
+                    String strTotNghiep = laySoLuongHSTotNghiepNam + "/" + laySoLuongHSNam + " học sinh";
+
+                    Platform.runLater(() -> {
+                        lbSoLuongTotNghiepNam.setText(strTotNghiep);
+                        lbSoLuongTotNghiepNam.setVisible(true);
+                        spHSTotNghiep.setVisible(false);
+                    });
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            });
+
+            thread1.start();
+        });
     }
 
     private void setupListCBB(List<String> stringList) {
@@ -226,17 +326,17 @@ public class ThongKeController {
         jfxcbbSLTrungBinh.getItems().addAll(stringList);
         jfxcbbSLNhapHocNam.getItems().addAll(stringList);
         jfxcbbSLGVBatDauDayNam.getItems().addAll(stringList);
-        stringList.remove(0);
-        stringList.remove(0);
-        stringList.remove(0);
-        stringList.remove(0);
+        stringList.remove(stringList.size() - 1);
+        stringList.remove(stringList.size() - 1);
+        stringList.remove(stringList.size() - 1);
+        stringList.remove(stringList.size() - 1);
         jfxcbbSLTotNghiepNam.getItems().addAll(stringList);
-        stringList.remove(0);
-        stringList.remove(0);
-        stringList.remove(0);
-        stringList.remove(0);
-        stringList.remove(0);
-        stringList.remove(0);
+        stringList.remove(stringList.size() - 1);
+        stringList.remove(stringList.size() - 1);
+        stringList.remove(stringList.size() - 1);
+        stringList.remove(stringList.size() - 1);
+        stringList.remove(stringList.size() - 1);
+        stringList.remove(stringList.size() - 1);
         jfxcbbSLGVNghiDayNam.getItems().addAll(stringList);
     }
 }

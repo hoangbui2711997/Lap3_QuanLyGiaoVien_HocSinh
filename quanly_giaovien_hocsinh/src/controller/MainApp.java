@@ -76,7 +76,6 @@ public class MainApp extends Application implements Initializable {
                     RepositoryPhanCong.getAll();
                     RepositoryDiem.getAll();
 
-
                 Platform.runLater(() -> {
                     try {
                         FXMLLoader main = new FXMLLoader(MainApp.class.getResource("/view/Main.fxml"));

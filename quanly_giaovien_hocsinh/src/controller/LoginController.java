@@ -40,12 +40,12 @@ public class LoginController {
 
     @FXML
     void actionLogin(ActionEvent event) throws IOException, SQLException {
-        System.out.println(RepositoryGiaoVien
-                .getAll()
-                .stream().anyMatch(
-                        e -> e.getCMND()
-                                .equals(txtCMND.getText()))
-        );
+//        System.out.println(RepositoryGiaoVien
+//                .getAll()
+//                .stream().anyMatch(
+//                        e -> e.getCMND()
+//                                .equals(txtCMND.getText()))
+//        );
 
         Thread thread1 = new Thread(() -> {
             SearchDB searchDB = SearchDB.getQueryDB();
