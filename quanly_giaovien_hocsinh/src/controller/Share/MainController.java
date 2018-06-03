@@ -91,7 +91,7 @@ public class MainController implements Initializable {
         // Để mặc định tàng hình
         drawLeft.setVisible(true);
 
-        FXMLLoader leftLoader = new FXMLLoader(getClass().getResource("/view/Share/LeftPane.fxml"));
+        FXMLLoader leftLoader = new FXMLLoader(getClass().getResource("/view/share/LeftPane.fxml"));
         AnchorPane anchorPane= leftLoader.load();
 
         ShareViewController leftPaneLoaderController = leftLoader.getController();
@@ -145,10 +145,10 @@ public class MainController implements Initializable {
             handleActionHamburger(hamburger, transition);
 
 
-//            AnchorPane top = FXMLLoader.load(getClass().getResource("../../view/Share/TopPane.fxml"));
+//            AnchorPane top = FXMLLoader.load(getClass().getResource("../../view/share/TopPane.fxml"));
             AnchorPane top = new AnchorPane();
 
-//            AnchorPane bottom = FXMLLoader.load(getClass().getResource("/view/Share/BottomPane.fxml"));
+//            AnchorPane bottom = FXMLLoader.load(getClass().getResource("/view/share/BottomPane.fxml"));
 //            drawLeft.setSidePane(left);
 //            left.prefHeightProperty().bind(paneLeft.heightProperty());
 //            left.prefWidthProperty().bind(paneLeft.widthProperty());
@@ -303,7 +303,7 @@ public class MainController implements Initializable {
             }
         });
 
-        // Show Detail PhanCong action
+        // Show Detail phancong action
         btnShowDetailPhanCong.setOnAction(e -> {
             try {
                 actionBtn_DetailPhanCong();
@@ -387,7 +387,7 @@ public class MainController implements Initializable {
         GiaoVienController.action = "Add";
         Parent root = null;
         if ("Giáo viên".equals(jfxCombobox.getValue())) {
-            root = FXMLLoader.load(getClass().getResource("/view/GiaoVien/Add_Update.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/view/giaovien/Add_Update.fxml"));
         }
 
         makeSecondaryStage(root);
@@ -400,9 +400,8 @@ public class MainController implements Initializable {
             int pos = treeTableView.getSelectionModel().getSelectedIndex();
             GiaoVien gv = RepositoryGiaoVien.getAll().get(pos);
             root = updateGiaoVien(gv);
+            makeSecondaryStage(root);
         }
-
-        makeSecondaryStage(root);
 
         try {
             handleActionJFXComboboxSwitchTable();
@@ -424,7 +423,7 @@ public class MainController implements Initializable {
     private void actionBtn_DetailPhanCong() throws IOException {
 //        GiaoVienController.action = "Add";
         Parent root = null;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PhanCong/Detail.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/phancong/Detail.fxml"));
         root = loader.load();
 
         TreeItem<PhanCong> phanCongTreeItem = (TreeItem<PhanCong>) treeTableView.getSelectionModel().getSelectedItem();
@@ -434,6 +433,9 @@ public class MainController implements Initializable {
 
         PhanCongController phanCongController = loader.getController();
         phanCongController.phanCong = pc;
+
+
+
         phanCongController.init();
 
 //        phanCongController.lbGiaoVien = ;
@@ -457,7 +459,7 @@ public class MainController implements Initializable {
         GiaoVienController.action = "Update";
 
         Parent root;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/GiaoVien/Add_Update.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/giaovien/Add_Update.fxml"));
         root = loader.load();
 
         GiaoVienController updateController = loader.getController();
@@ -539,6 +541,10 @@ public class MainController implements Initializable {
 
     @FXML
     private void handleActionJFXComboboxSwitchTable() throws SQLException {
+        if(btnShowDetailPhanCong != null)
+        {
+            btnShowDetailPhanCong.setDisable(true);
+        }
         expandNodeList(jfxNodeListRoot);
 
         treeTableView.getColumns().clear();
@@ -553,15 +559,15 @@ public class MainController implements Initializable {
             // 2 truong khong su dung
             String[] strFields = getAllColumnOfObject(fields);
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
-            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, GiaoVien.class.getSimpleName());
+            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, GiaoVien.class.getSimpleName(), treeTableView.getWidth());
 
             ObservableList<GiaoVien> data = FXCollections.observableArrayList(
                     RepositoryGiaoVien.getAll()
             );
 
-//            TreeItem<GiaoVien> root = new RecursiveTreeItem(data);
+//            TreeItem<giaovien> root = new RecursiveTreeItem(data);
 
-//            TreeItem<GiaoVien> treeItem = new RecursiveTreeItem(data, null,RecursiveTreeItem::getChildren);
+//            TreeItem<giaovien> treeItem = new RecursiveTreeItem(data, null,RecursiveTreeItem::getChildren);
             TreeItem<GiaoVien> root = new RecursiveTreeItem<GiaoVien>(data, RecursiveTreeObject::getChildren);
             treeTableView.setRoot(root);
             treeTableView.setShowRoot(false);
@@ -570,7 +576,7 @@ public class MainController implements Initializable {
             // 2 truong khong xu dung
             String[] strFields = getAllColumnOfObject(fields);
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
-            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, XepLop.class.getSimpleName());
+            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, XepLop.class.getSimpleName(), treeTableView.getWidth());
 
 
             ObservableList<XepLop> data = FXCollections.observableArrayList(
@@ -588,7 +594,7 @@ public class MainController implements Initializable {
             // 2 truong khong xu dung
             String[] strFields = getAllColumnOfObject(fields);
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
-            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, Diem.class.getSimpleName());
+            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, Diem.class.getSimpleName(), treeTableView.getWidth());
 
             ObservableList<Diem> data = FXCollections.observableArrayList(
                     RepositoryDiem.getAll()
@@ -604,7 +610,7 @@ public class MainController implements Initializable {
             // 2 truong khong xu dung
             String[] strFields = getAllColumnOfObject(fields);
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
-            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, HocKy.class.getSimpleName());
+            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, HocKy.class.getSimpleName(), treeTableView.getWidth());
 
             ObservableList<HocKy> data = FXCollections.observableArrayList(
                     RepositoryHocKy.getAll()
@@ -620,7 +626,7 @@ public class MainController implements Initializable {
             // 2 truong khong xu dung
             String[] strFields = getAllColumnOfObject(fields);
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
-            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, HocSinh.class.getSimpleName());
+            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, HocSinh.class.getSimpleName(), treeTableView.getWidth());
 
             ObservableList<HocSinh> data = FXCollections.observableArrayList(
                     RepositoryHocSinh.getAll()
@@ -636,7 +642,7 @@ public class MainController implements Initializable {
             // 2 truong khong xu dung
             String[] strFields = getAllColumnOfObject(fields);
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
-            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, KhoiHoc.class.getSimpleName());
+            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, KhoiHoc.class.getSimpleName(), treeTableView.getWidth());
 
             ObservableList<KhoiHoc> data = FXCollections.observableArrayList(
                     RepositoryKhoiHoc.getAll()
@@ -652,15 +658,15 @@ public class MainController implements Initializable {
             // 2 truong khong xu dung
             String[] strFields = getAllColumnOfObject(fields);
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
-            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, LopHoc.class.getSimpleName());
+            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, LopHoc.class.getSimpleName(), treeTableView.getWidth());
 
             ObservableList<LopHoc> data = FXCollections.observableArrayList(
                     RepositoryLopHoc.getAll()
             );
 
-//            TreeItem<LopHoc> root = new RecursiveTreeItem(data);
+//            TreeItem<lophoc> root = new RecursiveTreeItem(data);
 
-//            TreeItem<LopHoc> treeItem = new RecursiveTreeItem(data, null,RecursiveTreeItem::getChildren);
+//            TreeItem<lophoc> treeItem = new RecursiveTreeItem(data, null,RecursiveTreeItem::getChildren);
             TreeItem<LopHoc> root = new RecursiveTreeItem<LopHoc>(data, RecursiveTreeObject::getChildren);
             treeTableView.setRoot(root);
         } else if ("Môn học".equals(tableSelected)) {
@@ -668,7 +674,7 @@ public class MainController implements Initializable {
             // 2 truong khong xu dung
             String[] strFields = getAllColumnOfObject(fields);
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
-            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, MonHoc.class.getSimpleName());
+            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, MonHoc.class.getSimpleName(), treeTableView.getWidth());
 
             ObservableList<MonHoc> data = FXCollections.observableArrayList(
                     RepositoryMonHoc.getAll()
@@ -684,7 +690,7 @@ public class MainController implements Initializable {
             // 2 truong khong xu dung
             String[] strFields = getAllColumnOfObject(fields);
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
-            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, NamHoc.class.getSimpleName());
+            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, NamHoc.class.getSimpleName(), treeTableView.getWidth());
 
             ObservableList<NamHoc> data = FXCollections.observableArrayList(
                     RepositoryNamHoc.getAll()
@@ -700,7 +706,7 @@ public class MainController implements Initializable {
             // 2 truong khong xu dung
             String[] strFields = getAllColumnOfObject(fields);
             // Tạo đồng bộ cho column (Theo tên trường và tên bảng)
-            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, PhanCong.class.getSimpleName());
+            jfxTreeTableColumns = getJfxTreeTableColumns(strFields, PhanCong.class.getSimpleName(), treeTableView.getWidth());
 
 //            System.out.println(RepositoryPhanCong.getAll());
 
@@ -708,9 +714,9 @@ public class MainController implements Initializable {
                     RepositoryPhanCong.getAll()
             );
 
-//            TreeItem<PhanCong> root = new RecursiveTreeItem(data);
+//            TreeItem<phancong> root = new RecursiveTreeItem(data);
 
-//            TreeItem<PhanCong> treeItem = new RecursiveTreeItem(data, null,RecursiveTreeItem::getChildren);
+//            TreeItem<phancong> treeItem = new RecursiveTreeItem(data, null,RecursiveTreeItem::getChildren);
             TreeItem<PhanCong> root = new RecursiveTreeItem<PhanCong>(data, RecursiveTreeObject::getChildren);
             btnShowDetailPhanCong.setDisable(false);
             treeTableView.setRoot(root);
@@ -719,7 +725,7 @@ public class MainController implements Initializable {
         treeTableView.getColumns().addAll(jfxTreeTableColumns);
     }
 
-    private String[] getAllColumnOfObject(Field[] fields) {
+    public String[] getAllColumnOfObject(Field[] fields) {
         String[] strFields = new String[fields.length - 2];
         int i = 0;
         for (Field field : fields) {
@@ -733,7 +739,7 @@ public class MainController implements Initializable {
         return strFields;
     }
 
-    private JFXTreeTableColumn[] getJfxTreeTableColumns(String[] strFields, String object) {
+    public JFXTreeTableColumn[] getJfxTreeTableColumns(String[] strFields, String object, double width) {
         JFXTreeTableColumn[] jfxTreeTableColumns = new JFXTreeTableColumn[strFields.length];
 
         if (object.equals("GiaoVien")) {
@@ -761,7 +767,7 @@ public class MainController implements Initializable {
                         jfxTreeTableColumns[j].setText("Vai Trò");
                     }
 
-                    jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
+                    jfxTreeTableColumns[j].setPrefWidth(width / jfxTreeTableColumns.length);
                     jfxTreeTableColumns[j].setMaxWidth(200.0);
                     jfxTreeTableColumns[j].setMinWidth(150.0);
 
@@ -783,7 +789,7 @@ public class MainController implements Initializable {
                         jfxTreeTableColumns[j].setText("Mã Lớp Học");
                     }
 
-                    jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
+                    jfxTreeTableColumns[j].setPrefWidth(width / jfxTreeTableColumns.length);
                     jfxTreeTableColumns[j].setMaxWidth(200.0);
                     jfxTreeTableColumns[j].setMinWidth(150.0);
                     jfxTreeTableColumns[j].setCellValueFactory(
@@ -809,7 +815,7 @@ public class MainController implements Initializable {
                     jfxTreeTableColumns[j].setText("Mã Phân Công");
                 }
 
-                jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
+                jfxTreeTableColumns[j].setPrefWidth(width / jfxTreeTableColumns.length);
                 jfxTreeTableColumns[j].setMaxWidth(200.0);
                 jfxTreeTableColumns[j].setMinWidth(150.0);
                 jfxTreeTableColumns[j].setCellValueFactory(
@@ -835,7 +841,7 @@ public class MainController implements Initializable {
                     jfxTreeTableColumns[j].setText("Ngày Kết Thúc");
                 }
 
-                jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
+                jfxTreeTableColumns[j].setPrefWidth(width / jfxTreeTableColumns.length);
                 jfxTreeTableColumns[j].setMaxWidth(200.0);
                 jfxTreeTableColumns[j].setMinWidth(150.0);
                 jfxTreeTableColumns[j].setCellValueFactory(
@@ -861,7 +867,7 @@ public class MainController implements Initializable {
                     jfxTreeTableColumns[j].setText("Điện Thoại");
                 }
 
-                jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
+                jfxTreeTableColumns[j].setPrefWidth(width / jfxTreeTableColumns.length);
                 jfxTreeTableColumns[j].setMaxWidth(200.0);
                 jfxTreeTableColumns[j].setMinWidth(150.0);
                 jfxTreeTableColumns[j].setCellValueFactory(
@@ -879,7 +885,7 @@ public class MainController implements Initializable {
                     jfxTreeTableColumns[j].setText("Tên Khối Học");
                 }
 
-                jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
+                jfxTreeTableColumns[j].setPrefWidth(width / jfxTreeTableColumns.length);
                 jfxTreeTableColumns[j].setMaxWidth(200.0);
                 jfxTreeTableColumns[j].setMinWidth(150.0);
                 jfxTreeTableColumns[j].setCellValueFactory(
@@ -904,7 +910,7 @@ public class MainController implements Initializable {
                 }
 
 
-                jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
+                jfxTreeTableColumns[j].setPrefWidth(width / jfxTreeTableColumns.length);
                 jfxTreeTableColumns[j].setMaxWidth(200.0);
                 jfxTreeTableColumns[j].setMinWidth(150.0);
                 jfxTreeTableColumns[j].setCellValueFactory(
@@ -922,7 +928,7 @@ public class MainController implements Initializable {
                     jfxTreeTableColumns[j].setText("Tên Môn Học");
                 }
 
-                jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
+                jfxTreeTableColumns[j].setPrefWidth(width / jfxTreeTableColumns.length);
                 jfxTreeTableColumns[j].setMaxWidth(200.0);
                 jfxTreeTableColumns[j].setMinWidth(150.0);
                 jfxTreeTableColumns[j].setCellValueFactory(
@@ -945,7 +951,7 @@ public class MainController implements Initializable {
                 }
 
 
-                jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
+                jfxTreeTableColumns[j].setPrefWidth(width / jfxTreeTableColumns.length);
                 jfxTreeTableColumns[j].setMaxWidth(200.0);
                 jfxTreeTableColumns[j].setMinWidth(150.0);
                 jfxTreeTableColumns[j].setCellValueFactory(
@@ -969,7 +975,7 @@ public class MainController implements Initializable {
                     jfxTreeTableColumns[j].setText("Mã Học Kỳ");
                 }
 
-                jfxTreeTableColumns[j].setPrefWidth(treeTableView.getWidth() / jfxTreeTableColumns.length);
+                jfxTreeTableColumns[j].setPrefWidth(width / jfxTreeTableColumns.length);
                 jfxTreeTableColumns[j].setMaxWidth(200.0);
                 jfxTreeTableColumns[j].setMinWidth(150.0);
                 jfxTreeTableColumns[j].setCellValueFactory(
@@ -1062,7 +1068,7 @@ public class MainController implements Initializable {
             jfxTreeTableColumn.setStyle("-fx-alignment: CENTER; -fx-font-weight: 900; -fx-background-color  : #92959a63");
 
             return;
-        } else if ("GiaoVien".equals(type)) {
+        } else if ("giaovien".equals(type)) {
             for (Field field : GiaoVien.class.getDeclaredFields()) {
                 if (jfxTreeTableColumn.getText().equals(field.getName())) {
 //                    System.out.println(field.getType().getSimpleName());
@@ -1070,7 +1076,7 @@ public class MainController implements Initializable {
                     if (field.getType().getSimpleName().equals("SimpleStringProperty")) {
                         jfxTreeTableColumn.setCellFactory(TextFieldTreeTableCell.forTreeTableColumn());
                     } else if (field.getType().getSimpleName().equals("SimpleIntegerProperty")) {
-//                TextFieldTreeTableCell<GiaoVien, Integer> textFieldTreeTableCell = new TextFieldTreeTableCell();
+//                TextFieldTreeTableCell<giaovien, Integer> textFieldTreeTableCell = new TextFieldTreeTableCell();
                         jfxTreeTableColumn.setCellFactory(TextFieldTreeTableCell
                                 .forTreeTableColumn(new StringConverter<Integer>() {
                                     @Override

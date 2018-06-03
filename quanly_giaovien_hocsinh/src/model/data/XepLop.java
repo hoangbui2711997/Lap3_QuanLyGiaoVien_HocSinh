@@ -16,7 +16,7 @@ public class XepLop extends RecursiveTreeObject<XepLop> {
     private SimpleIntegerProperty maLH;
     public static SearchDB searchDB = SearchDB.getQueryDB();
 
-    private XepLop(int maHS, int maLH) {
+    public XepLop(int maHS, int maLH) {
         this.maHS = new SimpleIntegerProperty(maHS);
         this.maLH = new SimpleIntegerProperty(maLH);
     }

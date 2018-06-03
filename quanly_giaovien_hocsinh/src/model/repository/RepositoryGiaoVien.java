@@ -102,7 +102,7 @@ public class RepositoryGiaoVien {
             int index = lstGiaoVien.indexOf(oldGiaoVien);
             lstGiaoVien.set(index, giaoVien);
 
-//            GiaoVien.Insert(giaoVien);
+//            giaovien.Insert(giaoVien);
         } catch (Exception e) {
             return false;
         } finally {

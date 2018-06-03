@@ -89,7 +89,7 @@ public class PhanCongController {
     @FXML
     void actionBtnDetail(ActionEvent event) throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LopHoc/Detail.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/lophoc/Detail.fxml"));
         Parent root = loader.load();
 
         // Load controller of view
@@ -116,9 +116,10 @@ public class PhanCongController {
                 .filter(e -> isHocSinhInXepLop(e, lstXepLop))
                 .collect(Collectors.toList());
 
+
         lopHocController.lstHocSinh = lstHocSinh;
-        lopHocController.lbSiSo.setText(lopHocController.lbSiSo.getText() + lstHocSinh.size());
         lopHocController.lbClassName.setText(lopHocController.lbClassName.getText() + tenLop);
+        lopHocController.init();
 
         if (root != null) {
             tertiary = new Stage();

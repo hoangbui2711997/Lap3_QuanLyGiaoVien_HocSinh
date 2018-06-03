@@ -43,7 +43,7 @@
                         <Font name="Times New Roman" size="14.0" />
                      </font>
                   </JFXButton>
-                  <Label alignment="CENTER" layoutX="20.0" layoutY="14.0" prefHeight="31.0" prefWidth="119.0" style="-fx-border-width: 0 0 2px 0; -fx-border-style: solid;" text="Thống kê" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="69.0" AnchorPane.topAnchor="14.0">
+                  <Label alignment="CENTER" layoutX="20.0" layoutY="14.0" onMouseClicked="#actionThongKe" prefHeight="31.0" prefWidth="119.0" style="-fx-border-width: 0 0 2px 0; -fx-border-style: solid;" text="Thống kê" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="69.0" AnchorPane.topAnchor="14.0">
                      <font>
                         <Font name="Times New Roman" size="14.0" />
                      </font>

@@ -10,16 +10,6 @@ import java.util.List;
 public class SearchDB implements ISearch {
 
     public Connection conn = null;
-    private List<Diem> dsDiem;
-    private List<GiaoVien> dsGiaoVien;
-    private List<HocKy> dsHocKy;
-    private List<KhoiHoc> dsKhoiHoc;
-    private List<HocSinh> dsHocSinh;
-    private List<NamHoc> dsNamHoc;
-    private List<LopHoc> dsLopHoc;
-    private List<MonHoc> dsMonHoc;
-    private List<PhanCong> dsPhanCong;
-    private List<XepLop> dsXepLop;
     private String statement = "";
     private static SearchDB instance = null;
     private static Object lock = new Object();
@@ -58,10 +48,10 @@ public class SearchDB implements ISearch {
     /**
      * @see  "Truyền" vào {@link ResultSet} và lấy về bộ dữ liệu tiếp theo của {@link ResultSet}
      * @param resultSet
-     * @return Trả về bộ dữ liệu hiện thời của resultset sau khi truy vấn bảng GiaoVien
+     * @return Trả về bộ dữ liệu hiện thời của resultset sau khi truy vấn bảng giaovien
      * @throws SQLException
      */
-    // Lấy từng GiaoVien qua ResultSet
+    // Lấy từng giaovien qua ResultSet
     public GiaoVien getGV(ResultSet resultSet) throws SQLException{
         try {
             Object maGV = resultSet.getObject(1);
@@ -323,7 +313,6 @@ public class SearchDB implements ISearch {
             dsxl.add(xepLop);
         }
 
-        this.dsXepLop = dsxl;
         return dsxl;
     }
 
@@ -336,7 +325,6 @@ public class SearchDB implements ISearch {
             dspc.add(phanCong);
         }
 
-        this.dsPhanCong = dspc;
         return dspc;
     }
 
@@ -349,7 +337,6 @@ public class SearchDB implements ISearch {
             dsmh.add(monHoc);
         }
 
-        this.dsMonHoc = dsmh;
         return dsmh;
     }
 
@@ -362,7 +349,6 @@ public class SearchDB implements ISearch {
             dslh.add(lopHoc);
         }
 
-        this.dsLopHoc = dslh;
         return dslh;
     }
 
@@ -375,7 +361,6 @@ public class SearchDB implements ISearch {
             dsnh.add(namHoc);
         }
 
-        this.dsNamHoc = dsnh;
         return dsnh;
     }
 
@@ -388,7 +373,6 @@ public class SearchDB implements ISearch {
             dsdk.add(dk);
         }
 
-        this.dsDiem = dsdk;
         return dsdk;
     }
 
@@ -401,7 +385,6 @@ public class SearchDB implements ISearch {
             danhSachHocKy.add(hk);
         }
 
-        this.dsHocKy= danhSachHocKy;
         return danhSachHocKy;
     }
 
@@ -414,7 +397,6 @@ public class SearchDB implements ISearch {
             danhSachHocSinh.add(hk);
         }
 
-        this.dsHocSinh= danhSachHocSinh;
         return danhSachHocSinh;
     }
 
@@ -427,7 +409,6 @@ public class SearchDB implements ISearch {
             danhSachKhoiHoc.add(hk);
         }
 
-        this.dsKhoiHoc = danhSachKhoiHoc;
         return danhSachKhoiHoc;
     }
 
@@ -440,7 +421,6 @@ public class SearchDB implements ISearch {
             dsgv.add(sv);
         }
 
-        this.dsGiaoVien = dsgv;
         return dsgv;
     }
 

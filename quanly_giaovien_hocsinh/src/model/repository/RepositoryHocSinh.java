@@ -78,19 +78,19 @@ public class RepositoryHocSinh {
 //        Iterable<HocSinh> readOnlyCollection = lstHocSinh.stream()
 //                .filter(gv -> (gv.getMaGV() + "").contains(id))
 //                .collect(Collectors.toList());
-//        if (((List<GiaoVien>) readOnlyCollection).size() == 0) {
+//        if (((List<giaovien>) readOnlyCollection).size() == 0) {
 //            return null;
 //        } else {
 //            return readOnlyCollection;
 //        }
 //    }
 //
-//    public static boolean edit(GiaoVien giaoVien) {
+//    public static boolean edit(giaovien giaoVien) {
 //        try {
 //            checkNull();
 //
-//            GiaoVien.Update.where(giaoVien.getMaGV() + "", giaoVien);
-//            GiaoVien oldGiaoVien =
+//            giaovien.Update.where(giaoVien.getMaGV() + "", giaoVien);
+//            giaovien oldGiaoVien =
 //                    lstGiaoVien
 //                            .stream()
 //                            .filter(e -> e.getMaGV() == giaoVien.getMaGV())
@@ -100,7 +100,7 @@ public class RepositoryHocSinh {
 //            int index = lstGiaoVien.indexOf(oldGiaoVien);
 //            lstGiaoVien.set(index, giaoVien);
 //
-//            GiaoVien.Insert(giaoVien);
+//            giaovien.Insert(giaoVien);
 //        } catch (Exception e) {
 //            return false;
 //        } finally {

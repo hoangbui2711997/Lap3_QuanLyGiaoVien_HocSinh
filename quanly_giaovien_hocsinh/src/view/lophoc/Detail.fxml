@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LopHocController">
+   <children>
+      <Label fx:id="lbClassName" layoutX="19.0" layoutY="83.0" prefHeight="35.0" prefWidth="300.0" text="Danh sách học sinh lớp: " AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="360.0">
+         <font>
+            <Font name="Times New Roman Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="183.0" layoutY="31.0" prefHeight="35.0" prefWidth="300.0" style="-fx-border-style: solid; -fx-border-width: 0 0 1px 0;" text="Chi tiết lớp học" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="190.0">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbSiSo" layoutX="29.0" layoutY="93.0" prefHeight="35.0" prefWidth="300.0" text="Sí số: " AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="20.0">
+         <font>
+            <Font name="Times New Roman Bold" size="14.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btnCancel" buttonType="RAISED" layoutX="604.0" layoutY="425.0" onMouseClicked="#actionBtnCancel" prefHeight="35.0" prefWidth="117.0" style="-fx-background-color: rgba(141, 132, 132, 0.1);" text="Đóng" underline="true" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="32.0" />
+      <JFXTreeTableView fx:id="jfxTTVHocSinh" editable="true" layoutX="20.0" layoutY="127.0" prefHeight="267.0" prefWidth="640.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="106.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="127.0" />
+   </children>
+</AnchorPane>

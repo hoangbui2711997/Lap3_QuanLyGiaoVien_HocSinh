@@ -102,7 +102,7 @@ public class LopHoc extends RecursiveTreeObject<LopHoc> {
 
     @Override
     public String toString() {
-        return "LopHoc{" +
+        return "lophoc{" +
                 "maLH=" + maLH +
                 ", maNH=" + maNH +
                 ", maGV=" + maGV +
@@ -116,7 +116,7 @@ public class LopHoc extends RecursiveTreeObject<LopHoc> {
         }
 
         public static LopHoc where(String where) throws SQLException {
-            ResultSet resultSet = searchDB.searchCommand("select * from LopHoc where " + where);
+            ResultSet resultSet = searchDB.searchCommand("select * from lophoc where " + where);
             resultSet.next();
             return searchDB.getLopHoc(resultSet);
         }
@@ -133,7 +133,7 @@ public class LopHoc extends RecursiveTreeObject<LopHoc> {
     static String statement = "";
     public static LopHoc Insert(LopHoc lopHoc) throws SQLException{
         try {
-            int id = InsertDB.getInstance().initInsert("LopHoc");
+            int id = InsertDB.getInstance().initInsert("lophoc");
 
             statement = "INSERT INTO LopHoc(TenLH, MaNH, MaGV, MaKh) VALUES " +
                     "(" +
@@ -164,7 +164,7 @@ public class LopHoc extends RecursiveTreeObject<LopHoc> {
          */
         public static Boolean where(String where) {
             try {
-                statement = "DELETE LopHoc WHERE " + where;
+                statement = "DELETE lophoc WHERE " + where;
                 DeleteDB.getInstance().deleteCommand(statement);
                 return true;
             } catch (SQLException e) {
@@ -187,7 +187,7 @@ public class LopHoc extends RecursiveTreeObject<LopHoc> {
          */
         public static Boolean where(int where, LopHoc lopHoc) throws SQLException{
             try {
-                statement = "UPDATE LopHoc " +
+                statement = "UPDATE lophoc " +
                         "SET " +
                         "MaLH = " + lopHoc.getMaLH() + ", " +
                         "TenLH = N'" + lopHoc.getTenLH() + "', " +

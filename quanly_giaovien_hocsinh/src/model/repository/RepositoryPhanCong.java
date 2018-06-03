@@ -100,7 +100,7 @@ public class RepositoryPhanCong {
             int index = lstPhanCong.indexOf(oldPhanCong);
             lstPhanCong.set(index, phanCong);
 
-//            PhanCong.Insert(phanCong);
+//            phancong.Insert(phanCong);
         } catch (Exception e) {
             return false;
         } finally {

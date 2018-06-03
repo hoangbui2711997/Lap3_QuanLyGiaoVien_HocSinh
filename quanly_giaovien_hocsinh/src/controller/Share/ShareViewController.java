@@ -1,4 +1,4 @@
-//package controller.Share;
+//package controller.share;
 //
 //import com.jfoenix.animation.JFXNodesAnimation;
 //import com.jfoenix.controls.JFXButton;
@@ -158,14 +158,19 @@ import com.jfoenix.controls.JFXButton;
 import controller.MainApp;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import model.Layout;
 import model.data.GiaoVien;
 import model.repository.GlobalRepository;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -214,5 +219,13 @@ public class ShareViewController implements Initializable {
     public void init() {
         lbRole.setText("Role: " + (admin.getRole() == 1 ? "Admin" : "Client"));
         lbNameUser.setText(admin.getHoTen());
+    }
+
+    public void actionThongKe(javafx.scene.input.MouseEvent mouseEvent) throws IOException {
+        Parent root = FXMLLoader.load(this.getClass().getResource("/view/ThongKe.fxml"));
+
+        MainController.secondaryStage = new Stage();
+        MainController.secondaryStage.setScene(new Scene(root, 800, 700));
+        MainController.secondaryStage.showAndWait();
     }
 }

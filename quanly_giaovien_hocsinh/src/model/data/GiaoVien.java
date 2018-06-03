@@ -100,7 +100,7 @@ public class GiaoVien extends RecursiveTreeObject<GiaoVien> {
 
     @Override
     public String toString() {
-        return "GiaoVien{" +
+        return "giaovien{" +
                 "maGV=" + maGV +
                 ", gioiTinh=" + gioiTinh +
                 ", HoTen=" + hoTen +
@@ -216,7 +216,7 @@ public class GiaoVien extends RecursiveTreeObject<GiaoVien> {
 
         public static GiaoVien where(String where) throws SQLException {
 
-            ResultSet resultSet = searchDB.searchCommand("SELECT * FROM GiaoVien WHERE " + where);
+            ResultSet resultSet = searchDB.searchCommand("SELECT * FROM giaovien WHERE " + where);
             resultSet.next();
 
             return searchDB.getGV(resultSet);
@@ -240,9 +240,9 @@ public class GiaoVien extends RecursiveTreeObject<GiaoVien> {
         try {
 
 
-            int id = InsertDB.getInstance().initInsert("GiaoVien");
+            int id = InsertDB.getInstance().initInsert("giaovien");
 
-//            statement = "INSERT INTO GiaoVien(MaGV, GioiTinh, HoTen, DiaChi, NgaySinh, DienThoai, CMND, matkhau, role) VALUES " +
+//            statement = "INSERT INTO giaovien(MaGV, GioiTinh, HoTen, DiaChi, NgaySinh, DienThoai, CMND, matkhau, role) VALUES " +
             statement = "INSERT INTO GiaoVien(GioiTinh, HoTen, DiaChi, NgaySinh, DienThoai, CMND, matkhau, role, anhGiaoVien) VALUES " +
                     "(" +
 //                    giaoVien.getMaGV() + ", " +
@@ -262,7 +262,7 @@ public class GiaoVien extends RecursiveTreeObject<GiaoVien> {
             // wait form input
             // wait form input
 
-//            GiaoVien.Update.where("magd = " + id, new GiaoVien(id, diem.getTen()));
+//            giaovien.Update.where("magd = " + id, new giaovien(id, diem.getTen()));
 
             InsertDB.getInstance().insertCommand(statement);
             return returnGiaoVien(id, giaoVien);
@@ -313,7 +313,7 @@ public class GiaoVien extends RecursiveTreeObject<GiaoVien> {
          */
         public static Boolean where(String where, GiaoVien newGiaoVien) throws SQLException {
             try {
-                statement = "UPDATE GiaoVien " +
+                statement = "UPDATE giaovien " +
                         "SET " +
 //                        "MaHS = N'" + newGiaoVien.getMaHS() + ", " +
 //                        "MaPC = N'" + newGiaoVien.getMaPC() + ", " +
@@ -341,7 +341,7 @@ public class GiaoVien extends RecursiveTreeObject<GiaoVien> {
         }
 
         public static void updateNgayNgungDay(String id, String ngayNgungDay) {
-            statement = "UPDATE GiaoVien " +
+            statement = "UPDATE giaovien " +
                     "SET " +
 //                        "MaHS = N'" + newHocSinh.getMaHS() + ", " +
 //                        "MaPC = N'" + newHocSinh.getMaPC() + ", " +

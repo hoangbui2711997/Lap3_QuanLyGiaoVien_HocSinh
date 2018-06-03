@@ -101,7 +101,7 @@ public class PhanCong extends RecursiveTreeObject<PhanCong> {
 
     @Override
     public String toString() {
-        return "PhanCong{" +
+        return "phancong{" +
                 "maPC=" + maPC +
                 ", maMH=" + maMH +
                 ", maGV=" + maGV +
@@ -115,7 +115,7 @@ public class PhanCong extends RecursiveTreeObject<PhanCong> {
         }
 
         public static PhanCong where(String where) throws SQLException {
-            ResultSet resultSet = searchDB.searchCommand("select * from PhanCong where " + where);
+            ResultSet resultSet = searchDB.searchCommand("select * from phancong where " + where);
             resultSet.next();
             return searchDB.getPhanCong(resultSet);
         }
@@ -128,7 +128,7 @@ public class PhanCong extends RecursiveTreeObject<PhanCong> {
     static String statement = "";
     public static PhanCong Insert(PhanCong phanCong) throws SQLException{
         try {
-//            int id = InsertDB.getInstance().initInsert("PhanCong");
+//            int id = InsertDB.getInstance().initInsert("phancong");
             MonHoc mh = MonHoc.Search.whereId(phanCong.getMaMH() + "");
             GiaoVien gv = GiaoVien.Search.whereId(phanCong.getMaGV() + "");
             LopHoc lh = LopHoc.Search.whereId(phanCong.getMaLH() + "");
@@ -189,7 +189,7 @@ public class PhanCong extends RecursiveTreeObject<PhanCong> {
          */
         public static Boolean where(String where, PhanCong phanCong) throws SQLException{
             try {
-                statement = "UPDATE PhanCong " +
+                statement = "UPDATE phancong " +
                         "SET " +
                         "MaPC = N'" + phanCong.getMaPC() + "', " +
                         "MaMH = " + phanCong.getMaMH() + ", " +
