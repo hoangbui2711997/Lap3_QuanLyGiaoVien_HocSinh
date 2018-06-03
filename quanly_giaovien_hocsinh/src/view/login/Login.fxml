@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="592.0" prefWidth="749.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+   <children>
+      <VBox layoutY="-1.0" prefHeight="592.0" prefWidth="749.0">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <Pane prefHeight="568.0" prefWidth="749.0">
+               <children>
+                  <HBox layoutX="-4.0" prefHeight="568.0" prefWidth="756.0">
+                     <children>
+                        <SplitPane dividerPositions="0.30758988015978694" prefHeight="568.0" prefWidth="753.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <ImageView fitHeight="163.0" fitWidth="221.0" layoutX="33.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../images/Chu_Van_An_High_School_logo.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <Label layoutX="16.0" layoutY="331.0" prefHeight="17.0" prefWidth="200.0" text="Số 10 Thụy Khuê Tây Hồ">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <ImageView fitHeight="106.0" fitWidth="120.0" layoutX="23.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../images/User.PNG" />
+                                       </image>
+                                    </ImageView>
+                                    <Label layoutX="26.0" layoutY="31.0" text="PHẦN MỀM QUẢN LÝ HỌC SINH VÀ GIÁO VIÊN">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="94.0" fitWidth="120.0" layoutX="26.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../images/locked.png" />
+                                       </image>
+                                    </ImageView>
+                                    <JFXTextField fx:id="txtCMND" labelFloat="true" layoutX="185.0" layoutY="266.0" prefHeight="25.0" prefWidth="212.0" promptText="CMND" text="013505252">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></JFXTextField>
+                                    <JFXButton fx:id="btnLogin" layoutX="185.0" layoutY="474.0" onAction="#actionLogin" prefHeight="32.0" prefWidth="113.0" text="Đăng nhập" />
+                                    <Label fx:id="lbltk" layoutX="26.0" layoutY="135.0" prefHeight="32.0" prefWidth="137.0" text="Tài Khoản" />
+                                    <JFXButton fx:id="btnExit" layoutX="298.0" layoutY="474.0" onAction="#actionExit" prefHeight="32.0" prefWidth="113.0" text="Thoát" />
+                                    <JFXPasswordField fx:id="txtPassword" labelFloat="true" layoutX="185.0" layoutY="403.0" prefHeight="25.0" prefWidth="212.0" promptText="Mật khẩu" text="hoangbui">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </JFXPasswordField>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </HBox>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
