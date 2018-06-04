@@ -225,7 +225,7 @@ public class ShareViewController implements Initializable {
         Parent root = FXMLLoader.load(this.getClass().getResource("/view/ThongKe.fxml"));
 
         MainController.secondaryStage = new Stage();
-        MainController.secondaryStage.setScene(new Scene(root, 800, 700));
+        MainController.secondaryStage.setScene(new Scene(root, 800, 735));
         MainController.secondaryStage.showAndWait();
     }
 }

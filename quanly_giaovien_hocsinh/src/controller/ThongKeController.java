@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import model.ThongKe;
+import model.repository.*;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -92,6 +93,39 @@ public class ThongKeController {
 
     @FXML
     private JFXSpinner spGVGDKetThuc;
+
+    @FXML
+    private Label lbDiem;
+
+    @FXML
+    private Label lbGV;
+
+    @FXML
+    private Label lbMonHoc;
+
+    @FXML
+    private Label lbLopHoc;
+
+    @FXML
+    private Label lbHocKy;
+
+    @FXML
+    private Label lbHocSinh;
+
+    @FXML
+    private Label lbKhoiHoc;
+
+    @FXML
+    private Label lbPhanCong;
+
+    @FXML
+    private Label lbXepLop;
+
+    @FXML
+    private Label lbNamHoc;
+
+    @FXML
+    private Label lbTong;
 
     @FXML
     void initialize() {
@@ -294,7 +328,7 @@ public class ThongKeController {
         });
 
         jfxcbbSLTotNghiepNam.setOnAction(e -> {
-            String year = (String) jfxcbbSLGVNghiDayNam.getValue();
+            String year = (String) jfxcbbSLTotNghiepNam.getValue();
             int iYear = Integer.parseInt(year);
             lbSoLuongTotNghiepNam.setVisible(false);
             spHSTotNghiep.setVisible(true);
@@ -317,6 +351,30 @@ public class ThongKeController {
 
             thread1.start();
         });
+
+        lbDiem.setText(RepositoryDiem.getAll().size() + "");
+        lbXepLop.setText(RepositoryXepLop.getAll().size() + "");
+        lbPhanCong.setText(RepositoryPhanCong.getAll().size() + "");
+        lbNamHoc.setText(RepositoryNamHoc.getAll().size() + "");
+        lbMonHoc.setText(RepositoryMonHoc.getAll().size() + "");
+        lbLopHoc.setText(RepositoryLopHoc.getAll().size() + "");
+        lbKhoiHoc.setText(RepositoryKhoiHoc.getAll().size() + "");
+        lbHocSinh.setText(RepositoryHocSinh.getAll().size() + "");
+        lbHocKy.setText(RepositoryHocKy.getAll().size() + "");
+        lbGV.setText(RepositoryGiaoVien.getAll().size() + "");
+
+        int tong = RepositoryDiem.getAll().size() +
+        RepositoryXepLop.getAll().size() +
+        RepositoryPhanCong.getAll().size() +
+        RepositoryNamHoc.getAll().size() +
+        RepositoryMonHoc.getAll().size() +
+        RepositoryLopHoc.getAll().size() +
+        RepositoryKhoiHoc.getAll().size() +
+        RepositoryHocSinh.getAll().size() +
+        RepositoryHocKy.getAll().size() +
+        RepositoryGiaoVien.getAll().size();
+
+        lbTong.setText("Tổng: " + tong + " bản ghi.");
     }
 
     private void setupListCBB(List<String> stringList) {

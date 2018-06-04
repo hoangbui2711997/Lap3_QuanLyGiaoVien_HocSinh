@@ -40,6 +40,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 //import org.junit.jupiter.api.Test;
@@ -274,7 +275,7 @@ public class MainController implements Initializable {
         btnAdd.setOnAction(event -> {
             try {
                 actionBtn_Add();
-                treeTableView.refresh();
+//                treeTableView.refresh();
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -325,60 +326,72 @@ public class MainController implements Initializable {
     }
 
     private void actionBtn_Del() {
-
         TreeItem item = (TreeItem) treeTableView.getSelectionModel().getSelectedItem();
+        int index = treeTableView.getSelectionModel().getSelectedIndex();
+
+        TreeItem root = treeTableView.getRoot();
+        ObservableList observableList = root.getChildren();
+
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Bạn có chắc chắn muốn xóa", ButtonType.OK, ButtonType.CANCEL);
+        Optional<ButtonType> buttonType = alert.showAndWait();
+        if (buttonType.get().getText().equals("OK")) {
+
 //        System.out.println(item.toString());
-        if ("Giáo viên"
-                .equals(jfxCombobox.getValue())) {
+            if ("Giáo viên"
+                    .equals(jfxCombobox.getValue())) {
 ////            System.out.println("I'm here");
 ////            System.out.println(item.getValue());
 ////            System.out.println(item);
-            GiaoVien giaoVien = (GiaoVien) item.getValue();
-            if (RepositoryGiaoVien.
-                    del(giaoVien)) {
+                GiaoVien giaoVien = (GiaoVien) item.getValue();
+                if (RepositoryGiaoVien.
+                        del(giaoVien)) {
 //                treeTableView.getColumns().remove(item);
 
 ////                System.out.println(RepositoryGiaoVien.getAll().size());
-            } else { // Nếu xóa không thành công?
-                new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
-                return;
-            }
-        } else if ("Điểm".equals(jfxCombobox.getValue())) {
-            Diem diem = (Diem) item.getValue();
-            if (RepositoryDiem.
-                    del(diem)) {
+                } else { // Nếu xóa không thành công?
+                    new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
+                    return;
+                }
+            } else if ("Điểm".equals(jfxCombobox.getValue())) {
+                Diem diem = (Diem) item.getValue();
+                if (RepositoryDiem.
+                        del(diem)) {
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
+                    return;
+                }
+            } else if ("Học Sinh".equals(jfxCombobox.getValue())) {
+                HocSinh hocSinh = (HocSinh) item.getValue();
+                if (RepositoryHocSinh.del(hocSinh)) {
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
+                    return;
+                }
+            } else if ("Môn Học".equals(jfxCombobox.getValue())) {
+                MonHoc monHoc = (MonHoc) item.getValue();
+                if (RepositoryMonHoc.del(monHoc)) {
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
+                    return;
+                }
+            } else if ("Lớp Học".equals(jfxCombobox.getValue())) {
+                LopHoc lopHoc = (LopHoc) item.getValue();
+                if (RepositoryLopHoc.del(lopHoc)) {
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
+                    return;
+                }
             } else {
                 new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
                 return;
             }
-        } else if ("Học Sinh".equals(jfxCombobox.getValue())) {
-            HocSinh hocSinh = (HocSinh) item.getValue();
-            if (RepositoryHocSinh.del(hocSinh)) {
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
-                return;
-            }
-        } else if ("Môn Học".equals(jfxCombobox.getValue())) {
-            MonHoc monHoc = (MonHoc) item.getValue();
-            if (RepositoryMonHoc.del(monHoc)) {
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
-                return;
-            }
-        } else if ("Lớp Học".equals(jfxCombobox.getValue())) {
-            LopHoc lopHoc = (LopHoc) item.getValue();
-            if (RepositoryLopHoc.del(lopHoc)) {
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
-                return;
-            }
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Xóa không thành công", ButtonType.OK).showAndWait();
-            return;
-        }
 
-        treeTableView.refresh();
-        new Alert(Alert.AlertType.INFORMATION, "Xóa thành công", ButtonType.OK).showAndWait();
+            observableList.remove(index);
+//            treeTableView.refresh();
+            new Alert(Alert.AlertType.INFORMATION, "Xóa thành công", ButtonType.OK).showAndWait();
+        } else {
+            // Do nothing
+        }
     }
 
 //    public static Object lock = new Object();
@@ -386,28 +399,33 @@ public class MainController implements Initializable {
     private void actionBtn_Add() throws IOException, InterruptedException {
         GiaoVienController.action = "Add";
         Parent root = null;
-        if ("Giáo viên".equals(jfxCombobox.getValue())) {
-            root = FXMLLoader.load(getClass().getResource("/view/giaovien/Add_Update.fxml"));
-        }
 
-        makeSecondaryStage(root);
+        if ("Giáo viên".equals(jfxCombobox.getValue())) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/giaovien/Add_Update.fxml"));
+            root = fxmlLoader.load();
+            makeSecondaryStage(root);
+            GiaoVienController gv = fxmlLoader.getController();
+//            System.out.println(gv.newGiaoVien.toString());
+            // Them giao vien trong treetableview
+            if(gv.newGiaoVien != null) {
+                ObservableList<TreeItem<GiaoVien>> observableList = treeTableView.getRoot().getChildren();
+                observableList.add(new TreeItem(gv.newGiaoVien));
+            }
+        }
     }
 
     private void actionBtn_Update() throws IOException, InterruptedException, SQLException {
         GiaoVienController.action = "Update";
-        Parent root = null;
         if ("Giáo viên".equals(jfxCombobox.getValue())) {
             int pos = treeTableView.getSelectionModel().getSelectedIndex();
             GiaoVien gv = RepositoryGiaoVien.getAll().get(pos);
-            root = updateGiaoVien(gv);
-            makeSecondaryStage(root);
+            updateGiaoVien(gv);
         }
-
-        try {
-            handleActionJFXComboboxSwitchTable();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            handleActionJFXComboboxSwitchTable();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void makeSecondaryStage(Parent root) {
@@ -457,6 +475,7 @@ public class MainController implements Initializable {
      */
     private Parent updateGiaoVien(GiaoVien oldGiaoVien) throws IOException {
         GiaoVienController.action = "Update";
+        int index = treeTableView.getSelectionModel().getSelectedIndex();
 
         Parent root;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/giaovien/Add_Update.fxml"));
@@ -465,6 +484,13 @@ public class MainController implements Initializable {
         GiaoVienController updateController = loader.getController();
         updateController.oldGiaoVien = oldGiaoVien;
         updateController.init();
+
+        makeSecondaryStage(root);
+
+        if(updateController.newGiaoVien != null) {
+            ObservableList<TreeItem<GiaoVien>> observableList = treeTableView.getRoot().getChildren();
+            observableList.set(index, new TreeItem(updateController.newGiaoVien));
+        }
 
         return root;
     }

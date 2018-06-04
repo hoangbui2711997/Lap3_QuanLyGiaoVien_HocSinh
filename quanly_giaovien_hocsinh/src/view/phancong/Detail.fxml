@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="sceneRoot" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PhanCongController">
+<AnchorPane fx:id="sceneRoot" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PhanCongController" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #feada666, #f5efef);">
     <children>
         <Label alignment="CENTER" layoutX="250.0" layoutY="20.0" prefHeight="61.0" prefWidth="800.0" style="-fx-background-color: #6c757d9c;" text="Chi Tiết Phân Công" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <font>

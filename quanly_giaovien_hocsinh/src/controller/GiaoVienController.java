@@ -92,6 +92,8 @@ public class GiaoVienController {
 
     public GiaoVien oldGiaoVien;
 
+    public GiaoVien newGiaoVien;
+
     /**
      * Báo xem action sẽ là action nào
      */
@@ -103,12 +105,10 @@ public class GiaoVienController {
     }
 
     void handleAdd(ActionEvent event) throws SQLException {
-
-        GiaoVien giaoVien = getGiaoVienFromForm();
         // Thêm giáo viên
-        RepositoryGiaoVien.add(giaoVien);
+        newGiaoVien = getGiaoVienFromForm();
+        RepositoryGiaoVien.add(newGiaoVien);
         new Alert(Alert.AlertType.INFORMATION, "Thêm thành công", ButtonType.OK).showAndWait();
-
     }
 
     private GiaoVien getGiaoVienFromForm() {
@@ -157,8 +157,6 @@ public class GiaoVienController {
         btnCancel.setOnAction(e -> {
             MainController.secondaryStage.close();
         });
-
-
     }
 
     public void init() {
@@ -213,9 +211,9 @@ public class GiaoVienController {
      */
     private boolean checkIsEmpty() {
         if ("".equals(jfxComboboxSex.getValue().toString()) ||
-                "".equals(hoTen.getText()) || "".equals(diaChi.getText()) ||
-                "".equals(dienThoai.getText()) || "".equals(CMND.getText()) ||
-                "".equals(matKhau.getText()) || "".equals(ngaySinh.getValue().toString()) ||
+                "".equals(hoTen.getText().trim()) || "".equals(diaChi.getText().trim()) ||
+                "".equals(dienThoai.getText().trim()) || "".equals(CMND.getText().trim()) ||
+                "".equals(matKhau.getText().trim()) || "".equals(ngaySinh.getValue().toString()) ||
                 "".equals(jfxComboboxRole.getValue().toString())) {
             new Alert(Alert.AlertType.ERROR, "Chưa nhập đủ các trường", ButtonType.OK).showAndWait();
             return true;
@@ -243,7 +241,7 @@ public class GiaoVienController {
 //        giaovien.Update.whereId(MaGV.getText() + "", giaoVien);
         RepositoryGiaoVien.edit(giaoVien);
 
-
+        newGiaoVien = giaoVien;
         new Alert(Alert.AlertType.INFORMATION, "Sửa thành công", ButtonType.OK).showAndWait();
         MainController.secondaryStage.close();
     }

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="720.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GiaoVienController">
+<AnchorPane fx:id="rootPane" prefHeight="720.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GiaoVienController" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #feada666, #f5efef);">
    <children>
       <AnchorPane fx:id="mainPane" layoutX="30.0" layoutY="16.0" prefHeight="440.0" prefWidth="508.0" style="-fx-border-style: solid;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="16.0">
          <children>

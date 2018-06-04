@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GiaoVienController">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GiaoVienController" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #feada666, #f5efef);">
    <children>
       <Label alignment="CENTER" layoutX="203.0" layoutY="26.0" prefHeight="30.0" prefWidth="200.0" style="-fx-border-style: solid;" text="Chi tiết giáo viên" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="25.0">
          <font>
