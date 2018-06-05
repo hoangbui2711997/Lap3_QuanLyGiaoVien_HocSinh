@@ -159,9 +159,9 @@ public class SearchDB implements ISearch {
             Object maHS = resultSet.getObject(1);
             Object gioiTinh = resultSet.getObject(2);
             Object hoTen = resultSet.getObject(3);
-            String ngaySinh = resultSet.getObject(4) == null ?
-                    "Không có" :
-                    ((Date) resultSet.getObject(4)).toString();
+//            String ngaySinh = resultSet.getObject(4) == null ?
+//                    "Không có" :
+//                    ((Date) resultSet.getObject(4)).toString();
             Object diaChi = resultSet.getObject(5);
             Object dienThoai = resultSet.getObject(6);
             String ngayTotNghiep = resultSet.getObject(7)  == null ?
@@ -170,6 +170,10 @@ public class SearchDB implements ISearch {
             String ngayNhapHoc = resultSet.getObject(8) == null ?
                     "Không có" :
                     ((Date) resultSet.getObject(8)).toString();
+            Date object = (Date) resultSet.getObject(4);
+
+            String ngaySinh = object.toLocalDate().getDayOfMonth() + "-" + object.toLocalDate().getMonthValue() + "-"
+                    + object.toLocalDate().getYear();
 
             return HocSinh.getInstance(
                     (Integer) maHS,

@@ -112,7 +112,7 @@ public class MainController implements Initializable {
 
         leftPaneLoaderController.btnThongTin.setOnAction(e -> {
             try {
-                makeSecondaryStage(updateGiaoVien(leftPaneLoaderController.admin));
+                updateGiaoVien(leftPaneLoaderController.admin);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -473,7 +473,7 @@ public class MainController implements Initializable {
      * @return
      * @throws IOException
      */
-    private Parent updateGiaoVien(GiaoVien oldGiaoVien) throws IOException {
+    private void updateGiaoVien(GiaoVien oldGiaoVien) throws IOException {
         GiaoVienController.action = "Update";
         int index = treeTableView.getSelectionModel().getSelectedIndex();
 
@@ -491,8 +491,6 @@ public class MainController implements Initializable {
             ObservableList<TreeItem<GiaoVien>> observableList = treeTableView.getRoot().getChildren();
             observableList.set(index, new TreeItem(updateController.newGiaoVien));
         }
-
-        return root;
     }
 
     /**
